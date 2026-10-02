@@ -1,0 +1,2281 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#F2F4EE" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#12191C" media="(prefers-color-scheme: dark)">
+<meta name="description" content="A local-first breeding journal for plants and animals.">
+<title>Lineage</title>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon-192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Barlow+Condensed:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box}
+:root{
+  --paper:#F2F4EE;--card:#FFFFFF;--sunk:#E6EAE2;--ink:#1D2A33;--muted:#56646A;--line:#D2D9CF;
+  --tag:#F2B01E;--tag-ink:#1D2A33;--leaf:#2F6B4F;--dam:#8E4A8A;--sire:#2B7487;--warn:#A3352A;--warn-bg:#F7E2DC;
+  --f-tag:"Barlow Condensed","Roboto Condensed","sans-serif-condensed","Arial Narrow",sans-serif;
+  --f-body:"Atkinson Hyperlegible",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --r-sm:6px;--r-md:12px;--r-lg:20px;
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){--paper:#12191C;--card:#1A2428;--sunk:#0D1315;--ink:#E6ECE5;--muted:#9AA8A6;--line:#2B383C;--tag:#F0AE2A;--leaf:#76C39A;--dam:#C98BC5;--sire:#6CB8CB;--warn:#F2907F;--warn-bg:#3A2220;color-scheme:dark}
+}
+:root[data-theme="dark"]{--paper:#12191C;--card:#1A2428;--sunk:#0D1315;--ink:#E6ECE5;--muted:#9AA8A6;--line:#2B383C;--tag:#F0AE2A;--leaf:#76C39A;--dam:#C98BC5;--sire:#6CB8CB;--warn:#F2907F;--warn-bg:#3A2220;color-scheme:dark}
+
+html{-webkit-text-size-adjust:100%}
+body{margin:0;min-height:100vh;background:var(--paper);color:var(--ink);font:16px/1.55 var(--f-body);-webkit-font-smoothing:antialiased;padding-bottom:calc(92px + env(safe-area-inset-bottom,0px))}
+a{color:var(--leaf);text-underline-offset:2px}
+img{max-width:100%}
+h1,h2,h3{font-family:var(--f-tag);font-weight:600;line-height:1.08;margin:0 0 .35em;letter-spacing:.005em}
+h1{font-size:2.15rem}
+h2{font-size:1.5rem}
+h3{font-size:1.15rem}
+p{margin:0 0 .8em}
+i.sp,.sp{font-style:italic}
+.muted{color:var(--muted)}
+.small{font-size:.85rem}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+:focus-visible{outline:3px solid var(--sire);outline-offset:2px}
+[hidden]{display:none!important}
+
+/* Top bar */
+.top{position:sticky;top:0;z-index:5;display:flex;align-items:center;gap:6px;padding:calc(env(safe-area-inset-top,0px) + 8px) 12px 8px;background:color-mix(in srgb,var(--paper) 90%,transparent);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.top .flex{flex:1}
+.brand{text-decoration:none}
+.icon-btn{display:inline-grid;place-items:center;width:44px;height:44px;border-radius:50%;border:0;background:transparent;color:var(--ink);cursor:pointer;text-decoration:none}
+.icon-btn:hover{background:var(--sunk)}
+.icon-btn svg{width:22px;height:22px}
+
+main{max-width:760px;margin:0 auto;padding:16px 16px 24px}
+
+/* The tag: plant stake and ear tag in one. The app's one loud element. */
+.tag{display:inline-flex;align-items:center;gap:.42em;background:var(--tag);color:var(--tag-ink);font:700 1.05rem/1 var(--f-tag);letter-spacing:.03em;padding:.34em .78em .34em .5em;border-radius:.3em 1em 1em .3em;white-space:nowrap;max-width:100%;overflow:hidden;text-overflow:ellipsis}
+.tag::before{content:"";flex:none;width:.46em;height:.46em;border-radius:50%;background:var(--paper);box-shadow:inset 0 1px 2px rgba(0,0,0,.35)}
+.tag.sm{font-size:.85rem}
+.tag.xl{font-size:clamp(2.2rem,11vw,3.2rem);padding:.2em .62em .2em .38em}
+.tag.xl.long{font-size:clamp(1.5rem,7.4vw,2.6rem)}
+
+/* Bottom tabs */
+.tabs{position:fixed;left:0;right:0;bottom:0;z-index:6;display:grid;grid-template-columns:repeat(5,1fr);align-items:end;max-width:760px;margin:0 auto;background:var(--card);border-top:1px solid var(--line);padding:4px 6px calc(6px + env(safe-area-inset-bottom,0px))}
+@media(min-width:780px){.tabs{border:1px solid var(--line);border-bottom:0;border-radius:var(--r-lg) var(--r-lg) 0 0}}
+.tabs a{display:flex;flex-direction:column;align-items:center;gap:1px;padding:6px 0 2px;font-size:.74rem;color:var(--muted);text-decoration:none;border-radius:var(--r-sm)}
+.tabs a svg{width:24px;height:24px}
+.tabs a[aria-current="page"]{color:var(--ink);font-weight:700}
+.tabs .cap{justify-self:center;width:64px;height:64px;margin-top:-28px;border-radius:50%;display:grid;place-items:center;background:var(--tag);color:var(--tag-ink);border:4px solid var(--paper);box-shadow:0 8px 18px -8px rgba(0,0,0,.45);cursor:pointer;padding:0}
+.tabs .cap svg{width:30px;height:30px}
+
+/* Buttons and chips */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:0 16px;border-radius:var(--r-md);border:1px solid var(--line);background:var(--card);color:var(--ink);font:700 .95rem/1.1 var(--f-body);cursor:pointer;text-decoration:none}
+.btn:hover{border-color:var(--muted)}
+.btn svg{width:20px;height:20px;flex:none}
+.btn.primary{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.btn.tagc{background:var(--tag);color:var(--tag-ink);border-color:var(--tag)}
+.btn.danger{color:var(--warn)}
+.actions{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0}
+.actions.tight{margin:0}
+.linkish{border:0;background:none;padding:0 2px;color:var(--muted);font:inherit;font-size:.82rem;text-decoration:underline;text-underline-offset:2px;cursor:pointer}
+.chip{display:inline-flex;align-items:center;gap:4px;border:1px solid var(--line);border-radius:999px;padding:2px 10px;font-size:.82rem;line-height:1.5;color:var(--muted);background:transparent;text-decoration:none;white-space:nowrap}
+.chip.warn{border-color:transparent;background:var(--warn-bg);color:var(--warn)}
+.chip.ok{color:var(--leaf);border-color:color-mix(in srgb,var(--leaf) 45%,transparent)}
+a.chip[aria-pressed="true"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.filters{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 12px}
+
+/* Sections */
+.sec{margin:30px 0 0}
+.sec-head{display:flex;align-items:baseline;justify-content:space-between;gap:12px;border-bottom:1px solid var(--line);padding-bottom:6px;margin-bottom:10px}
+.sec-head h2{margin:0}
+.page-head{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px;margin-bottom:12px}
+.page-head h1{margin:0}
+.empty{padding:22px;border:1.5px dashed var(--line);border-radius:var(--r-lg);text-align:center;color:var(--muted)}
+.empty .btn{margin-top:4px}
+.notice{border-radius:var(--r-md);padding:10px 14px;margin:0 0 12px;font-size:.93rem;background:var(--sunk)}
+.notice.warn{background:var(--warn-bg);color:var(--warn)}
+.prose{max-width:62ch;white-space:pre-wrap}
+.goal{font-size:1.08rem;max-width:58ch;white-space:pre-wrap}
+
+/* Home */
+.today{margin:0 0 10px;color:var(--muted)}
+.capture-grid{display:grid;grid-template-columns:1.25fr 1fr;gap:10px}
+.cap-btn{display:flex;flex-direction:column;justify-content:space-between;gap:14px;min-height:100px;padding:14px;border-radius:var(--r-lg);border:1px solid var(--line);background:var(--card);color:var(--ink);text-align:left;cursor:pointer;font:inherit}
+.cap-btn svg{width:26px;height:26px}
+.cap-btn b{display:block;font:600 1.3rem/1.05 var(--f-tag)}
+.cap-btn small{display:block;margin-top:4px;font-size:.85rem;opacity:.8}
+.cap-btn.big{grid-row:span 2;background:var(--tag);border-color:var(--tag);color:var(--tag-ink)}
+.cap-btn.big b{font-size:1.75rem}
+.counts{display:flex;flex-wrap:wrap;gap:6px;margin:14px 0 0}
+.hscroll{display:flex;gap:10px;overflow-x:auto;padding:2px 2px 8px;scroll-snap-type:x mandatory}
+.pcard{flex:0 0 230px;scroll-snap-align:start;display:flex;flex-direction:column;gap:4px;padding:14px;border-radius:var(--r-lg);background:var(--card);border:1px solid var(--line);color:inherit;text-decoration:none}
+.pcard .tag{align-self:flex-start}
+.pcard .n{font:600 1.35rem/1.05 var(--f-tag)}
+.pcard .tag{align-self:flex-start}
+.clamp{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;font-size:.9rem;color:var(--muted);margin:0}
+.ask-card{display:flex;gap:12px;align-items:center;padding:14px;border-radius:var(--r-lg);border:1px solid var(--line);background:var(--card);color:inherit;text-decoration:none}
+.ask-card svg{width:28px;height:28px;flex:none;color:var(--leaf)}
+.ask-card b{display:block}
+.ask-card small{color:var(--muted)}
+.welcome{padding:8px 0 4px}
+.welcome h1{font-size:2.4rem;margin-top:16px;max-width:16ch}
+.welcome p{max-width:52ch}
+
+/* Lists */
+.list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:2px}
+.row{display:flex;align-items:center;gap:12px;padding:9px 8px;border-radius:var(--r-md);color:inherit;text-decoration:none}
+.row:hover{background:var(--sunk)}
+.row .main{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}
+.row .t{font-weight:700;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.row .s{font-size:.87rem;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.row .tag{align-self:flex-start}
+.row .nm{font-weight:700}
+.thumb{flex:none;width:54px;height:54px;border-radius:var(--r-sm);object-fit:cover;background:var(--sunk);display:grid;place-items:center;color:var(--muted)}
+.thumb svg{width:24px;height:24px}
+.grp{margin:0 0 14px}
+.grp h3{color:var(--muted);font-size:1.05rem;margin:14px 8px 4px}
+.score{display:inline-flex;align-items:center;gap:6px;font-weight:700;font-size:.9rem}
+.meter{display:block;width:56px;height:6px;border-radius:3px;background:var(--sunk);overflow:hidden}
+.meter i{display:block;height:100%;background:var(--leaf)}
+
+/* Search and segmented control */
+.seg{display:inline-flex;background:var(--sunk);border-radius:999px;padding:3px;gap:2px;margin:0 0 4px}
+.seg a{padding:7px 14px;border-radius:999px;text-decoration:none;color:var(--muted);font-weight:700;font-size:.9rem}
+.seg a[aria-current="true"]{background:var(--card);color:var(--ink);box-shadow:0 1px 2px rgba(0,0,0,.14)}
+.searchbar{position:relative;margin:10px 0}
+.searchbar svg{position:absolute;left:12px;top:50%;transform:translateY(-50%);width:18px;height:18px;color:var(--muted);pointer-events:none}
+.searchbar input{padding-left:40px}
+
+/* Detail pages */
+.hero{display:flex;flex-direction:column;align-items:flex-start;gap:6px;margin:4px 0 6px}
+.hero h1{margin:0}
+.hero .sub{color:var(--muted);margin:0}
+.nick{font:600 1.35rem/1.1 var(--f-tag);margin:2px 0 0}
+.cover{display:block;width:100%;max-height:360px;object-fit:cover;border-radius:var(--r-lg);background:var(--sunk);margin:0 0 14px;cursor:zoom-in}
+.empty-cover{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;height:150px;border:1.5px dashed var(--line);color:var(--muted);font:inherit;cursor:pointer}
+.empty-cover svg{width:30px;height:30px}
+.facts{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px 18px;margin:14px 0}
+.facts div{display:flex;flex-direction:column;min-width:0}
+.facts dt{font-size:.8rem;color:var(--muted)}
+.facts dd{margin:0;font-weight:700;overflow-wrap:anywhere}
+
+/* Log timeline */
+.log{list-style:none;margin:0 0 0 6px;padding:0;border-left:2px solid var(--line)}
+.log li{position:relative;padding:0 0 20px 18px}
+.log li::before{content:"";position:absolute;left:-7px;top:6px;width:12px;height:12px;border-radius:50%;background:var(--paper);border:2px solid var(--leaf)}
+.log .d{display:flex;flex-wrap:wrap;align-items:center;gap:6px;font-size:.84rem;color:var(--muted)}
+.log .txt{white-space:pre-wrap;margin:4px 0 0;max-width:62ch}
+.ph-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(92px,1fr));gap:6px;margin-top:8px}
+.ph-grid img{display:block;width:100%;aspect-ratio:1;object-fit:cover;border-radius:var(--r-sm);background:var(--sunk);cursor:zoom-in}
+
+/* Pedigree */
+.ped-wrap{overflow-x:auto;padding:4px 2px 10px}
+.ped{display:flex;align-items:center}
+.ped-par{display:flex;flex-direction:column;gap:8px;margin-left:16px;padding-left:16px;border-left:2px solid var(--line)}
+.ped-side{position:relative}
+.ped-side::before{content:"";position:absolute;left:-16px;top:50%;width:14px;border-top:2px solid var(--line)}
+.ped-node{flex:none;display:block;min-width:118px;max-width:170px;padding:6px 10px;border-radius:var(--r-sm);background:var(--card);border:1px solid var(--line);font-size:.82rem;color:inherit;text-decoration:none}
+.ped-node .c{display:block;font:700 1.02rem/1.1 var(--f-tag);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ped-node .r{color:var(--muted)}
+.ped-node.unknown{color:var(--muted);border-style:dashed}
+.ped-side.dam>.ped>.ped-node{border-left:4px solid var(--dam)}
+.ped-side.sire>.ped>.ped-node{border-left:4px solid var(--sire)}
+.ped-key{display:flex;gap:14px;font-size:.82rem;color:var(--muted);margin:0 0 6px}
+.ped-key span::before{content:"";display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:5px;vertical-align:-1px}
+.ped-key .k-dam::before{background:var(--dam)}
+.ped-key .k-sire::before{background:var(--sire)}
+
+/* Scores */
+.tier-h{font-size:1rem;color:var(--muted);margin:14px 0 2px}
+.trait{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px 12px;padding:8px 0;border-bottom:1px solid var(--line)}
+.pips{display:flex;gap:4px}
+.pips button{width:36px;height:36px;border-radius:50%;border:1.5px solid var(--line);background:transparent;color:var(--muted);font:700 .88rem var(--f-body);cursor:pointer}
+.pips button.on{background:var(--tag);border-color:var(--tag);color:var(--tag-ink)}
+.rank{display:flex;align-items:center;gap:10px;padding:8px;border-radius:var(--r-md);text-decoration:none;color:inherit}
+.rank:hover{background:var(--sunk)}
+.rank .main{flex:1;min-width:0;display:flex;flex-wrap:wrap;gap:4px 8px;align-items:center}
+
+/* Projects */
+.proj{border:1px solid var(--line);border-radius:var(--r-lg);background:var(--card);margin:0 0 12px;overflow:hidden}
+.proj-main{display:block;padding:16px;color:inherit;text-decoration:none}
+.proj-main h2{margin:0 0 2px}
+.proj-main p{margin:0 0 6px}
+.lines{list-style:none;margin:0;padding:8px 16px 14px;border-top:1px solid var(--line);display:flex;flex-direction:column;gap:6px}
+.lines a{display:flex;align-items:center;gap:10px;color:inherit;text-decoration:none;font-weight:700}
+
+/* Sheets (forms) */
+.sheet-wrap{position:fixed;inset:0;z-index:20}
+.sheet-back{position:absolute;inset:0;background:rgba(8,14,16,.5);opacity:0;transition:opacity .2s}
+.sheet{position:absolute;left:0;right:0;bottom:0;max-height:92vh;max-height:92dvh;overflow:auto;overscroll-behavior:contain;background:var(--paper);border-radius:var(--r-lg) var(--r-lg) 0 0;padding:0 16px calc(20px + env(safe-area-inset-bottom,0px));transform:translateY(100%);transition:transform .25s ease}
+.sheet-wrap.open .sheet{transform:none}
+.sheet-wrap.open .sheet-back{opacity:1}
+.sheet-head{position:sticky;top:0;z-index:1;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:14px 0 8px;background:var(--paper)}
+.sheet-head h2{margin:0}
+@media(min-width:760px){
+  .sheet{left:50%;right:auto;bottom:auto;top:5vh;width:min(640px,94vw);max-height:90vh;border-radius:var(--r-lg);transform:translate(-50%,16px);opacity:0;transition:transform .2s,opacity .2s}
+  .sheet-wrap.open .sheet{transform:translate(-50%,0);opacity:1}
+}
+.sheet-actions{position:sticky;bottom:0;background:var(--paper);padding:10px 0 4px;margin-bottom:0}
+.cap-list{display:flex;flex-direction:column;gap:8px;padding-bottom:6px}
+.cap-item{display:flex;align-items:center;gap:14px;padding:12px 14px;border-radius:var(--r-md);border:1px solid var(--line);background:var(--card);color:var(--ink);font:inherit;text-align:left;cursor:pointer}
+.cap-item svg{width:26px;height:26px;flex:none}
+.cap-item b{display:block}
+.cap-item small{color:var(--muted)}
+.cap-item:first-child{background:var(--tag);border-color:var(--tag);color:var(--tag-ink)}
+.cap-item:first-child small{color:inherit;opacity:.8}
+
+/* Form fields */
+.fld{display:flex;flex-direction:column;gap:4px;margin:0 0 12px;min-width:0}
+.fld>span{font-size:.86rem;font-weight:700}
+input,select,textarea{width:100%;min-height:44px;padding:10px 12px;border:1px solid var(--line);border-radius:var(--r-sm);background:var(--card);color:var(--ink);font:inherit}
+textarea{resize:vertical;min-height:90px}
+input[type="search"]{-webkit-appearance:none;appearance:none}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:0 10px}
+.chk{display:flex;align-items:center;gap:10px;margin:0 0 12px;cursor:pointer}
+.chk input{width:22px;height:22px;min-height:0;flex:none;accent-color:var(--leaf)}
+.hint{font-size:.86rem;color:var(--muted);margin:-4px 0 12px}
+.ph-t{position:relative}
+.ph-x{position:absolute;top:4px;right:4px;width:28px;height:28px;border-radius:50%;border:0;background:rgba(0,0,0,.6);color:#fff;display:grid;place-items:center;cursor:pointer;padding:0}
+.ph-x svg{width:16px;height:16px}
+.pickbox{max-height:220px;overflow:auto;border:1px solid var(--line);border-radius:var(--r-sm);padding:8px 10px;background:var(--card);margin:0 0 12px}
+.pickbox .chk{margin:0;padding:5px 0}
+.tr-row{display:grid;grid-template-columns:1fr 92px auto 36px;gap:6px;align-items:center;margin:0 0 6px}
+.tr-row .chk{margin:0;font-size:.85rem}
+.radios{border:0;padding:0;margin:0 0 8px;display:flex;flex-direction:column;gap:8px}
+.radio{display:flex;gap:12px;align-items:flex-start;padding:12px;border:1px solid var(--line);border-radius:var(--r-md);background:var(--card);cursor:pointer}
+.radio input{width:20px;height:20px;min-height:0;margin-top:2px;flex:none;accent-color:var(--leaf)}
+.radio small{display:block;color:var(--muted)}
+.manual{border:1px solid var(--line);border-radius:var(--r-md);padding:12px 14px;margin:0 0 14px;background:var(--card)}
+.manual ol{margin:6px 0 10px;padding-left:20px}
+.manual textarea{margin:10px 0}
+.answer{margin-top:16px;max-width:62ch}
+.answer:empty{display:none}
+
+
+/* Records, record types and comparison */
+.btn.sm{min-height:36px;padding:0 12px;font-size:.86rem;border-radius:10px}
+.btn.sm svg{width:16px;height:16px}
+.rt-block{margin:0 0 18px}
+.rt-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:0 0 8px}
+.rt-head h3{margin:0}
+.items{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+.item{border:1px solid var(--line);border-radius:var(--r-md);background:var(--card);padding:10px 12px}
+.item-head{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
+.item-head .linkish{margin-left:auto}
+.vals{margin:4px 0 0;font-size:.92rem}
+.trial{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:6px 10px;margin-top:10px;padding-top:10px;border-top:1px dashed var(--line);font-size:.92rem}
+.trial>div{flex-basis:100%}
+.rt-def{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px 12px;padding:10px 8px;border-bottom:1px solid var(--line)}
+.rt-def .main{flex:1;min-width:200px;display:flex;flex-direction:column}
+.rt-def .t{font-weight:700}
+.rt-def .s{font-size:.87rem;color:var(--muted)}
+.fd{border:1px solid var(--line);border-radius:var(--r-md);background:var(--card);padding:8px;margin:0 0 8px}
+.fd-top{display:grid;grid-template-columns:1fr 130px 40px;gap:6px;align-items:center}
+.fd-more{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+.fd-more input,.fd-more select{flex:1 1 160px}
+.fd-more .chk{margin:0;flex:1 1 160px;font-size:.88rem}
+.fd-more .chk input{flex:none}
+.fd-more .fd-agg{flex:1 1 220px}
+.pip{position:relative;display:inline-grid}
+.pip input{position:absolute;opacity:0;width:100%;height:100%;margin:0;min-height:0;cursor:pointer}
+.pip span{display:grid;place-items:center;width:40px;height:40px;border-radius:50%;border:1.5px solid var(--line);color:var(--muted);font-weight:700}
+.pip input:checked+span{background:var(--tag);border-color:var(--tag);color:var(--tag-ink)}
+.pip input:focus-visible+span{outline:3px solid var(--sire);outline-offset:2px}
+.pips .linkish{align-self:center;width:auto;height:auto;margin-left:6px;border:0;border-radius:0;background:none}
+output.calc{display:block;padding:10px 12px;border-radius:var(--r-sm);background:var(--sunk);font-weight:700}
+output.calc.empty{font-weight:400;color:var(--muted)}
+.tbl-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:var(--r-md);background:var(--card)}
+table.cmp{border-collapse:collapse;width:100%;font-size:.9rem;font-variant-numeric:tabular-nums}
+table.cmp th,table.cmp td{padding:8px 10px;border-bottom:1px solid var(--line);text-align:right;white-space:nowrap}
+table.cmp thead th{font-size:.8rem;vertical-align:bottom;white-space:normal;min-width:84px}
+table.cmp thead th a{color:var(--muted);text-decoration:none}
+table.cmp thead th a[aria-sort]{color:var(--ink)}
+table.cmp tbody th,table.cmp thead th:first-child{text-align:left;position:sticky;left:0;background:var(--card);z-index:1}
+table.cmp tbody th a{font-weight:700;color:var(--ink)}
+table.cmp td.flag{color:var(--warn);font-weight:700}
+table.cmp tbody tr:last-child>*{border-bottom:0}
+.bulk-row{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--line)}
+.bulk-row .main{flex:1;min-width:0;display:flex;flex-direction:column}
+.bulk-row .t{font-weight:700}
+.bulk-row .s{font-size:.85rem;color:var(--muted)}
+.bulk-row select{width:auto;flex:0 0 46%}
+.cap-item.plain{background:var(--card)!important;border-color:var(--line)!important;color:var(--ink)!important}
+.cap-item.plain small{color:var(--muted)!important;opacity:1!important}
+.cap-item[disabled]{opacity:.55;cursor:default}
+details summary{cursor:pointer}
+
+/* Lightbox, toast, busy */
+.lb{position:fixed;inset:0;z-index:30;display:grid;place-items:center;padding:16px;background:rgba(0,0,0,.92);cursor:zoom-out}
+.lb img{max-width:100%;max-height:100%;object-fit:contain}
+#toast{position:fixed;left:50%;bottom:calc(100px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);z-index:40;max-width:90vw;padding:10px 18px;border-radius:22px;text-align:center;background:var(--ink);color:var(--paper);font-weight:700;opacity:0;pointer-events:none;transition:opacity .2s}
+#toast.show{opacity:1}
+body.busy::after{content:"";position:fixed;top:0;left:0;right:0;height:3px;z-index:50;background:linear-gradient(90deg,transparent,var(--tag),transparent);background-size:50% 100%;animation:busy 1s linear infinite}
+@keyframes busy{from{background-position:-50% 0}to{background-position:150% 0}}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{transition:none!important;animation:none!important}}
+@media (max-width:380px){.two{grid-template-columns:1fr}.capture-grid{grid-template-columns:1fr}.cap-btn.big{grid-row:auto}}
+</style>
+</head>
+<body>
+<header class="top">
+  <button class="icon-btn" id="backBtn" data-act="back" aria-label="Back" hidden></button>
+  <a class="brand" href="#/" aria-label="Lineage home"><span class="tag">Lineage</span></a>
+  <span class="flex"></span>
+  <a class="icon-btn" id="logBtn" href="#/log" aria-label="Full log"></a>
+  <a class="icon-btn" id="setBtn" href="#/settings" aria-label="Settings"></a>
+</header>
+<main id="main" tabindex="-1"></main>
+<nav class="tabs" aria-label="Main">
+  <a href="#/" data-tab="home"></a>
+  <a href="#/library" data-tab="library"></a>
+  <button class="cap" data-act="capture" aria-label="Add something"></button>
+  <a href="#/tagged" data-tab="tagged"></a>
+  <a href="#/projects" data-tab="projects"></a>
+</nav>
+<div id="toast" role="status" aria-live="polite"></div>
+<script>
+'use strict';
+const VERSION = '0.2';
+const DEFAULT_MODEL = 'claude-haiku-4-5-20251001';
+
+/* ---------- Icons ---------- */
+const ICON = {
+  home: '<path d="M3 11l9-7 9 7"/><path d="M5 10v10h14V10"/>',
+  library: '<path d="M7 3h10l-1 4H8z"/><rect x="5" y="7" width="14" height="14" rx="2"/><path d="M12 11c-2.2 2.2-2.2 5 0 7 2.2-2 2.2-4.8 0-7z"/>',
+  plus: '<path d="M12 5v14M5 12h14"/>',
+  tag: '<path d="M3 12V4h8l10 10-8 8z"/><circle cx="7.5" cy="8.5" r="1.6"/>',
+  project: '<circle cx="6" cy="5" r="2"/><circle cx="6" cy="19" r="2"/><circle cx="18" cy="8" r="2"/><path d="M6 7v10"/><path d="M18 10c0 4-4 5-11 7.5"/>',
+  camera: '<path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/>',
+  image: '<rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="10" r="2"/><path d="M21 17l-5-5-9 8"/>',
+  note: '<path d="M5 3h10l4 4v14H5z"/><path d="M15 3v4h4"/><path d="M9 12h6M9 16h6"/>',
+  cross: '<circle cx="9" cy="12" r="5.5"/><circle cx="15" cy="12" r="5.5"/>',
+  gear: '<circle cx="12" cy="12" r="3"/><path d="M12 2.5v3M12 18.5v3M2.5 12h3M18.5 12h3M5.3 5.3l2.1 2.1M16.6 16.6l2.1 2.1M5.3 18.7l2.1-2.1M16.6 7.4l2.1-2.1"/>',
+  x: '<path d="M6 6l12 12M18 6L6 18"/>',
+  search: '<circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4.3-4.3"/>',
+  spark: '<path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z"/><path d="M19 16l.8 2.2L22 19l-2.2.8L19 22l-.8-2.2L16 19l2.2-.8z"/>',
+  back: '<path d="M15 5l-7 7 7 7"/>',
+  log: '<path d="M9 6h11M9 12h11M9 18h11"/><circle cx="4.5" cy="6" r="1"/><circle cx="4.5" cy="12" r="1"/><circle cx="4.5" cy="18" r="1"/>',
+};
+const ic = n => `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ICON[n] || ''}</svg>`;
+
+/* ---------- Small helpers ---------- */
+const $ = (s, el = document) => el.querySelector(s);
+const $$ = (s, el = document) => [...el.querySelectorAll(s)];
+const h = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const uid = () => Date.now().toString(36) + Math.random().toString(36).slice(2, 8);
+const pre = o => h(JSON.stringify(o));
+const pad = n => String(n).padStart(2, '0');
+const today = () => { const d = new Date(); return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`; };
+function fmtDate(s) {
+  if (!s) return '';
+  const m = /^(\d{4})-(\d{2})(?:-(\d{2}))?/.exec(s);
+  if (!m) return s;
+  const d = new Date(+m[1], +m[2] - 1, +(m[3] || 1));
+  return d.toLocaleDateString(undefined, m[3] ? { day: 'numeric', month: 'short', year: 'numeric' } : { month: 'short', year: 'numeric' });
+}
+const byName = (a, b) => (a.name || '').localeCompare(b.name || '', undefined, { sensitivity: 'base' });
+const byCode = (a, b) => (a.code || '').localeCompare(b.code || '', undefined, { numeric: true, sensitivity: 'base' });
+const byDateDesc = (a, b) => (b.date || '').localeCompare(a.date || '') || (b.createdAt || 0) - (a.createdAt || 0);
+function groupBy(arr, fn) { const o = {}; for (const x of arr) (o[fn(x)] ||= []).push(x); return o; }
+
+function toast(msg) {
+  const t = $('#toast'); t.textContent = msg; t.classList.add('show');
+  clearTimeout(toast._t); toast._t = setTimeout(() => t.classList.remove('show'), 2400);
+}
+function busy(on) { document.body.classList.toggle('busy', !!on); }
+
+/* ---------- Storage (IndexedDB, on this device only) ---------- */
+const DB = {
+  db: null,
+  open() {
+    return new Promise((res, rej) => {
+      const r = indexedDB.open('lineage', 1);
+      r.onupgradeneeded = () => {
+        const db = r.result;
+        db.createObjectStore('records', { keyPath: 'id' });
+        db.createObjectStore('photos', { keyPath: 'id' });
+        db.createObjectStore('meta', { keyPath: 'key' });
+      };
+      r.onsuccess = () => { this.db = r.result; res(); };
+      r.onerror = () => rej(r.error);
+    });
+  },
+  tx(store, mode, fn) {
+    return new Promise((res, rej) => {
+      const t = this.db.transaction(store, mode);
+      const req = fn(t.objectStore(store));
+      let out;
+      if (req) req.onsuccess = () => { out = req.result; };
+      t.oncomplete = () => res(out);
+      t.onerror = () => rej(t.error);
+      t.onabort = () => rej(t.error || new Error('Storage is full or blocked'));
+    });
+  },
+  all(s) { return this.tx(s, 'readonly', st => st.getAll()); },
+  get(s, id) { return this.tx(s, 'readonly', st => st.get(id)); },
+  put(s, o) { return this.tx(s, 'readwrite', st => st.put(o)); },
+  del(s, id) { return this.tx(s, 'readwrite', st => st.delete(id)); },
+  clear(s) { return this.tx(s, 'readwrite', st => st.clear()); },
+  putMany(s, arr) { return this.tx(s, 'readwrite', st => { arr.forEach(o => st.put(o)); }); },
+};
+
+const S = {
+  recs: new Map(),
+  settings: { theme: 'auto', ai: 'off', apiKey: '', model: DEFAULT_MODEL, lastExport: null },
+};
+const all = type => { const out = []; for (const r of S.recs.values()) if (r.type === type && !r.deletedAt) out.push(r); return out; };
+const get = id => { const r = id ? S.recs.get(id) : undefined; return r && !r.deletedAt ? r : undefined; };
+let _noteIdx = null;
+function notesFor(id) {
+  if (!_noteIdx) {
+    _noteIdx = new Map();
+    for (const n of all('note')) { if (!_noteIdx.has(n.refId)) _noteIdx.set(n.refId, []); _noteIdx.get(n.refId).push(n); }
+    for (const a of _noteIdx.values()) a.sort(byDateDesc);
+  }
+  return _noteIdx.get(id) || [];
+}
+async function save(r) {
+  const now = Date.now();
+  r.updatedAt = now; if (!r.createdAt) r.createdAt = now;
+  S.recs.set(r.id, r); _noteIdx = null; _rtIdx = null;
+  await DB.put('records', r);
+  return r;
+}
+/* Deleting moves a record, and everything that only makes sense with it, to the recycle bin */
+async function removeRec(id) {
+  const ids = new Set([id]);
+  let grew = true;
+  while (grew) {
+    grew = false;
+    for (const r of S.recs.values()) {
+      if (r.deletedAt || ids.has(r.id)) continue;
+      if ((r.type === 'note' && ids.has(r.refId)) || (r.type === 'entry' && (ids.has(r.indId) || ids.has(r.parentEntryId)))) { ids.add(r.id); grew = true; }
+    }
+  }
+  const now = Date.now(), batch = uid(), changed = [];
+  for (const x of ids) { const r = S.recs.get(x); if (!r) continue; Object.assign(r, { deletedAt: now, delBatch: batch, delRoot: id, updatedAt: now }); changed.push(r); }
+  await DB.putMany('records', changed);
+  _noteIdx = null; _rtIdx = null;
+  return changed.length;
+}
+async function saveSettings() { await DB.put('meta', { ...S.settings, key: 'settings' }); }
+
+/* ---------- Photos: compressed on the device, stored as blobs ---------- */
+const urlCache = new Map();
+async function photoURL(id, thumb) {
+  const k = id + (thumb ? ':t' : ':f');
+  if (urlCache.has(k)) return urlCache.get(k);
+  const p = await DB.get('photos', id);
+  if (!p) return '';
+  const u = URL.createObjectURL(thumb ? (p.thumb || p.full) : p.full);
+  urlCache.set(k, u); return u;
+}
+function hydrate(root = document) {
+  $$('img[data-photo]', root).forEach(async img => {
+    if (img.src) return;
+    const u = await photoURL(img.dataset.photo, img.dataset.full !== '1');
+    if (u) img.src = u;
+  });
+}
+async function loadBitmap(file) {
+  try { return await createImageBitmap(file, { imageOrientation: 'from-image' }); }
+  catch {
+    return await new Promise((res, rej) => {
+      const u = URL.createObjectURL(file); const im = new Image();
+      im.onload = () => res(im); im.onerror = () => rej(new Error('That file is not an image this browser can open'));
+      im.src = u;
+    });
+  }
+}
+function shrink(src, max, q) {
+  const w0 = src.width, h0 = src.height, sc = Math.min(1, max / Math.max(w0, h0));
+  const c = document.createElement('canvas');
+  c.width = Math.round(w0 * sc); c.height = Math.round(h0 * sc);
+  c.getContext('2d').drawImage(src, 0, 0, c.width, c.height);
+  return new Promise(res => c.toBlob(res, 'image/jpeg', q));
+}
+async function addPhoto(file) {
+  const bmp = await loadBitmap(file);
+  const full = await shrink(bmp, 1600, 0.82);
+  const thumb = await shrink(bmp, 480, 0.78);
+  const id = uid();
+  await DB.put('photos', { id, full, thumb, at: Date.now() });
+  return id;
+}
+function pickFiles(camera, accept = 'image/*') {
+  return new Promise(res => {
+    const i = document.createElement('input');
+    i.type = 'file'; i.accept = accept;
+    if (camera) i.setAttribute('capture', 'environment'); else if (accept === 'image/*') i.multiple = true;
+    i.style.display = 'none'; document.body.appendChild(i);
+    i.addEventListener('change', () => { res([...i.files]); i.remove(); });
+    i.click();
+  });
+}
+const blobToDataURL = b => new Promise((res, rej) => { const r = new FileReader(); r.onload = () => res(r.result); r.onerror = () => rej(r.error); r.readAsDataURL(b); });
+function dataURLToBlob(u) {
+  const [head, b64] = u.split(',');
+  const mime = (head.match(/:(.*?);/) || [])[1] || 'image/jpeg';
+  const bin = atob(b64); const arr = new Uint8Array(bin.length);
+  for (let i = 0; i < bin.length; i++) arr[i] = bin.charCodeAt(i);
+  return new Blob([arr], { type: mime });
+}
+function download(blob, name) {
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob); a.download = name;
+  document.body.appendChild(a); a.click();
+  setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 2000);
+}
+async function copyText(t) {
+  try { await navigator.clipboard.writeText(t); return true; }
+  catch {
+    const ta = document.createElement('textarea'); ta.value = t; ta.style.position = 'fixed'; ta.style.opacity = '0';
+    document.body.appendChild(ta); ta.select();
+    let ok = false; try { ok = document.execCommand('copy'); } catch {}
+    ta.remove(); return ok;
+  }
+}
+
+/* ---------- Domain helpers: plants and animals ---------- */
+const WORDS = {
+  plant: { start: 'Sown', lot: 'Seed lot', lots: 'Seed lots', ind: 'plant', startHatch: 'Sow from this lot' },
+  animal: { start: 'Born or hatched', lot: 'Stock lot', lots: 'Stock lots', ind: 'animal', startHatch: 'Hatch or birth from this lot' },
+};
+const LOT_STATUS = { active: 'In use', archive: 'Archive backup', used: 'Used up' };
+const IND_STATUS = ['Active', 'Selected', 'Kept for breeding', 'Harvested', 'Culled', 'Sold or rehomed', 'Died'];
+const CROSS_METHODS = ['Hand-pollinated', 'Self-pollinated', 'Open-pollinated', 'Natural mating', 'Artificial insemination', 'Other'];
+const CROSS_STATUS = ['Planned', 'Done', 'Successful', 'Failed'];
+
+function kindOf(r, depth = 0) {
+  if (!r || depth > 4) return 'plant';
+  if (r.kind) return r.kind;
+  const s = get(r.strainId); if (s) return kindOf(s, depth + 1);
+  const p = get(r.projectId); if (p) return kindOf(p, depth + 1);
+  const l = get(r.stockId); if (l) return kindOf(l, depth + 1);
+  return 'plant';
+}
+const W = r => WORDS[kindOf(r)] || WORDS.plant;
+
+function title(r) {
+  if (!r) return 'Unknown';
+  switch (r.type) {
+    case 'individual': return r.code || r.name || 'Untagged';
+    case 'strain': case 'project': return r.name || 'Unnamed';
+    case 'stock': {
+      if (r.label) return r.label;
+      const s = get(r.strainId); if (s) return s.name;
+      const c = get(r.crossId); if (c) return crossTitle(c) + ' seed';
+      return 'Unnamed lot';
+    }
+    case 'cross': return crossTitle(r);
+    case 'note': return 'Note';
+  }
+  return 'Record';
+}
+const shortName = r => (r ? (r.type === 'individual' ? (r.code || r.name) : title(r)) : '?');
+const crossTitle = c => `${shortName(get(c.motherId))} × ${shortName(get(c.fatherId))}`;
+function link(r) {
+  if (!r) return '#/';
+  const base = { strain: '#/strain/', stock: '#/lot/', individual: '#/ind/', project: '#/project/', cross: '#/cross/' }[r.type];
+  if (base) return base + r.id;
+  if (r.type === 'note') return link(get(r.refId));
+  return '#/';
+}
+function findStrain(name) {
+  const n = (name || '').trim().toLowerCase(); if (!n) return null;
+  return all('strain').find(s => (s.name || '').trim().toLowerCase() === n) || null;
+}
+
+/* Species: used to warn before a cross between species */
+function speciesOf(r, depth = 0) {
+  if (!r || depth > 4) return '';
+  if (r.type === 'strain' || r.type === 'project') return r.species || '';
+  const s = get(r.strainId); if (s?.species) return s.species;
+  const l = get(r.stockId); if (l) { const x = speciesOf(l, depth + 1); if (x) return x; }
+  const p = get(r.projectId); if (p?.species) return p.species;
+  return '';
+}
+function verifiedOf(r) {
+  if (!r) return true;
+  if (r.type === 'strain') return !!r.speciesVerified;
+  const s = get(r.strainId); if (s) return !!s.speciesVerified;
+  return true;
+}
+function spKey(s) {
+  const parts = (s || '').toLowerCase().replace(/[^a-z\s.]/g, ' ').split(/[\s.]+/).filter(Boolean);
+  if (!parts.length) return '';
+  return (parts[0][0] || '') + '|' + parts[parts.length - 1];
+}
+function guardHTML(mId, fId) {
+  const m = get(mId), f = get(fId);
+  if (!m || !f) return '';
+  const sm = speciesOf(m), sf = speciesOf(f), out = [];
+  if (sm && sf && spKey(sm) !== spKey(sf)) {
+    out.push(`<div class="notice warn"><b>Different species.</b> ${h(shortName(m))} is listed as <i>${h(sm)}</i> and ${h(shortName(f))} as <i>${h(sf)}</i>. Crosses between species usually fail or give poor fertility, so check before you pollinate or pair.</div>`);
+  }
+  for (const r of m === f ? [m] : [m, f]) {
+    if (speciesOf(r) && !verifiedOf(r)) out.push(`<div class="notice">Species for ${h(shortName(r))} isn't confirmed yet. Check the packet or breeder before relying on this cross.</div>`);
+  }
+  const missing = (m === f ? [m] : [m, f]).filter(r => !speciesOf(r));
+  if (missing.length) out.push(`<div class="notice">No species recorded for ${missing.map(r => h(shortName(r))).join(' or ')}, so this cross can't be checked for compatibility.</div>`);
+  return out.join('');
+}
+
+/* Lineage */
+function parentsOf(r) {
+  if (!r || r.type === 'strain') return [null, null];
+  let m = r.motherId, f = r.fatherId;
+  if (!m && !f && r.crossId) { const c = get(r.crossId); if (c) { m = c.motherId; f = c.fatherId; } }
+  if (!m && !f && r.stockId) { const l = get(r.stockId); if (l) [m, f] = parentsOf(l).map(x => x?.id); }
+  return [get(m) || null, get(f) || null];
+}
+function genOf(r) {
+  if (!r) return null;
+  if (r.type === 'strain') return 'P';
+  if (r.type === 'individual') return r.generation ? r.generation.toUpperCase() : (r.strainId ? 'P' : null);
+  return null;
+}
+const strainOfRec = r => (r?.type === 'strain' ? r.id : r?.strainId || '');
+function suggestGen(m, f) {
+  if (!m || !f) return '';
+  const gm = genOf(m), gf = genOf(f);
+  if (gm === 'P' && gf === 'P') return strainOfRec(m) && strainOfRec(m) === strainOfRec(f) ? '' : 'F1';
+  const nm = /^F(\d+)$/.exec(gm || ''), nf = /^F(\d+)$/.exec(gf || '');
+  if (nm && nf && nm[1] === nf[1]) return 'F' + (+nm[1] + 1);
+  return '';
+}
+function suggestCode(projectId, gen, kind, exceptId) {
+  const p = get(projectId);
+  const prefix = (p?.code || 'TAG').replace(/\s+/g, '');
+  const base = `${prefix}${gen ? '-' + gen.toUpperCase() : ''}-${kind === 'animal' ? 'A' : 'P'}`;
+  const codes = new Set(all('individual').filter(i => i.id !== exceptId).map(i => (i.code || '').toUpperCase()));
+  let n = 1; while (codes.has(base + pad(n))) n++;
+  return base + pad(n);
+}
+
+/* Projects, targets and selection scores */
+const TIER_W = { 1: 4, 2: 3, 3: 2, 4: 1 };
+function projectTraits(p) {
+  if (!p) return [];
+  if (p.traits?.length) return p.traits;
+  const par = get(p.parentId);
+  return par && par !== p ? par.traits || [] : [];
+}
+function scoreOf(ind, traits) {
+  let num = 0, den = 0, scored = 0; const flags = [];
+  for (const t of traits) {
+    const v = ind.scores?.[t.name]; if (v == null) continue;
+    scored++; const w = TIER_W[t.tier] || 1;
+    num += w * v; den += w * 5;
+    if (t.must && v < 3) flags.push(t.name);
+  }
+  return { pct: den ? Math.round((num / den) * 100) : null, scored, total: traits.length, flags };
+}
+function projectFamily(p) { return [p.id, ...all('project').filter(x => x.parentId === p.id).map(x => x.id)]; }
+function membersOf(p) { const ids = new Set(projectFamily(p)); return all('individual').filter(i => ids.has(i.projectId)); }
+function crossesOf(p) { const ids = new Set(projectFamily(p)); return all('cross').filter(c => ids.has(c.projectId)); }
+
+function coverOf(r) {
+  const fromNotes = () => { for (const n of notesFor(r.id)) if (n.photoIds?.length) return n.photoIds[0]; return null; };
+  if (r.type === 'individual') return fromNotes() || r.photoIds?.[0] || null;
+  if (r.photoIds?.length) return r.photoIds[0];
+  if (r.type === 'strain') { for (const l of all('stock')) if (l.strainId === r.id && l.photoIds?.length) return l.photoIds[0]; }
+  return fromNotes();
+}
+function thumbOf(r, icon) {
+  const c = coverOf(r);
+  if (c) return `<img class="thumb" data-photo="${c}" alt="">`;
+  const i = icon || { individual: 'tag', strain: 'library', stock: 'library', project: 'project', cross: 'cross' }[r.type] || 'note';
+  return `<span class="thumb">${ic(i)}</span>`;
+}
+/* ===================================================================
+   Record types: data a project chooses to track (measurements, harvests,
+   storage trials, weigh-ins, litters...). Defined per project; lines also
+   get their parent project's types.
+   =================================================================== */
+const FIELD_TYPES = [
+  ['number', 'Number'], ['score', 'Score 1 to 5'], ['choice', 'Choice'], ['text', 'Text'], ['date', 'Date'], ['yesno', 'Yes or no'], ['calc', 'Calculated'],
+];
+const AGGS = [['avg', 'Average'], ['max', 'Highest'], ['min', 'Lowest'], ['sum', 'Total'], ['latest', 'Latest']];
+
+const TEMPLATES = {
+  plant: [
+    { key: 'harvest', name: 'Fruit harvest', itemName: 'Fruit', desc: 'One entry per fruit: weight, seed cavity, flesh and eating quality.', fields: [
+      { label: 'Weight', type: 'number', unit: 'kg', agg: 'avg', compare: true },
+      { label: 'Length', type: 'number', unit: 'cm', agg: 'avg' },
+      { label: 'Cavity length', type: 'number', unit: 'cm', agg: 'avg' },
+      { label: 'Cavity width', type: 'number', unit: 'cm', agg: 'avg' },
+      { label: 'Flesh thickness', type: 'number', unit: 'cm', agg: 'avg', compare: true },
+      { label: 'Flesh to cavity ratio', type: 'calc', formula: '{Flesh thickness} / {Cavity width}', agg: 'avg', compare: true },
+      { label: 'Skin darkness', type: 'score', agg: 'avg', compare: true },
+      { label: 'Flesh colour', type: 'score', agg: 'avg', compare: true },
+      { label: 'Flavour', type: 'score', agg: 'avg', compare: true },
+      { label: 'Texture', type: 'choice', options: ['Dry and dense', 'Medium', 'Watery'] },
+    ] },
+    { key: 'storage', name: 'Storage check', parentKey: 'harvest', desc: 'Regular condition checks on stored fruit. Shows how many days each fruit keeps.', fields: [
+      { label: 'Condition', type: 'choice', options: ['Sound', 'Slight softening', 'Softening', 'Deteriorating', 'Unusable'], endOptions: ['Unusable'] },
+      { label: 'Stored where', type: 'text' },
+    ] },
+    { key: 'plantcheck', name: 'Plant check', desc: 'Checks during the season: plant size, flowering, fruit set and stress.', fields: [
+      { label: 'Vine or plant size', type: 'choice', options: ['Compact', 'Moderate', 'Large', 'Very large'] },
+      { label: 'Female flowers', type: 'number', agg: 'max', compare: true },
+      { label: 'Fruit set', type: 'number', agg: 'max', compare: true },
+      { label: 'Disease or pest pressure', type: 'choice', options: ['None', 'Mild', 'Moderate', 'Severe'] },
+      { label: 'Heat or drought stress', type: 'choice', options: ['None', 'Mild', 'Moderate', 'Severe'] },
+    ] },
+  ],
+  animal: [
+    { key: 'weigh', name: 'Weigh-in', desc: 'Weight and body condition over time.', fields: [
+      { label: 'Weight', type: 'number', unit: 'kg', agg: 'latest', compare: true },
+      { label: 'Body condition', type: 'score', agg: 'latest', compare: true },
+    ] },
+    { key: 'litter', name: 'Litter or clutch', itemName: 'Litter', desc: 'One entry per litter or clutch: size, fertility and survival.', fields: [
+      { label: 'Litter size or eggs set', type: 'number', agg: 'avg', compare: true },
+      { label: 'Fertile', type: 'number', agg: 'avg' },
+      { label: 'Born or hatched alive', type: 'number', agg: 'avg', compare: true },
+      { label: 'Survival rate', type: 'calc', unit: '%', formula: '{Born or hatched alive} / {Litter size or eggs set} * 100', agg: 'avg', compare: true },
+      { label: 'Raised to weaning', type: 'number', agg: 'avg' },
+    ] },
+    { key: 'eggs', name: 'Egg count', desc: 'Eggs laid over a period, for laying lines.', fields: [
+      { label: 'Days counted', type: 'number', agg: 'sum' },
+      { label: 'Eggs laid', type: 'number', agg: 'sum' },
+      { label: 'Laying rate', type: 'calc', unit: '%', formula: '{Eggs laid} / {Days counted} * 100', agg: 'avg', compare: true },
+      { label: 'Average egg weight', type: 'number', unit: 'g', agg: 'avg', compare: true },
+    ] },
+    { key: 'health', name: 'Health event', desc: 'Vaccinations, treatments, illness and injuries.', fields: [
+      { label: 'Event', type: 'choice', options: ['Vaccination', 'Parasite treatment', 'Illness', 'Injury', 'Vet visit', 'Other'] },
+      { label: 'Details', type: 'text' },
+    ] },
+  ],
+};
+
+let _rtIdx = null;
+function rtIndex() {
+  if (!_rtIdx) {
+    _rtIdx = new Map();
+    for (const p of all('project')) for (const rt of p.recordTypes || []) _rtIdx.set(rt.id, { rt, project: p });
+  }
+  return _rtIdx;
+}
+const rtInfo = id => rtIndex().get(id) || { rt: null, project: null };
+function projectRecordTypes(p, includeArchived = false) {
+  if (!p) return [];
+  const par = get(p.parentId);
+  const list = [...(par && par !== p ? par.recordTypes || [] : []), ...(p.recordTypes || [])];
+  return includeArchived ? list : list.filter(t => !t.archived);
+}
+const liveFields = rt => (rt?.fields || []).filter(f => !f.archived);
+const cleanLabel = s => String(s || '').replace(/[{}]/g, '').trim();
+
+/* Values and calculations */
+function evalCalc(formula, values, fields) {
+  if (!formula) return null;
+  let ok = true;
+  const expr = formula.replace(/\{([^}]+)\}/g, (_, label) => {
+    const f = fields.find(x => x.type !== 'calc' && x.label.trim().toLowerCase() === label.trim().toLowerCase());
+    const raw = f ? values?.[f.id] : null;
+    const v = +raw;
+    if (raw === '' || raw == null || !isFinite(v)) { ok = false; return '0'; }
+    return `(${v})`;
+  });
+  if (!ok || !/^[\d.\s+\-*/()eE]+$/.test(expr)) return null;
+  try { const r = Function(`"use strict";return (${expr})`)(); return isFinite(r) ? Math.round(r * 1000) / 1000 : null; } catch { return null; }
+}
+function fieldValue(e, f, rt) {
+  if (f.type === 'calc') return evalCalc(f.formula, e.values, rt.fields);
+  const v = e.values?.[f.id];
+  if (v === '' || v == null) return null;
+  if (f.type === 'number' || f.type === 'score') { const n = +v; return isFinite(n) ? n : null; }
+  return v;
+}
+const fmtNum = n => (n == null ? '' : Number(n).toLocaleString(undefined, { maximumFractionDigits: 2 }));
+function fmtValue(v, f) {
+  if (v == null || v === '') return '';
+  if (f.type === 'number' || f.type === 'calc') return fmtNum(v) + (f.unit ? (f.unit === '%' ? '%' : ' ' + f.unit) : '');
+  if (f.type === 'score') return `${fmtNum(v)}/5`;
+  if (f.type === 'date') return fmtDate(v);
+  return String(v);
+}
+function aggregate(vals, agg) {
+  const xs = vals.filter(v => v != null && isFinite(v));
+  if (!xs.length) return null;
+  switch (agg) {
+    case 'max': return Math.max(...xs);
+    case 'min': return Math.min(...xs);
+    case 'sum': return xs.reduce((a, b) => a + b, 0);
+    case 'latest': return xs[xs.length - 1];
+    default: return xs.reduce((a, b) => a + b, 0) / xs.length;
+  }
+}
+function daysBetween(a, b) {
+  const p = s => { const m = /^(\d{4})-(\d{2})-(\d{2})/.exec(s || ''); return m ? Date.UTC(+m[1], +m[2] - 1, +m[3]) : null; };
+  const x = p(a), y = p(b);
+  return x == null || y == null ? null : Math.round((y - x) / 864e5);
+}
+const byDateAsc = (a, b) => (a.date || '').localeCompare(b.date || '') || (a.createdAt || 0) - (b.createdAt || 0);
+const entriesOf = (indId, rtId) => all('entry').filter(e => e.indId === indId && e.rtId === rtId && !e.parentEntryId).sort(byDateAsc);
+const childrenOf = (entryId, rtId) => all('entry').filter(e => e.parentEntryId === entryId && (!rtId || e.rtId === rtId)).sort(byDateAsc);
+const childTypesOf = (rt, p) => projectRecordTypes(p, true).filter(t => t.parentRt === rt.id);
+const endFieldOf = rt => liveFields(rt).find(f => f.type === 'choice' && f.endOptions?.length);
+function itemLabel(e) {
+  const { rt } = rtInfo(e.rtId);
+  const i = get(e.indId);
+  return `${i ? i.code + ' ' : ''}${rt?.itemName || rt?.name || 'Item'} ${e.seq || ''}`.trim();
+}
+/* A trial: child checks on an item until a check records an ending value (e.g. Unusable). */
+function trialOf(parent, childRt) {
+  const kids = childrenOf(parent.id, childRt.id);
+  if (!kids.length) return null;
+  const endF = endFieldOf(childRt);
+  const end = endF ? kids.find(k => endF.endOptions.includes(k.values?.[endF.id])) : null;
+  const last = end || kids[kids.length - 1];
+  return { days: daysBetween(parent.date, last.date), ended: !!end, last, endF, kids };
+}
+
+/* Comparison columns for a project's members */
+function compareColumns(p) {
+  const cols = [];
+  const traits = projectTraits(p);
+  if (traits.length) cols.push({ key: 'score', label: 'Score', get: i => scoreOf(i, projectTraits(get(i.projectId)).length ? projectTraits(get(i.projectId)) : traits).pct, fmt: v => (v == null ? '' : String(v)) });
+  for (const rt of projectRecordTypes(p).filter(t => !t.parentRt)) {
+    if (rt.itemName) cols.push({ key: `n:${rt.id}`, label: `${rt.itemName} count`, get: i => entriesOf(i.id, rt.id).length || null, fmt: fmtNum });
+    for (const f of liveFields(rt).filter(f => f.compare && ['number', 'score', 'calc'].includes(f.type))) {
+      const aggName = (AGGS.find(a => a[0] === (f.agg || 'avg')) || AGGS[0])[1].toLowerCase();
+      cols.push({ key: `f:${rt.id}:${f.id}`, label: `${f.label}${f.unit ? ` (${f.unit})` : ''}`, hint: `${aggName} of ${rt.name.toLowerCase()} entries`, get: i => aggregate(entriesOf(i.id, rt.id).map(e => fieldValue(e, f, rt)), f.agg || 'avg'), fmt: fmtNum });
+    }
+    for (const c of childTypesOf(rt, p).filter(c => !c.archived && endFieldOf(c))) {
+      cols.push({ key: `t:${c.id}`, label: 'Longest kept (days)', hint: `${c.name}: most days from ${rt.name.toLowerCase()} to the last good check`, get: i => {
+        let best = null;
+        for (const e of entriesOf(i.id, rt.id)) { const t = trialOf(e, c); if (t && t.days != null && (!best || t.days > best.days)) best = t; }
+        return best ? { v: best.days, ongoing: !best.ended } : null;
+      }, fmt: x => (x == null ? '' : `${x.v}${x.ongoing ? '+' : ''}`), num: x => x?.v ?? null });
+    }
+  }
+  return cols;
+}
+
+/* ===================================================================
+   Record type editor and suggestions
+   =================================================================== */
+function fieldRow(f = { label: '', type: 'number', agg: 'avg', compare: true }) {
+  const show = t => (f.type === t ? '' : 'hidden');
+  return `<div class="fd" data-fid="${h(f.id || '')}">
+    <div class="fd-top"><input class="fd-label" value="${h(f.label)}" placeholder="Field name, e.g. Weight" aria-label="Field name">
+    <select class="fd-type" aria-label="Field type">${FIELD_TYPES.map(([v, t]) => `<option value="${v}" ${f.type === v ? 'selected' : ''}>${t}</option>`).join('')}</select>
+    <button type="button" class="icon-btn" data-rmfd aria-label="Remove field">${ic('x')}</button></div>
+    <div class="fd-more">
+      <input class="fd-unit" value="${h(f.unit || '')}" placeholder="Unit, e.g. kg" aria-label="Unit" ${f.type === 'number' || f.type === 'calc' ? '' : 'hidden'}>
+      <input class="fd-opts" value="${h((f.options || []).join(', '))}" placeholder="Options, separated by commas" aria-label="Options" ${show('choice')}>
+      <input class="fd-end" value="${h((f.endOptions || []).join(', '))}" placeholder="Options that end a trial, e.g. Unusable" aria-label="Options that end a trial" ${show('choice')}>
+      <input class="fd-formula" value="${h(f.formula || '')}" placeholder="e.g. {Flesh thickness} / {Cavity width}" aria-label="Formula" ${show('calc')}>
+      <select class="fd-agg" aria-label="Combine entries by" ${['number', 'score', 'calc'].includes(f.type) ? '' : 'hidden'}>${AGGS.map(([v, t]) => `<option value="${v}" ${(f.agg || 'avg') === v ? 'selected' : ''}>Compare by ${t.toLowerCase()}</option>`).join('')}</select>
+      <label class="chk fd-cmp" ${['number', 'score', 'calc'].includes(f.type) ? '' : 'hidden'}><input type="checkbox" ${f.compare ? 'checked' : ''}>Show in comparison</label>
+    </div></div>`;
+}
+function readFieldRows(root, oldFields) {
+  const rows = $$('.fd', root).map(r => {
+    const type = $('.fd-type', r).value;
+    const f = { id: r.dataset.fid || 'f' + uid(), label: cleanLabel($('.fd-label', r).value), type };
+    if (type === 'number' || type === 'calc') f.unit = $('.fd-unit', r).value.trim();
+    if (type === 'choice') {
+      f.options = $('.fd-opts', r).value.split(',').map(s => s.trim()).filter(Boolean);
+      f.endOptions = $('.fd-end', r).value.split(',').map(s => s.trim()).filter(s => f.options.includes(s));
+    }
+    if (type === 'calc') f.formula = $('.fd-formula', r).value.trim();
+    if (['number', 'score', 'calc'].includes(type)) { f.agg = $('.fd-agg', r).value; f.compare = $('.fd-cmp input', r).checked; }
+    return f;
+  }).filter(f => f.label);
+  // Renamed fields: keep formulas pointing at the new names
+  for (const nf of rows) {
+    const of = oldFields.find(x => x.id === nf.id);
+    if (of && of.label !== nf.label) for (const c of rows) if (c.formula) c.formula = c.formula.split(`{${of.label}}`).join(`{${nf.label}}`);
+  }
+  return rows;
+}
+function recordTypeSheet({ projectId, rtId } = {}) {
+  const info = rtId ? rtInfo(rtId) : null;
+  const p = info?.project || get(projectId);
+  const rt = info?.rt || { name: '', itemName: '', parentRt: '', fields: [{ label: '', type: 'number', agg: 'avg', compare: true }] };
+  const parents = projectRecordTypes(p).filter(t => !t.parentRt && t.itemName && t.id !== rt.id);
+  const used = rtId ? all('entry').filter(e => e.rtId === rtId).length : 0;
+  const { el } = formSheet(rtId ? `Edit ${rt.name}` : 'New record type', `
+    ${used ? `<p class="hint" style="margin-top:0">${used} entr${used === 1 ? 'y uses' : 'ies use'} this record type. Removing a field hides it but keeps what was already recorded.</p>` : ''}
+    ${F.text('name', 'Name', rt.name, 'e.g. Fruit harvest, Weigh-in')}
+    ${F.text('itemName', 'Each entry is a separate item called', rt.itemName, 'Optional, e.g. Fruit, Litter')}
+    <p class="hint">Use this when one plant or animal produces several things you track separately, like fruit or litters. Leave it blank for repeated checks like weigh-ins.</p>
+    ${F.select('parentRt', 'Logged against', rt.parentRt || '', [['', 'Each tagged plant or animal'], ...parents.map(t => [t.id, `Each ${t.itemName.toLowerCase()} from ${t.name}`])])}
+    <div class="fld"><span>Fields</span><p class="hint" style="margin:0 0 8px">Calculated fields use other field names in braces, like {Eggs laid} / {Days counted} * 100. A choice field can end a trial, like Unusable in a storage check.</p><div id="fdList">${liveFields(rt).map(fieldRow).join('')}</div><button type="button" class="btn" id="addFd">${ic('plus')}Add field</button></div>`, {
+    onSave: async d => {
+      if (!d.name) throw new Error('Give the record type a name');
+      const fields = readFieldRows(el, rt.fields || []);
+      if (!fields.length) throw new Error('Add at least one field');
+      // Fields removed in the editor are kept, hidden, if any entry holds a value for them
+      for (const of of (rt.fields || [])) {
+        if (fields.some(f => f.id === of.id)) continue;
+        if (all('entry').some(e => e.rtId === rt.id && e.values?.[of.id] != null && e.values[of.id] !== '')) fields.push({ ...of, archived: true });
+      }
+      const rec = rtId ? rt : { id: 'rt' + uid() };
+      Object.assign(rec, { name: cleanLabel(d.name), itemName: cleanLabel(d.itemName), parentRt: d.parentRt, fields });
+      if (!rtId) { p.recordTypes = [...(p.recordTypes || []), rec]; }
+      await save(p); _rtIdx = null;
+      closeSheet(); toast(rtId ? 'Saved' : `${rec.name} added`); render();
+    },
+    onDelete: rtId && (async () => {
+      const kids = (p.recordTypes || []).filter(t => t.parentRt === rt.id && !t.archived);
+      if (kids.length) { alert(`Remove ${kids.map(k => k.name).join(', ')} first, because ${kids.length === 1 ? 'it is' : 'they are'} logged against ${rt.name}.`); return null; }
+      if (used) rt.archived = true; else p.recordTypes = (p.recordTypes || []).filter(t => t.id !== rt.id);
+      await save(p); _rtIdx = null; return null;
+    }),
+  });
+  $('#addFd', el).addEventListener('click', () => { $('#fdList', el).insertAdjacentHTML('beforeend', fieldRow()); $('#fdList .fd:last-child .fd-label', el).focus(); });
+  el.addEventListener('click', e => { const b = e.target.closest('[data-rmfd]'); if (b) b.closest('.fd').remove(); });
+  el.addEventListener('change', e => {
+    if (!e.target.classList.contains('fd-type')) return;
+    const r = e.target.closest('.fd'), t = e.target.value, num = ['number', 'score', 'calc'].includes(t);
+    $('.fd-unit', r).hidden = !(t === 'number' || t === 'calc');
+    $('.fd-opts', r).hidden = t !== 'choice'; $('.fd-end', r).hidden = t !== 'choice';
+    $('.fd-formula', r).hidden = t !== 'calc';
+    $('.fd-agg', r).hidden = !num; $('.fd-cmp', r).hidden = !num;
+  });
+}
+function suggestSheet(projectId) {
+  const p = get(projectId);
+  const kind = p.kind === 'animal' ? 'animal' : 'plant';
+  const have = new Set(projectRecordTypes(p, true).map(t => t.tplKey).filter(Boolean));
+  const others = all('project').filter(x => x.id !== p.id && x.id !== p.parentId).flatMap(x => (x.recordTypes || []).filter(t => !t.archived && !t.parentRt).map(t => ({ t, x })));
+  const card = (k, tpl) => `<button type="button" class="cap-item plain" data-tpl="${k}:${tpl.key}"${have.has(tpl.key) ? ' disabled' : ''}>${ic('plus')}<span><b>${h(tpl.name)}${have.has(tpl.key) ? ', already added' : ''}</b><small>${h(tpl.desc)} Fields: ${h(tpl.fields.map(f => f.label).join(', '))}.</small></span></button>`;
+  const el = sheet('Add a record type', `
+    <p class="muted">Pick what ${h(p.name)} should track. Everything can be renamed or changed afterwards.</p>
+    <h3>Suggested for ${kind === 'animal' ? 'animals' : 'plants'}</h3>
+    <div class="cap-list">${TEMPLATES[kind].map(t => card(kind, t)).join('')}</div>
+    <h3 style="margin-top:18px">Or</h3>
+    <div class="cap-list"><button type="button" class="cap-item plain" data-custom>${ic('note')}<span><b>Start from scratch</b><small>Name it and choose your own fields</small></span></button>
+    ${others.map(({ t, x }) => `<button type="button" class="cap-item plain" data-copy="${t.id}">${ic('project')}<span><b>Copy ${h(t.name)}</b><small>From ${h(x.name)}</small></span></button>`).join('')}</div>
+    <details style="margin-top:14px"><summary class="muted">Suggestions for ${kind === 'animal' ? 'plants' : 'animals'}</summary><div class="cap-list" style="margin-top:8px">${TEMPLATES[kind === 'animal' ? 'plant' : 'animal'].map(t => card(kind === 'animal' ? 'plant' : 'animal', t)).join('')}</div></details>`);
+  el.addEventListener('click', async e => {
+    if (e.target.closest('[data-custom]')) { recordTypeSheet({ projectId }); return; }
+    const cp = e.target.closest('[data-copy]');
+    if (cp) {
+      const src = rtInfo(cp.dataset.copy);
+      const map = {}; const copies = [];
+      for (const t of [src.rt, ...childTypesOf(src.rt, src.project).filter(c => !c.archived)]) {
+        const n = JSON.parse(JSON.stringify(t)); map[t.id] = n.id = 'rt' + uid();
+        n.fields = n.fields.filter(f => !f.archived); copies.push(n);
+      }
+      for (const n of copies) if (n.parentRt) n.parentRt = map[n.parentRt] || '';
+      p.recordTypes = [...(p.recordTypes || []), ...copies];
+      await save(p); _rtIdx = null; closeSheet(); toast(`Copied ${src.rt.name}`); render(); return;
+    }
+    const b = e.target.closest('[data-tpl]'); if (!b || b.disabled) return;
+    const [k, key] = b.dataset.tpl.split(':');
+    await addTemplate(p, k, key);
+    closeSheet(); render();
+  });
+}
+async function addTemplate(p, kind, key) {
+  const list = TEMPLATES[kind];
+  const make = tpl => ({ id: 'rt' + uid(), tplKey: tpl.key, name: tpl.name, itemName: tpl.itemName || '', parentRt: '', fields: tpl.fields.map(f => ({ ...f, id: 'f' + uid(), options: f.options ? [...f.options] : undefined, endOptions: f.endOptions ? [...f.endOptions] : undefined })) });
+  const tpl = list.find(t => t.key === key);
+  const existing = projectRecordTypes(p).find(t => t.tplKey === key);
+  if (existing) return existing;
+  const added = [];
+  let parentId = '';
+  if (tpl.parentKey) {
+    const par = projectRecordTypes(p).find(t => t.tplKey === tpl.parentKey);
+    if (par) parentId = par.id; else { const np = make(list.find(t => t.key === tpl.parentKey)); added.push(np); parentId = np.id; }
+  }
+  const rt = make(tpl); rt.parentRt = parentId; added.push(rt);
+  p.recordTypes = [...(p.recordTypes || []), ...added];
+  await save(p); _rtIdx = null;
+  toast(added.length > 1 ? `Added ${added.map(a => a.name).join(' and ')}` : `Added ${rt.name}`);
+  return rt;
+}
+
+/* ===================================================================
+   Entries: one logged record of a record type
+   =================================================================== */
+function entryFieldHTML(f, v, rt) {
+  const name = `v_${f.id}`;
+  switch (f.type) {
+    case 'number': return `<label class="fld"><span>${h(f.label)}${f.unit ? ` (${h(f.unit)})` : ''}</span><input type="number" step="any" inputmode="decimal" name="${name}" value="${h(v ?? '')}"></label>`;
+    case 'score': return `<div class="fld"><span>${h(f.label)}</span><div class="pips" role="radiogroup" aria-label="${h(f.label)}">${[1, 2, 3, 4, 5].map(n => `<label class="pip"><input type="radio" name="${name}" value="${n}" ${+v === n ? 'checked' : ''}><span>${n}</span></label>`).join('')}<button type="button" class="linkish" data-clearpip="${name}">Clear</button></div></div>`;
+    case 'choice': return `<label class="fld"><span>${h(f.label)}</span><select name="${name}"><option value=""></option>${(f.options || []).map(o => `<option ${o === v ? 'selected' : ''}>${h(o)}</option>`).join('')}</select></label>`;
+    case 'date': return `<label class="fld"><span>${h(f.label)}</span><input type="date" name="${name}" value="${h(v ?? '')}"></label>`;
+    case 'yesno': return `<label class="fld"><span>${h(f.label)}</span><select name="${name}"><option value=""></option><option ${v === 'Yes' ? 'selected' : ''}>Yes</option><option ${v === 'No' ? 'selected' : ''}>No</option></select></label>`;
+    case 'calc': return `<div class="fld"><span>${h(f.label)}</span><output class="calc empty" data-calc="${f.id}"></output></div>`;
+    default: return `<label class="fld"><span>${h(f.label)}</span><input name="${name}" value="${h(v ?? '')}"></label>`;
+  }
+}
+function readEntryValues(form, fields) {
+  const out = {};
+  for (const f of fields) {
+    if (f.type === 'calc') continue;
+    const els = form.elements[`v_${f.id}`]; if (!els) continue;
+    let v = els instanceof RadioNodeList ? els.value : els.value;
+    v = (v || '').trim();
+    if (v === '') continue;
+    out[f.id] = (f.type === 'number' || f.type === 'score') ? +v : v;
+  }
+  return out;
+}
+function entrySheet({ id, rtId, indId, parentEntryId } = {}) {
+  const e = id ? get(id) : { rtId, indId, parentEntryId: parentEntryId || '', date: today(), values: {}, photoIds: [] };
+  const { rt, project } = rtInfo(e.rtId);
+  if (!rt) { toast('That record type no longer exists'); return; }
+  const ind = get(e.indId);
+  const parentRt = rt.parentRt ? rtInfo(rt.parentRt).rt : null;
+  const fields = liveFields(rt).concat((rt.fields || []).filter(f => f.archived && e.values?.[f.id] != null));
+  let seq = e.seq;
+  if (!id && rt.itemName && !parentEntryId) seq = Math.max(0, ...entriesOf(e.indId, rt.id).map(x => x.seq || 0)) + 1;
+  const parentOpts = parentRt ? entriesOf(e.indId, parentRt.id).map(x => [x.id, `${parentRt.itemName} ${x.seq}${x.date ? `, ${fmtDate(x.date)}` : ''}`]) : [];
+  const heading = rt.itemName && !rt.parentRt ? `${rt.itemName} ${seq}` : rt.name;
+  let ph;
+  const { el, form } = formSheet(`${heading}${ind ? `, ${ind.code}` : ''}`, `
+    ${parentRt ? F.select('parentEntryId', `Which ${parentRt.itemName.toLowerCase()}`, e.parentEntryId, parentOpts) : ''}
+    ${F.date('date', rt.itemName && !rt.parentRt ? 'Date (harvested, born or laid)' : 'Date', e.date)}
+    <p class="hint" id="dayHint"></p>
+    ${fields.map(f => entryFieldHTML(f, e.values?.[f.id], rt)).join('')}
+    ${F.area('notes', 'Notes', e.notes, '', 2)}
+    ${photoField()}`, {
+    onSave: async d => {
+      if (parentRt && !d.parentEntryId) throw new Error(`Choose which ${parentRt.itemName.toLowerCase()} this is for`);
+      const rec = id ? e : { id: uid(), type: 'entry', rtId: e.rtId, indId: e.indId, seq };
+      Object.assign(rec, { date: d.date, notes: d.notes, parentEntryId: parentRt ? d.parentEntryId : '', values: readEntryValues(form, fields), photoIds: ph.ids });
+      await save(rec); closeSheet(); toast(id ? 'Saved' : `${heading} recorded`); render();
+    },
+    onDelete: id && (async () => { await removeRec(id); return null; }),
+  });
+  ph = mountPhotos(el, e.photoIds);
+  const recalc = () => {
+    const vals = readEntryValues(form, fields);
+    $$('[data-calc]', el).forEach(o => { const f = fields.find(x => x.id === o.dataset.calc); const r = evalCalc(f.formula, vals, rt.fields); o.textContent = r == null ? `Fills in from ${(f.formula.match(/\{[^}]+\}/g) || []).map(x => x.slice(1, -1)).join(' and ')}` : fmtValue(r, f); o.classList.toggle('empty', r == null); });
+    if (parentRt) { const par = get(form.elements.parentEntryId?.value); const dd = par && daysBetween(par.date, form.elements.date.value); $('#dayHint', el).textContent = dd != null ? `Day ${dd} since this ${parentRt.itemName.toLowerCase()} was recorded.` : ''; }
+  };
+  form.addEventListener('input', recalc); form.addEventListener('change', recalc);
+  el.addEventListener('click', ev => { const c = ev.target.closest('[data-clearpip]'); if (c) { $$(`input[name="${c.dataset.clearpip}"]`, el).forEach(x => { x.checked = false; }); recalc(); } });
+  recalc();
+  void project;
+}
+/* Log one check (e.g. storage condition) for every item still on trial in a project */
+function bulkSheet({ projectId, rtId }) {
+  const p = get(projectId); const { rt } = rtInfo(rtId); const parentRt = rtInfo(rt.parentRt).rt;
+  const f = endFieldOf(rt) || liveFields(rt).find(x => x.type === 'choice');
+  if (!f) { toast(`${rt.name} needs a choice field to check items in bulk`); return; }
+  const fam = new Set(projectFamily(p));
+  const items = all('entry').filter(e => e.rtId === parentRt.id && !e.parentEntryId && fam.has(get(e.indId)?.projectId))
+    .map(e => ({ e, t: trialOf(e, rt) })).filter(x => !x.t?.ended)
+    .sort((a, b) => byCode(get(a.e.indId) || {}, get(b.e.indId) || {}) || (a.e.seq || 0) - (b.e.seq || 0));
+  if (!items.length) { toast(`No ${parentRt.itemName.toLowerCase()} waiting for a ${rt.name.toLowerCase()}`); return; }
+  const { el, form } = formSheet(`${rt.name} for every ${parentRt.itemName.toLowerCase()}`, `
+    ${F.date('date', 'Date', today())}
+    <p class="hint">Set ${h(f.label.toLowerCase())} for each ${h(parentRt.itemName.toLowerCase())} you checked. Rows left blank are skipped.</p>
+    <ul class="list bulk">${items.map(({ e, t }) => `<li class="bulk-row"><span class="main"><span class="t">${h(itemLabel(e))}</span><span class="s">${t ? `Last: ${h(t.last.values?.[f.id] || 'checked')}, day ${t.days}` : `Recorded ${h(fmtDate(e.date))}, not checked yet`}</span></span><select data-item="${e.id}" aria-label="${h(itemLabel(e))}"><option value=""></option>${f.options.map(o => `<option>${h(o)}</option>`).join('')}</select></li>`).join('')}</ul>`, {
+    saveLabel: 'Save checks',
+    onSave: async d => {
+      const rows = $$('[data-item]', el).filter(s => s.value);
+      if (!rows.length) throw new Error('Set at least one row');
+      for (const s of rows) { const par = get(s.dataset.item); await save({ id: uid(), type: 'entry', rtId: rt.id, indId: par.indId, parentEntryId: par.id, date: d.date, values: { [f.id]: s.value }, photoIds: [] }); }
+      closeSheet(); toast(`${rows.length} check${rows.length === 1 ? '' : 's'} saved`); render();
+    },
+  });
+  void form;
+}
+
+/* Rendering record sections */
+function entrySummary(e, rt, max = 5) {
+  return liveFields(rt).map(f => { const v = fieldValue(e, f, rt); return v == null || v === '' ? '' : `${f.label}: ${fmtValue(v, f)}`; }).filter(Boolean).slice(0, max).map(h).join(', ');
+}
+function recordsHTML(i) {
+  const p = get(i.projectId);
+  const types = projectRecordTypes(p, true).filter(t => !t.parentRt && (!t.archived || entriesOf(i.id, t.id).length));
+  if (!p) return '';
+  if (!types.length) return sec('Records', null, `<p class="muted">Choose what <a href="#/project/${p.id}">${h(p.name)}</a> tracks, like harvests, measurements or weigh-ins, to log them here.</p>`);
+  return sec('Records', null, types.map(rt => {
+    const list = entriesOf(i.id, rt.id).reverse();
+    const kids = childTypesOf(rt, p).filter(c => !c.archived);
+    const addLabel = rt.itemName ? `Add ${rt.itemName.toLowerCase()}` : `Log ${rt.name.toLowerCase()}`;
+    const items = list.map(e => {
+      const trials = kids.map(c => {
+        const t = trialOf(e, c);
+        const status = !t ? `No ${c.name.toLowerCase()} yet` : t.endF ? (t.ended ? `Kept ${t.days} days` : `Day ${t.days}: ${h(t.last.values?.[t.endF.id] || 'checked')}`) : `${t.kids.length} logged`;
+        return `<div class="trial"><span><b>${h(c.name)}:</b> ${status}</span><button type="button" class="btn sm" data-act="newEntry" data-rt="${c.id}" data-ind="${i.id}" data-parent="${e.id}">${ic('plus')}${h(c.name)}</button>${t ? `<div class="filters" style="margin:6px 0 0">${t.kids.map(k => `<button type="button" class="chip" data-act="editEntry" data-id="${k.id}">Day ${daysBetween(e.date, k.date) ?? '?'}${t.endF ? ': ' + h(k.values?.[t.endF.id] || '') : ''}</button>`).join('')}</div>` : ''}</div>`;
+      }).join('');
+      return `<li class="item"><div class="item-head"><b>${rt.itemName ? `${h(rt.itemName)} ${e.seq || ''}` : h(fmtDate(e.date))}</b>${rt.itemName ? `<span class="muted small">${h(fmtDate(e.date))}</span>` : ''}<button class="linkish" data-act="editEntry" data-id="${e.id}">Edit</button></div>
+        ${entrySummary(e, rt, 8) ? `<p class="vals">${entrySummary(e, rt, 8)}</p>` : ''}${e.notes ? `<p class="vals muted">${h(e.notes)}</p>` : ''}
+        ${e.photoIds?.length ? `<div class="ph-grid">${e.photoIds.map(x => `<img data-photo="${x}" data-act="photo" alt="">`).join('')}</div>` : ''}${trials}</li>`;
+    }).join('');
+    return `<div class="rt-block"><div class="rt-head"><h3>${h(rt.name)}${rt.archived ? ' <span class="chip">Retired</span>' : ''}</h3>${rt.archived ? '' : `<button type="button" class="btn sm tagc" data-act="newEntry" data-rt="${rt.id}" data-ind="${i.id}">${ic('plus')}${h(addLabel)}</button>`}</div>${list.length ? `<ul class="items">${items}</ul>` : '<p class="muted small">Nothing logged yet.</p>'}</div>`;
+  }).join(''));
+}
+function recordTypesHTML(p) {
+  const types = projectRecordTypes(p);
+  const own = new Set((p.recordTypes || []).map(t => t.id));
+  const body = types.length ? `<ul class="list">${types.map(rt => {
+    const parent = rt.parentRt ? rtInfo(rt.parentRt).rt : null;
+    const bulk = parent && liveFields(rt).some(f => f.type === 'choice');
+    return `<li class="rt-def"><div class="main"><span class="t">${h(rt.name)}</span><span class="s">${parent ? `For each ${h(parent.itemName.toLowerCase())}, ` : rt.itemName ? `One ${h(rt.itemName.toLowerCase())} per entry, ` : ''}${h(liveFields(rt).map(f => f.label).join(', '))}${own.has(rt.id) ? '' : `. From ${h(rtInfo(rt.id).project?.name || '')}`}</span></div><div class="actions tight">${bulk ? `<button type="button" class="btn sm" data-act="bulk" data-rt="${rt.id}" data-project="${p.id}">Check every ${h(parent.itemName.toLowerCase())}</button>` : ''}<button type="button" class="btn sm" data-act="editRt" data-rt="${rt.id}">Edit</button></div></li>`;
+  }).join('')}</ul>` : `<p class="muted">Choose what to log for each ${h(p.kind === 'animal' ? 'animal' : 'plant')}: harvests, measurements, storage trials, weigh-ins, litters, or your own fields.</p>`;
+  return sec('What this project tracks', null, `${body}<div class="actions"><button type="button" class="btn" data-act="addRt" data-project="${p.id}">${ic('plus')}Add a record type</button></div>`);
+}
+function compareHTML(p, q) {
+  const cols = compareColumns(p);
+  const members = membersOf(p);
+  if (!members.length) return '';
+  if (!cols.length) return '';
+  const firstWithData = cols.find(c => members.some(i => { const v = c.get(i); return (c.num ? c.num(v) : v) != null; })) || cols[0];
+  const sortKey = q.sort || firstWithData.key, dir = q.dir === 'asc' ? 1 : -1;
+  const col = cols.find(c => c.key === sortKey) || cols[0];
+  const num = c => x => { const v = c.get(x); return c.num ? c.num(v) : v; };
+  const rows = members.map(i => ({ i, vals: cols.map(c => c.get(i)) }));
+  const sv = num(col);
+  rows.sort((a, b) => { const x = sv(a.i), y = sv(b.i); if (x == null && y == null) return byCode(a.i, b.i); if (x == null) return 1; if (y == null) return -1; return (x - y) * dir || byCode(a.i, b.i); });
+  const head = cols.map(c => `<th scope="col"><a href="#/project/${p.id}?sort=${encodeURIComponent(c.key)}&dir=${c.key === col.key && dir === -1 ? 'asc' : 'desc'}" title="${h(c.hint || 'Sort')}"${c.key === col.key ? ' aria-sort="' + (dir === -1 ? 'descending' : 'ascending') + '"' : ''}>${h(c.label)}${c.key === col.key ? (dir === -1 ? ' ↓' : ' ↑') : ''}</a></th>`).join('');
+  const traits = projectTraits(p);
+  const body = rows.map(({ i, vals }) => {
+    const flags = traits.length ? scoreOf(i, projectTraits(get(i.projectId)).length ? projectTraits(get(i.projectId)) : traits).flags : [];
+    return `<tr><th scope="row"><a href="#/ind/${i.id}">${h(i.code)}</a>${i.generation ? `<span class="muted"> ${h(i.generation)}</span>` : ''}</th>${vals.map((v, k) => `<td${cols[k].key === 'score' && flags.length ? ` class="flag" title="Below 3 on: ${h(flags.join(', '))}"` : ''}>${h(cols[k].fmt(v))}</td>`).join('')}</tr>`;
+  }).join('');
+  return sec('Compare', members.length, `<p class="hint" style="margin-top:0">Tap a column to sort. A + means a storage trial is still running.${traits.length ? ' Red scores are below 3 on a must-have trait.' : ''}</p><div class="tbl-wrap"><table class="cmp"><thead><tr><th scope="col">Tag</th>${head}</tr></thead><tbody>${body}</tbody></table></div>`);
+}
+
+/* ===================================================================
+   Recycle bin: deletions are kept for 30 days
+   =================================================================== */
+const BIN_DAYS = 30;
+function binBatches() {
+  const m = new Map();
+  for (const r of S.recs.values()) if (r.deletedAt && r.delBatch) { if (!m.has(r.delBatch)) m.set(r.delBatch, []); m.get(r.delBatch).push(r); }
+  return [...m.entries()].map(([batch, recs]) => ({ batch, recs, root: recs.find(r => r.id === r.delRoot) || recs[0], at: recs[0].deletedAt })).sort((a, b) => b.at - a.at);
+}
+async function restoreBatch(batch) {
+  const rs = [...S.recs.values()].filter(r => r.delBatch === batch);
+  const now = Date.now();
+  rs.forEach(r => { delete r.deletedAt; delete r.delBatch; delete r.delRoot; r.updatedAt = now; });
+  await DB.putMany('records', rs); _noteIdx = null; _rtIdx = null;
+  return rs.length;
+}
+async function purgeBatch(batch) {
+  const rs = [...S.recs.values()].filter(r => r.delBatch === batch);
+  for (const r of rs) { S.recs.delete(r.id); await DB.del('records', r.id); }
+  _noteIdx = null; _rtIdx = null;
+}
+async function purgeOldBin() {
+  const cutoff = Date.now() - BIN_DAYS * 864e5;
+  for (const b of binBatches()) if (b.at < cutoff) await purgeBatch(b.batch);
+  await cleanOrphanPhotos();
+}
+async function cleanOrphanPhotos() {
+  const used = usedPhotoIds();
+  const undo = await DB.get('meta', 'undo');
+  for (const r of undo?.records || []) (r.photoIds || []).forEach(x => used.add(x));
+  const day = Date.now() - 864e5;
+  for (const p of await DB.all('photos')) if (!used.has(p.id) && (p.at || 0) < day) await DB.del('photos', p.id);
+}
+function pBin() {
+  const batches = binBatches();
+  const kindName = r => ({ strain: 'Variety or breed', stock: 'Lot', individual: 'Tagged', project: 'Project', cross: 'Cross', note: 'Note', entry: 'Record' }[r.type] || 'Record');
+  return `<h1>Recycle bin</h1><p class="muted">Deleted records stay here for ${BIN_DAYS} days, then are removed for good.</p>
+  ${batches.length ? `<ul class="list">${batches.map(b => {
+    const extra = b.recs.length - 1;
+    const name = b.root.type === 'entry' ? itemLabel(b.root) : b.root.type === 'note' ? (b.root.text || 'Photo note').slice(0, 60) : title(b.root);
+    return `<li class="rt-def"><div class="main"><span class="t">${h(name)}</span><span class="s">${kindName(b.root)}, deleted ${h(new Date(b.at).toLocaleDateString())}${extra ? `, with ${extra} linked note${extra === 1 ? '' : 's'} and record${extra === 1 ? '' : 's'}` : ''}</span></div><div class="actions tight"><button class="btn sm primary" data-act="binRestore" data-batch="${b.batch}">Restore</button><button class="btn sm danger" data-act="binPurge" data-batch="${b.batch}">Delete now</button></div></li>`;
+  }).join('')}</ul>` : emptyBox('The recycle bin is empty.', '', '')}`;
+}
+
+/* ===================================================================
+   Backup as a zip: lineage.json + photos as image files + readable CSVs
+   =================================================================== */
+const CRC_TABLE = (() => { const t = new Uint32Array(256); for (let n = 0; n < 256; n++) { let c = n; for (let k = 0; k < 8; k++) c = c & 1 ? 0xEDB88320 ^ (c >>> 1) : c >>> 1; t[n] = c >>> 0; } return t; })();
+function crc32(buf) { let c = 0xFFFFFFFF; for (let i = 0; i < buf.length; i++) c = CRC_TABLE[(c ^ buf[i]) & 0xFF] ^ (c >>> 8); return (c ^ 0xFFFFFFFF) >>> 0; }
+async function deflateRaw(u8) {
+  if (typeof CompressionStream === 'undefined') return null;
+  try { return new Uint8Array(await new Response(new Blob([u8]).stream().pipeThrough(new CompressionStream('deflate-raw'))).arrayBuffer()); } catch { return null; }
+}
+async function inflateRaw(u8) {
+  if (typeof DecompressionStream === 'undefined') throw new Error('This browser cannot open compressed backups. Try Chrome, Edge or Firefox');
+  return new Uint8Array(await new Response(new Blob([u8]).stream().pipeThrough(new DecompressionStream('deflate-raw'))).arrayBuffer());
+}
+async function makeZip(files, onProgress) {
+  const enc = new TextEncoder(), parts = [], central = [];
+  const d = new Date();
+  const dosTime = (d.getHours() << 11) | (d.getMinutes() << 5) | (d.getSeconds() >> 1);
+  const dosDate = ((d.getFullYear() - 1980) << 9) | ((d.getMonth() + 1) << 5) | d.getDate();
+  let offset = 0, n = 0;
+  for (const f of files) {
+    const name = enc.encode(f.name);
+    const raw = f.data instanceof Blob ? new Uint8Array(await f.data.arrayBuffer()) : (typeof f.data === 'string' ? enc.encode(f.data) : f.data);
+    const crc = crc32(raw), size = raw.length;
+    let method = 0, body = raw;
+    if (f.compress) { const z = await deflateRaw(raw); if (z && z.length < size) { method = 8; body = z; } }
+    const lh = new DataView(new ArrayBuffer(30));
+    lh.setUint32(0, 0x04034b50, true); lh.setUint16(4, 20, true); lh.setUint16(6, 0x0800, true); lh.setUint16(8, method, true);
+    lh.setUint16(10, dosTime, true); lh.setUint16(12, dosDate, true); lh.setUint32(14, crc, true);
+    lh.setUint32(18, body.length, true); lh.setUint32(22, size, true); lh.setUint16(26, name.length, true); lh.setUint16(28, 0, true);
+    parts.push(lh, name, method === 0 && f.data instanceof Blob ? f.data : body);
+    central.push({ name, crc, csize: body.length, size, method, offset });
+    offset += 30 + name.length + body.length;
+    if (onProgress && ++n % 20 === 0) onProgress(n, files.length);
+  }
+  const cdStart = offset;
+  for (const c of central) {
+    const cd = new DataView(new ArrayBuffer(46));
+    cd.setUint32(0, 0x02014b50, true); cd.setUint16(4, 20, true); cd.setUint16(6, 20, true); cd.setUint16(8, 0x0800, true); cd.setUint16(10, c.method, true);
+    cd.setUint16(12, dosTime, true); cd.setUint16(14, dosDate, true); cd.setUint32(16, c.crc, true); cd.setUint32(20, c.csize, true); cd.setUint32(24, c.size, true);
+    cd.setUint16(28, c.name.length, true); cd.setUint32(42, c.offset, true);
+    parts.push(cd, c.name); offset += 46 + c.name.length;
+  }
+  const end = new DataView(new ArrayBuffer(22));
+  end.setUint32(0, 0x06054b50, true); end.setUint16(8, central.length, true); end.setUint16(10, central.length, true);
+  end.setUint32(12, offset - cdStart, true); end.setUint32(16, cdStart, true);
+  parts.push(end);
+  return new Blob(parts, { type: 'application/zip' });
+}
+async function openZip(blob) {
+  const tailLen = Math.min(blob.size, 65557);
+  const tail = new DataView(await blob.slice(blob.size - tailLen).arrayBuffer());
+  let eocd = -1;
+  for (let i = tailLen - 22; i >= 0; i--) if (tail.getUint32(i, true) === 0x06054b50) { eocd = i; break; }
+  if (eocd < 0) throw new Error('This zip file looks damaged or incomplete');
+  const count = tail.getUint16(eocd + 10, true), cdSize = tail.getUint32(eocd + 12, true), cdOff = tail.getUint32(eocd + 16, true);
+  const cd = new DataView(await blob.slice(cdOff, cdOff + cdSize).arrayBuffer());
+  const dec = new TextDecoder(), files = new Map();
+  let p = 0;
+  for (let i = 0; i < count; i++) {
+    if (cd.getUint32(p, true) !== 0x02014b50) throw new Error('This zip file looks damaged');
+    const method = cd.getUint16(p + 10, true), csize = cd.getUint32(p + 20, true), nlen = cd.getUint16(p + 28, true), xlen = cd.getUint16(p + 30, true), clen = cd.getUint16(p + 32, true), off = cd.getUint32(p + 42, true);
+    files.set(dec.decode(new Uint8Array(cd.buffer, cd.byteOffset + p + 46, nlen)), { method, csize, off });
+    p += 46 + nlen + xlen + clen;
+  }
+  const read = async (name, type = '') => {
+    const f = files.get(name); if (!f) return null;
+    const lh = new DataView(await blob.slice(f.off, f.off + 30).arrayBuffer());
+    const start = f.off + 30 + lh.getUint16(26, true) + lh.getUint16(28, true);
+    const data = blob.slice(start, start + f.csize, type);
+    if (f.method === 0) return data;
+    if (f.method === 8) return new Blob([await inflateRaw(new Uint8Array(await data.arrayBuffer()))], { type });
+    throw new Error('This backup uses a compression this browser cannot read');
+  };
+  return { files, read };
+}
+const slug = s => String(s || '').normalize('NFKD').replace(/[^\w\s-]/g, '').trim().replace(/\s+/g, '-').slice(0, 40) || 'photo';
+const csvCell = v => { const s = v == null ? '' : String(v); return /[",\n\r]/.test(s) ? `"${s.replace(/"/g, '""')}"` : s; };
+const toCSV = rows => '\ufeff' + rows.map(r => r.map(csvCell).join(',')).join('\r\n');
+function readableFiles(photoName) {
+  const nm = id => (get(id) ? title(get(id)) : '');
+  const files = [];
+  files.push(['readable/varieties-and-breeds.csv', [['Name', 'Plant or animal', 'Group', 'Species', 'Species confirmed', 'Source', 'Description'], ...all('strain').sort(byName).map(s => [s.name, s.kind, s.group, s.species, s.speciesVerified ? 'Yes' : 'No', s.origin, s.description])]]);
+  files.push(['readable/lots.csv', [['Lot', 'Variety or breed', 'Source', 'Batch', 'Packed, harvested or bought', 'Best before', 'Quantity', 'Stored', 'Status', 'Mother', 'Father', 'Notes'], ...all('stock').map(l => [title(l), nm(l.strainId), l.source, l.batch, l.year, l.bestBefore, l.quantity, l.location, LOT_STATUS[l.status] || l.status, nm(l.motherId), nm(l.fatherId), l.notes])]]);
+  files.push(['readable/tagged.csv', [['Tag', 'Nickname', 'Variety or breed', 'Project', 'Generation', 'Sex', 'Sown or born', 'Status', 'Mother', 'Father', 'From lot', 'Trait scores'], ...all('individual').sort(byCode).map(i => [i.code, i.name, nm(i.strainId), nm(i.projectId), i.generation, i.sex, i.startDate, i.status, nm(i.motherId), nm(i.fatherId), nm(i.stockId), Object.entries(i.scores || {}).map(([k, v]) => `${k}: ${v}`).join('; ')])]]);
+  files.push(['readable/crosses.csv', [['Date', 'Mother', 'Father', 'Method', 'Status', 'Result', 'Project', 'Details'], ...all('cross').sort(byDateAsc).map(c => [c.date, nm(c.motherId), nm(c.fatherId), c.method, c.status, c.outcome, nm(c.projectId), c.notes])]]);
+  files.push(['readable/notes.csv', [['Date', 'About', 'Note', 'Photo files'], ...all('note').sort(byDateAsc).map(n => [n.date, nm(n.refId), n.text, (n.photoIds || []).map(photoName).filter(Boolean).join('; ')])]]);
+  for (const { rt, project } of rtIndex().values()) {
+    const es = all('entry').filter(e => e.rtId === rt.id).sort(byDateAsc);
+    if (!es.length) continue;
+    const fields = rt.fields || [];
+    const parentRt = rt.parentRt ? rtInfo(rt.parentRt).rt : null;
+    const head = ['Tag', ...(rt.itemName ? [rt.itemName] : []), ...(parentRt ? [parentRt.itemName, 'Day'] : []), 'Date', ...fields.map(f => f.label + (f.unit ? ` (${f.unit})` : '')), 'Notes', 'Photo files'];
+    const rows = es.map(e => { const par = get(e.parentEntryId); return [get(e.indId)?.code, ...(rt.itemName ? [e.seq] : []), ...(parentRt ? [par?.seq, par ? daysBetween(par.date, e.date) : ''] : []), e.date, ...fields.map(f => { const v = fieldValue(e, f, rt); return v == null ? '' : v; }), e.notes, (e.photoIds || []).map(photoName).filter(Boolean).join('; ')]; });
+    files.push([`readable/records-${slug(project.name)}-${slug(rt.name)}.csv`, [head, ...rows]]);
+  }
+  return files.map(([name, rows]) => ({ name, data: toCSV(rows), compress: true }));
+}
+const BACKUP_README = `LINEAGE BACKUP
+
+This zip holds everything from Lineage on one device.
+
+lineage.json      All records. Lineage reads this file to restore.
+photos/           Every photo as a normal image file. File names start with
+                  the date and what the photo is of.
+photos/thumbs/    Small copies Lineage uses for lists.
+readable/         Your records as spreadsheet files (CSV). Open them in
+                  Excel, Google Sheets or LibreOffice to read your data
+                  without the app.
+
+To restore: open Lineage, go to Settings, choose "Restore or import a file"
+and pick this zip. Do not unzip it first.
+`;
+async function buildZipBackup(onProgress) {
+  const owner = new Map();
+  const sorted = [...S.recs.values()].sort((a, b) => (a.deletedAt ? 1 : 0) - (b.deletedAt ? 1 : 0));
+  for (const r of sorted) for (const pid of r.photoIds || []) if (!owner.has(pid)) {
+    const about = r.type === 'note' ? get(r.refId) : r.type === 'entry' ? null : r;
+    const label = r.type === 'entry' ? itemLabel(r) : about ? title(about) : 'note';
+    owner.set(pid, `${r.date || today()}_${slug(label)}`);
+  }
+  const names = new Map();
+  const photoMeta = [], files = [];
+  for (const p of await DB.all('photos')) {
+    if (!owner.has(p.id)) continue;
+    const full = `photos/${owner.get(p.id)}_${p.id}.jpg`, thumb = `photos/thumbs/${p.id}.jpg`;
+    names.set(p.id, full.slice(7));
+    photoMeta.push({ id: p.id, at: p.at, full, thumb: p.thumb ? thumb : null });
+    files.push({ name: full, data: p.full });
+    if (p.thumb) files.push({ name: thumb, data: p.thumb });
+  }
+  const meta = { app: 'lineage', version: 2, format: 'zip', exportedAt: new Date().toISOString(), records: [...S.recs.values()], photos: photoMeta };
+  const out = [{ name: 'lineage.json', data: JSON.stringify(meta), compress: true }, { name: 'README.txt', data: BACKUP_README, compress: true }, ...readableFiles(id => names.get(id)), ...files];
+  const blob = await makeZip(out, onProgress);
+  return { blob, name: `lineage-backup-${today()}.zip`, records: meta.records.filter(r => !r.deletedAt).length, photos: photoMeta.length };
+}
+async function readBackupFile(file) {
+  const head = new Uint8Array(await file.slice(0, 2).arrayBuffer());
+  if (head[0] === 0x50 && head[1] === 0x4b) {
+    const z = await openZip(file);
+    const jb = await z.read('lineage.json');
+    if (!jb) throw new Error('This zip is not a Lineage backup');
+    const data = JSON.parse(await jb.text());
+    return { data, photo: async p => ({ id: p.id, at: p.at, full: await z.read(p.full, 'image/jpeg'), thumb: p.thumb ? await z.read(p.thumb, 'image/jpeg') : null }) };
+  }
+  const data = JSON.parse(await file.text());
+  return { data, photo: async p => ({ id: p.id, at: p.at, full: dataURLToBlob(p.full), thumb: p.thumb ? dataURLToBlob(p.thumb) : null }) };
+}
+/* ---------- Shared fragments ---------- */
+const emptyBox = (text, act, label, preset) => `<div class="empty"><p>${text}</p>${act ? `<button class="btn" data-act="${act}"${preset ? ` data-preset="${pre(preset)}"` : ''}>${label}</button>` : ''}</div>`;
+const fact = (k, v) => (v ? `<div><dt>${h(k)}</dt><dd>${h(v)}</dd></div>` : '');
+const factLink = (k, r) => (r ? `<div><dt>${h(k)}</dt><dd><a href="${link(r)}">${h(title(r))}</a></dd></div>` : '');
+const sec = (titleText, count, body) => `<section class="sec"><div class="sec-head"><h2>${titleText}</h2>${count != null ? `<span class="muted">${count}</span>` : ''}</div>${body}</section>`;
+const searchBox = (ph) => `<div class="searchbar">${ic('search')}<input type="search" placeholder="${h(ph)}" data-filter aria-label="${h(ph)}"></div>`;
+const notFound = () => emptyBox('This record no longer exists. It may have been deleted.', '', '');
+const scoreBadge = pct => (pct != null ? `<span class="score" title="Selection score"><span class="meter"><i style="width:${pct}%"></i></span>${pct}</span>` : '');
+
+function logList(notes, { showRef = false } = {}) {
+  return `<ul class="log">${notes.map(n => {
+    const ref = get(n.refId);
+    const s = [n.text, ref ? title(ref) : ''].join(' ').toLowerCase();
+    return `<li data-s="${h(s)}"><div class="d"><span>${h(fmtDate(n.date))}</span>${showRef && ref ? `<a class="chip" href="${link(ref)}">${h(title(ref))}</a>` : ''}<button class="linkish" data-act="editNote" data-id="${n.id}">Edit</button></div>${n.text ? `<p class="txt">${h(n.text)}</p>` : ''}${n.photoIds?.length ? `<div class="ph-grid">${n.photoIds.map(p => `<img data-photo="${p}" data-act="photo" alt="Photo from ${h(fmtDate(n.date))}">`).join('')}</div>` : ''}</li>`;
+  }).join('')}</ul>`;
+}
+function strainRow(s, lotCount) {
+  const nn = notesFor(s.id).length;
+  const sub = [s.species ? `<i>${h(s.species)}</i>` : '', lotCount ? `${lotCount} lot${lotCount > 1 ? 's' : ''}` : '', nn ? `${nn} note${nn > 1 ? 's' : ''}` : ''].filter(Boolean).join(', ') || h(s.origin || '');
+  return `<li data-s="${h([s.name, s.species, s.group, s.origin].join(' ').toLowerCase())}"><a class="row" href="#/strain/${s.id}">${thumbOf(s)}<span class="main"><span class="t">${h(s.name)}</span><span class="s">${sub}</span></span>${s.species && !s.speciesVerified ? '<span class="chip warn">Unconfirmed</span>' : ''}</a></li>`;
+}
+function lotRow(l) {
+  const past = l.bestBefore && l.bestBefore.slice(0, 7) < today().slice(0, 7);
+  const sub = [l.source, l.batch && `Batch ${l.batch}`, l.year].filter(Boolean).map(h).join(', ');
+  const st = l.status === 'archive' ? '<span class="chip">Archive</span>' : l.status === 'used' ? '<span class="chip">Used up</span>' : '';
+  return `<li data-s="${h([title(l), l.source, l.batch, l.year, l.location].join(' ').toLowerCase())}"><a class="row" href="#/lot/${l.id}">${thumbOf(l)}<span class="main"><span class="t">${h(title(l))}</span><span class="s">${sub || '&nbsp;'}</span></span>${past ? '<span class="chip warn">Past best-before</span>' : st}</a></li>`;
+}
+function indRow(i) {
+  const s = get(i.strainId), p = get(i.projectId);
+  const sc = scoreOf(i, projectTraits(p));
+  const sub = [s?.name, p?.name, i.generation, i.status].filter(Boolean).map(h).join(', ');
+  return `<li data-s="${h([i.code, i.name, s?.name, p?.name, i.generation, i.status].join(' ').toLowerCase())}"><a class="row" href="#/ind/${i.id}">${thumbOf(i)}<span class="main"><span class="tag sm">${h(i.code || 'Untagged')}</span><span class="s">${i.name ? `<span class="nm">${h(i.name)}</span>, ` : ''}${sub}</span></span>${scoreBadge(sc.pct)}</a></li>`;
+}
+function crossRow(c) {
+  const sub = [fmtDate(c.date), c.method, c.status].filter(Boolean).map(h).join(', ');
+  return `<li data-s="${h([crossTitle(c), c.method, c.status, c.outcome].join(' ').toLowerCase())}"><a class="row" href="#/cross/${c.id}"><span class="thumb">${ic('cross')}</span><span class="main"><span class="t">${h(crossTitle(c))}</span><span class="s">${sub}</span></span></a></li>`;
+}
+function pCard(p) {
+  const lines = all('project').filter(x => x.parentId === p.id).length;
+  return `<a class="pcard" href="#/project/${p.id}">${p.code ? `<span class="tag sm">${h(p.code)}</span>` : ''}<span class="n">${h(p.name)}</span>${p.species ? `<i class="muted small">${h(p.species)}</i>` : ''}${p.goal ? `<p class="clamp">${h(p.goal)}</p>` : ''}<span class="small muted">${membersOf(p).length} tagged${lines ? `, ${lines} line${lines > 1 ? 's' : ''}` : ''}</span></a>`;
+}
+
+/* ---------- Pages ---------- */
+function pHome() {
+  const date = new Date().toLocaleDateString(undefined, { weekday: 'long', day: 'numeric', month: 'long' });
+  if (!S.recs.size) {
+    return `<section class="welcome"><p class="today">${h(date)}</p>
+      <h1>A breeding journal for plants and animals</h1>
+      <p>Keep your seed and stock library, tag individual plants and animals, record crosses and pairings, and build a dated log of how every line performs. Everything stays on this device.</p>
+      <div class="actions"><button class="btn tagc" data-act="scan">${ic('camera')}Scan your first packet or label</button><button class="btn" data-act="newProject">${ic('project')}Start a breeding project</button><button class="btn" data-act="importBackup" data-mode="merge">Import a backup or starter file</button></div></section>`;
+  }
+  const strains = all('strain'), lots = all('stock'), inds = all('individual');
+  const projs = all('project').filter(p => !p.parentId || !get(p.parentId)).sort(byName);
+  const notes = all('note').sort(byDateDesc).slice(0, 6);
+  const changes = changesSinceBackup();
+  const last = Math.max(S.settings.lastExport || 0, S.settings.lastQuick || 0);
+  const days = last ? Math.floor((Date.now() - last) / 864e5) : null;
+  const fullDays = S.settings.lastExport ? Math.floor((Date.now() - S.settings.lastExport) / 864e5) : null;
+  const hasPhotos = [...S.recs.values()].some(r => r.photoIds?.length);
+  const needsBackup = days === null || (changes && days >= 7) || changes >= 25;
+  const photosStale = !needsBackup && hasPhotos && (fullDays === null || fullDays > 30);
+  return `<p class="today">${h(date)}</p>
+  <div class="capture-grid">
+    <button class="cap-btn big" data-act="scan">${ic('camera')}<span><b>Scan a packet or label</b><small>Photograph seed packets or stock labels to add them to your library</small></span></button>
+    <button class="cap-btn" data-act="note">${ic('note')}<b>Add a note or photo</b></button>
+    <button class="cap-btn" data-act="newInd">${ic('tag')}<b>Tag a plant or animal</b></button>
+  </div>
+  <div class="counts"><a class="chip" href="#/library">${strains.length} varieties and breeds</a><a class="chip" href="#/library?tab=lots">${lots.length} lots</a><a class="chip" href="#/tagged">${inds.length} tagged</a><a class="chip" href="#/projects">${all('project').length} projects</a></div>
+  ${needsBackup || photosStale ? `<div class="notice" style="margin-top:16px">${days === null ? 'You haven\'t made a backup yet.' : needsBackup ? `${changes} changes since your last backup ${days} day${days === 1 ? '' : 's'} ago.` : `Your photos were last backed up ${fullDays === null ? 'never' : fullDays + ' days ago'}.`} A lost or broken phone shouldn't cost you seasons of records. <button class="linkish" style="font-size:inherit;color:inherit;font-weight:700" data-act="exportBackup">Back up now</button></div>` : ''}
+  ${sec('Projects', null, projs.length ? `<div class="hscroll">${projs.map(pCard).join('')}</div>` : emptyBox('A project groups your lines, target traits and best candidates.', 'newProject', 'Start a project'))}
+  ${sec('Recent notes', null, (notes.length ? logList(notes, { showRef: true }) : '<p class="muted">Notes you add to varieties, plants, animals and projects appear here.</p>') + '<p><a href="#/log">Open the full log</a></p>')}
+  <section class="sec"><a class="ask-card" href="#/ask">${ic('spark')}<span><b>Ask about your records</b><small>For example, which tagged plants best match a project's targets</small></span></a></section>`;
+}
+
+function pLibrary(_, q) {
+  const tab = q.tab === 'lots' ? 'lots' : 'varieties';
+  const kind = ['plant', 'animal'].includes(q.kind) ? q.kind : 'all';
+  const okKind = r => kind === 'all' || kindOf(r) === kind;
+  const href = (t, k) => `#/library?tab=${t}&kind=${k}`;
+  let body;
+  if (tab === 'varieties') {
+    const lotCount = {}; for (const l of all('stock')) lotCount[l.strainId] = (lotCount[l.strainId] || 0) + 1;
+    const items = all('strain').filter(okKind).sort(byName);
+    if (!items.length) body = emptyBox('Scan a seed packet or label, or add a variety or breed by hand.', 'scan', 'Scan a packet or label');
+    else {
+      const groups = groupBy(items, s => s.group || 'Other');
+      const keys = Object.keys(groups).sort((a, b) => (a === 'Other') - (b === 'Other') || a.localeCompare(b));
+      body = keys.map(g => `<section class="grp" data-grp><h3>${h(g)}</h3><ul class="list">${groups[g].map(s => strainRow(s, lotCount[s.id])).join('')}</ul></section>`).join('');
+    }
+  } else {
+    const items = all('stock').filter(okKind).sort((a, b) => title(a).localeCompare(title(b)));
+    body = items.length ? `<ul class="list">${items.map(lotRow).join('')}</ul>` : emptyBox('Lots are the physical packets, saved seed, eggs or straws you hold.', 'newLot', 'Add a lot');
+  }
+  return `<div class="page-head"><h1>Library</h1><div class="actions tight"><button class="btn tagc" data-act="scan">${ic('camera')}Scan</button><button class="btn" data-act="${tab === 'lots' ? 'newLot' : 'newStrain'}">${ic('plus')}${tab === 'lots' ? 'Lot' : 'Variety or breed'}</button></div></div>
+  <div class="seg"><a href="${href('varieties', kind)}" aria-current="${tab === 'varieties'}">Varieties and breeds</a><a href="${href('lots', kind)}" aria-current="${tab === 'lots'}">Lots</a></div>
+  ${searchBox(tab === 'lots' ? 'Search lots, batches, sources' : 'Search varieties, species, groups')}
+  <div class="filters">${[['all', 'All'], ['plant', 'Plants'], ['animal', 'Animals']].map(([k, l]) => `<a class="chip" href="${href(tab, k)}" aria-pressed="${kind === k}">${l}</a>`).join('')}</div>
+  ${body}`;
+}
+
+function pStrain(id) {
+  const s = get(id); if (!s || s.type !== 'strain') return notFound();
+  const w = W(s);
+  const lots = all('stock').filter(l => l.strainId === id);
+  const inds = all('individual').filter(i => i.strainId === id).sort(byCode);
+  const projs = all('project').filter(p => (p.strainIds || []).includes(id));
+  const notes = notesFor(id);
+  const cover = coverOf(s);
+  const badge = !s.species ? '' : s.speciesVerified ? '<span class="chip ok">Species confirmed</span>' : '<span class="chip warn">Species unconfirmed</span>';
+  return `${cover ? `<img class="cover" data-photo="${cover}" data-full="1" data-act="photo" alt="${h(s.name)}">` : ''}
+  <div class="hero"><h1>${h(s.name)}</h1>
+    <p class="sub">${s.species ? `<i>${h(s.species)}</i> ` : 'No species recorded '}${badge}</p>
+    <p class="sub">${[s.group, s.kind === 'animal' ? 'Animal' : 'Plant', s.origin].filter(Boolean).map(h).join(', ')}</p></div>
+  ${s.description ? `<p class="prose">${h(s.description)}</p>` : ''}
+  <div class="actions"><button class="btn primary" data-act="note" data-ref="${id}">${ic('note')}Add note</button><button class="btn" data-act="quickPhoto" data-ref="${id}">${ic('camera')}Photo</button><button class="btn" data-act="newLot" data-preset="${pre({ strainId: id, source: s.origin || '' })}">${ic('plus')}Lot</button><button class="btn" data-act="newInd" data-preset="${pre({ strainId: id })}">${ic('tag')}Tag one</button><button class="btn" data-act="editStrain" data-id="${id}">Edit</button></div>
+  ${sec('Notes', notes.length, notes.length ? logList(notes) : `<p class="muted">Nothing logged yet. Notes here build into a running history of how ${h(s.name)} behaves for you, season after season.</p>`)}
+  ${sec(w.lots, lots.length, lots.length ? `<ul class="list">${lots.map(lotRow).join('')}</ul>` : '<p class="muted">No lots recorded.</p>')}
+  ${inds.length ? sec('Tagged', inds.length, `<ul class="list">${inds.map(indRow).join('')}</ul>`) : ''}
+  ${projs.length ? sec('Used in projects', null, `<div class="filters">${projs.map(p => `<a class="chip" href="#/project/${p.id}">${h(p.name)}</a>`).join('')}</div>`) : ''}`;
+}
+
+function pLot(id) {
+  const l = get(id); if (!l || l.type !== 'stock') return notFound();
+  const w = W(l), s = get(l.strainId), p = get(l.projectId), c = get(l.crossId);
+  const [m, f] = parentsOf(l);
+  const inds = all('individual').filter(i => i.stockId === id).sort(byCode);
+  const notes = notesFor(id);
+  const past = l.bestBefore && l.bestBefore.slice(0, 7) < today().slice(0, 7);
+  return `${l.photoIds?.length ? `<img class="cover" data-photo="${l.photoIds[0]}" data-full="1" data-act="photo" alt="Label photo">` : ''}
+  <div class="hero"><h1>${h(title(l))}</h1><p class="sub">${h(w.lot)}${s && l.label ? `, <a href="#/strain/${s.id}">${h(s.name)}</a>` : ''}</p>${past ? '<span class="chip warn">Past best-before. Consider a germination test.</span>' : ''}</div>
+  <dl class="facts">${s && !l.label ? factLink('Variety or breed', s) : ''}${fact('Source', l.source)}${fact('Batch', l.batch)}${fact('Packed, harvested or bought', l.year)}${fact('Best before', fmtDate(l.bestBefore))}${fact('Quantity', l.quantity)}${fact('Stored', l.location)}${fact('Status', LOT_STATUS[l.status])}${factLink('Project', p)}${factLink('From cross', c)}${factLink('Mother', m)}${factLink('Father', f)}</dl>
+  ${l.notes ? `<p class="prose">${h(l.notes)}</p>` : ''}
+  ${l.photoIds?.length > 1 ? `<div class="ph-grid">${l.photoIds.slice(1).map(x => `<img data-photo="${x}" data-act="photo" alt="">`).join('')}</div>` : ''}
+  <div class="actions"><button class="btn primary" data-act="newInd" data-preset="${pre({ stockId: id, strainId: l.strainId || '', projectId: l.projectId || '', motherId: m?.id || '', fatherId: f?.id || '' })}">${ic('tag')}${h(w.startHatch)}</button><button class="btn" data-act="note" data-ref="${id}">${ic('note')}Add note</button><button class="btn" data-act="editLot" data-id="${id}">Edit</button></div>
+  ${sec('Notes', notes.length, notes.length ? logList(notes) : '<p class="muted">Log germination tests, storage checks and how this lot performed.</p>')}
+  ${inds.length ? sec(`Tagged from this lot`, inds.length, `<ul class="list">${inds.map(indRow).join('')}</ul>`) : ''}`;
+}
+
+function pTagged(_, q) {
+  const tops = all('project').filter(p => !p.parentId || !get(p.parentId)).sort(byName);
+  const pid = q.project || '';
+  const fam = pid && get(pid) ? new Set(projectFamily(get(pid))) : null;
+  const items = all('individual').filter(i => !fam || fam.has(i.projectId)).sort(byCode);
+  return `<div class="page-head"><h1>Tagged</h1><button class="btn tagc" data-act="newInd" data-preset="${pre(pid ? { projectId: pid } : {})}">${ic('tag')}Tag a plant or animal</button></div>
+  <p class="muted">Every plant or animal you track individually gets its own tag, photo history and lineage.</p>
+  ${searchBox('Search tags, names, varieties, status')}
+  ${tops.length ? `<div class="filters"><a class="chip" href="#/tagged" aria-pressed="${!pid}">All</a>${tops.map(p => `<a class="chip" href="#/tagged?project=${p.id}" aria-pressed="${pid === p.id}">${h(p.name)}</a>`).join('')}</div>` : ''}
+  ${items.length ? `<ul class="list">${items.map(indRow).join('')}</ul>` : emptyBox('Nothing tagged here yet. Tag a plant or animal when it is worth following on its own.', 'newInd', 'Tag a plant or animal', pid ? { projectId: pid } : null)}`;
+}
+
+function pedNode(r, side) {
+  if (!r) return `<span class="ped-node unknown"><span class="c">Unknown</span><span class="r">${side}</span></span>`;
+  const sub = r.type === 'individual' ? [get(r.strainId)?.name, r.generation].filter(Boolean).join(', ') : r.type === 'strain' ? 'Founder variety or breed' : 'Lot';
+  return `<a class="ped-node" href="${link(r)}"><span class="c">${h(shortName(r))}</span><span class="r">${h(sub)}</span></a>`;
+}
+function pedTree(r, depth = 0, side = '') {
+  const [m, f] = parentsOf(r);
+  if (depth >= 3 || (!m && !f)) return `<div class="ped">${pedNode(r, side)}</div>`;
+  return `<div class="ped">${pedNode(r, side)}<div class="ped-par"><div class="ped-side dam">${m ? pedTree(m, depth + 1, 'Mother') : `<div class="ped">${pedNode(null, 'Mother')}</div>`}</div><div class="ped-side sire">${f ? pedTree(f, depth + 1, 'Father') : `<div class="ped">${pedNode(null, 'Father')}</div>`}</div></div></div>`;
+}
+
+function scoresHTML(i, traits, p) {
+  if (!traits.length) return p ? sec('Selection scores', null, `<p class="muted">Add target traits to <a href="#/project/${p.id}">${h(p.name)}</a> to score this ${h(W(i).ind)} against them.</p>`) : '';
+  const sc = scoreOf(i, traits);
+  const tiers = [1, 2, 3, 4].filter(t => traits.some(x => +x.tier === t));
+  const body = `<p class="hint" style="margin-top:0">Tap 1 (poor) to 5 (excellent). Tier 1 traits count most. Tap a score again to clear it.</p>
+    ${sc.flags.length ? `<div class="notice warn">Below 3 on a must-have trait: ${sc.flags.map(h).join(', ')}</div>` : ''}
+    ${tiers.map(t => `<h3 class="tier-h">Tier ${t}</h3>${traits.filter(x => +x.tier === t).map(x => {
+      const v = i.scores?.[x.name];
+      return `<div class="trait"><span>${h(x.name)}${x.must ? ' <span class="chip">Must-have</span>' : ''}</span><span class="pips" role="group" aria-label="${h(x.name)}">${[1, 2, 3, 4, 5].map(n => `<button type="button" class="${v >= n ? 'on' : ''}" data-act="score" data-id="${i.id}" data-trait="${h(x.name)}" data-v="${n}" aria-pressed="${v === n}">${n}</button>`).join('')}</span></div>`;
+    }).join('')}`).join('')}`;
+  return `<section class="sec"><div class="sec-head"><h2>Selection scores</h2>${scoreBadge(sc.pct)}</div>${body}</section>`;
+}
+
+function pInd(id) {
+  const i = get(id); if (!i || i.type !== 'individual') return notFound();
+  const w = W(i), s = get(i.strainId), p = get(i.projectId), lot = get(i.stockId), cr = get(i.crossId);
+  const notes = notesFor(id), cover = coverOf(i), sp = speciesOf(i);
+  const [m, f] = parentsOf(i);
+  const kids = [...all('individual'), ...all('stock')].filter(r => r.id !== id && (r.motherId === id || r.fatherId === id));
+  const crosses = all('cross').filter(c => c.motherId === id || c.fatherId === id).sort(byDateDesc);
+  return `${cover ? `<img class="cover" data-photo="${cover}" data-full="1" data-act="photo" alt="Latest photo of ${h(i.code)}">` : `<button class="cover empty-cover" data-act="quickPhoto" data-ref="${id}">${ic('camera')}<span>Add the first photo</span></button>`}
+  <div class="hero"><span class="tag xl${(i.code || '').length > 9 ? ' long' : ''}">${h(i.code || 'Untagged')}</span>${i.name ? `<p class="nick">${h(i.name)}</p>` : ''}<p class="sub">${[s ? `<a href="#/strain/${s.id}">${h(s.name)}</a>` : '', sp ? `<i>${h(sp)}</i>` : ''].filter(Boolean).join(', ')}</p></div>
+  <div class="actions"><button class="btn tagc" data-act="quickPhoto" data-ref="${id}">${ic('camera')}Photo</button><button class="btn primary" data-act="note" data-ref="${id}">${ic('note')}Add note</button><button class="btn" data-act="newCross" data-preset="${pre({ motherId: id, projectId: i.projectId || '' })}">${ic('cross')}Cross</button><button class="btn" data-act="editInd" data-id="${id}">Edit</button></div>
+  <dl class="facts">${factLink('Project', p)}${fact('Generation', i.generation)}${fact('Sex', i.sex)}${fact(w.start, fmtDate(i.startDate))}${fact('Status', i.status)}${factLink('From lot', lot)}${factLink('From cross', cr)}</dl>
+  ${i.description ? `<p class="prose">${h(i.description)}</p>` : ''}
+  ${recordsHTML(i)}
+  ${scoresHTML(i, projectTraits(p), p)}
+  ${sec('Lineage', null, m || f ? `<div class="ped-key"><span class="k-dam">Mother line</span><span class="k-sire">Father line</span></div><div class="ped-wrap">${pedTree(i)}</div>` : `<p class="muted">No parents recorded. Edit this ${h(w.ind)} to add its mother and father, or tag it from a lot or cross.</p>`)}
+  ${kids.length ? sec('Offspring', kids.length, `<ul class="list">${kids.map(r => (r.type === 'individual' ? indRow(r) : lotRow(r))).join('')}</ul>`) : ''}
+  ${crosses.length ? sec('Crosses', crosses.length, `<ul class="list">${crosses.map(crossRow).join('')}</ul>`) : ''}
+  ${sec('Notes and photos', notes.length, notes.length ? logList(notes) : `<p class="muted">Photos and observations build a dated history of this ${h(w.ind)}.</p>`)}`;
+}
+
+function pProjects() {
+  const tops = all('project').filter(p => !p.parentId || !get(p.parentId)).sort(byName);
+  return `<div class="page-head"><h1>Projects</h1><button class="btn tagc" data-act="newProject">${ic('plus')}New project</button></div>
+  ${tops.length ? tops.map(p => {
+    const lines = all('project').filter(x => x.parentId === p.id).sort(byName);
+    return `<article class="proj"><a class="proj-main" href="#/project/${p.id}"><h2>${h(p.name)}</h2>${p.species ? `<p class="muted"><i>${h(p.species)}</i></p>` : ''}${p.goal ? `<p class="clamp">${h(p.goal)}</p>` : ''}<p class="small muted" style="margin:6px 0 0">${membersOf(p).length} tagged, ${crossesOf(p).length} crosses</p></a>${lines.length ? `<ul class="lines">${lines.map(l => `<li><a href="#/project/${l.id}">${l.code ? `<span class="tag sm">${h(l.code)}</span>` : ''}${h(l.name)}</a></li>`).join('')}</ul>` : ''}</article>`;
+  }).join('') : emptyBox('A project holds a breeding goal, its target traits, its lines and its candidates.', 'newProject', 'Start a project')}`;
+}
+
+function pProject(id, q = {}) {
+  const p = get(id); if (!p || p.type !== 'project') return notFound();
+  const parent = get(p.parentId);
+  const lines = all('project').filter(x => x.parentId === id).sort(byName);
+  const traits = projectTraits(p), inherited = !p.traits?.length && traits.length;
+  const members = membersOf(p).sort(byCode), crosses = crossesOf(p).sort(byDateDesc);
+  const founders = (p.strainIds || []).map(get).filter(Boolean);
+  const notes = notesFor(id);
+  const tiers = [1, 2, 3, 4].filter(t => traits.some(x => +x.tier === t));
+  return `<div class="hero">${parent ? `<a href="#/project/${parent.id}">${h(parent.name)}</a>` : ''}<h1>${h(p.name)}</h1><p class="sub">${p.code ? `<span class="tag sm">${h(p.code)}</span> ` : ''}${p.species ? `<i>${h(p.species)}</i>` : ''}</p></div>
+  ${p.goal ? `<p class="goal">${h(p.goal)}</p>` : ''}
+  <div class="actions"><button class="btn tagc" data-act="newInd" data-preset="${pre({ projectId: id })}">${ic('tag')}Tag a member</button><button class="btn" data-act="newCross" data-preset="${pre({ projectId: id })}">${ic('cross')}Record cross</button><button class="btn" data-act="note" data-ref="${id}">${ic('note')}Add note</button>${!parent ? `<button class="btn" data-act="newProject" data-preset="${pre({ parentId: id, kind: p.kind || 'plant', species: p.species || '' })}">${ic('plus')}Line</button>` : ''}<button class="btn" data-act="editProject" data-id="${id}">Edit</button></div>
+  ${lines.length ? sec('Lines', lines.length, `<ul class="list">${lines.map(l => `<li><a class="row" href="#/project/${l.id}"><span class="main">${l.code ? `<span class="tag sm">${h(l.code)}</span>` : ''}<span class="t">${h(l.name)}</span>${l.goal ? `<span class="s">${h(l.goal)}</span>` : ''}</span><span class="small muted">${membersOf(l).length} tagged</span></a></li>`).join('')}</ul>`) : ''}
+  ${founders.length ? sec('Founding varieties and breeds', null, `<div class="filters">${founders.map(s => `<a class="chip${s.species && !s.speciesVerified ? ' warn' : ''}" href="#/strain/${s.id}">${h(s.name)}</a>`).join('')}</div>`) : ''}
+  ${compareHTML(p, q)}
+  ${recordTypesHTML(p)}
+  ${sec('Target traits', null, traits.length ? `${inherited ? `<p class="hint" style="margin-top:0">Uses the targets of ${h(parent.name)}.</p>` : ''}${tiers.map(t => `<h3 class="tier-h">Tier ${t}</h3><div class="filters">${traits.filter(x => +x.tier === t).map(x => `<span class="chip${x.must ? ' ok' : ''}">${h(x.name)}${x.must ? ', must-have' : ''}</span>`).join('')}</div>`).join('')}` : `<p class="muted">No targets yet. <button class="linkish" data-act="editProject" data-id="${id}">Add target traits</button></p>`)}
+  ${sec('Tagged members', members.length, members.length ? `<ul class="list">${members.map(indRow).join('')}</ul>` : '<p class="muted">Nobody tagged in this project yet.</p>')}
+  ${sec('Crosses', crosses.length, crosses.length ? `<ul class="list">${crosses.map(crossRow).join('')}</ul>` : '<p class="muted">No crosses recorded.</p>')}
+  ${sec('Notes', notes.length, notes.length ? logList(notes) : '<p class="muted">Use project notes for plans, decisions and season summaries.</p>')}`;
+}
+
+function pCross(id) {
+  const c = get(id); if (!c || c.type !== 'cross') return notFound();
+  const m = get(c.motherId), f = get(c.fatherId), p = get(c.projectId);
+  const lots = all('stock').filter(l => l.crossId === id);
+  const inds = all('individual').filter(i => i.crossId === id).sort(byCode);
+  const notes = notesFor(id);
+  const year = (c.date || today()).slice(0, 4);
+  const gen = suggestGen(m, f);
+  return `<div class="hero"><h1>${h(crossTitle(c))}</h1><p class="sub">${[fmtDate(c.date), c.method, c.status].filter(Boolean).map(h).join(', ')}</p></div>
+  ${guardHTML(c.motherId, c.fatherId)}
+  <dl class="facts">${factLink('Mother', m)}${factLink('Father', f)}${factLink('Project', p)}${fact('Result', c.outcome)}</dl>
+  ${c.notes ? `<p class="prose">${h(c.notes)}</p>` : ''}
+  <div class="actions"><button class="btn primary" data-act="newLot" data-preset="${pre({ crossId: id, motherId: c.motherId || '', fatherId: c.fatherId || '', projectId: c.projectId || '', year, label: `${crossTitle(c)}${gen ? ' — ' + gen : ''} — ${year}` })}">${ic('library')}Save seed or offspring lot</button><button class="btn" data-act="newInd" data-preset="${pre({ crossId: id, motherId: c.motherId || '', fatherId: c.fatherId || '', projectId: c.projectId || '', generation: gen })}">${ic('tag')}Tag offspring</button><button class="btn" data-act="note" data-ref="${id}">${ic('note')}Add note</button><button class="btn" data-act="editCross" data-id="${id}">Edit</button></div>
+  ${lots.length ? sec('Saved lots', lots.length, `<ul class="list">${lots.map(lotRow).join('')}</ul>`) : ''}
+  ${inds.length ? sec('Offspring', inds.length, `<ul class="list">${inds.map(indRow).join('')}</ul>`) : ''}
+  ${sec('Notes', notes.length, notes.length ? logList(notes) : '<p class="muted">Log pollination details, fruit set, fertility and outcomes.</p>')}`;
+}
+
+function pLog() {
+  const notes = all('note').sort(byDateDesc);
+  return `<div class="page-head"><h1>Log</h1><button class="btn primary" data-act="note">${ic('note')}Add note</button></div>
+  ${searchBox('Search notes')}
+  ${notes.length ? logList(notes, { showRef: true }) : emptyBox('Every note and photo you add appears here, newest first.', 'note', 'Add a note')}`;
+}
+
+function pAsk() {
+  const mode = S.settings.ai;
+  return `<h1>Ask about your records</h1>
+  <p class="muted">Claude reads your projects, varieties, lots, tagged plants and animals, crosses and recent notes, then answers.</p>
+  <label class="fld"><span>Your question</span><textarea id="askQ" rows="4" placeholder="Which of my F2 plants scores best on tier 1 traits, and which should I keep seed from?"></textarea></label>
+  ${mode === 'api' ? `<button class="btn primary" data-act="askRun">${ic('spark')}Ask Claude</button>`
+    : mode === 'manual' ? `<button class="btn primary" data-act="askCopy">Copy question with my records</button><p class="hint" style="margin-top:8px">Then paste it into a new chat in Claude or ChatGPT.</p>`
+    : `<div class="notice">Turn on smart features in <a href="#/settings">Settings</a> to ask questions. You can use your existing Claude or ChatGPT app with copy and paste, no API key needed.</div>`}
+  <div id="askOut" class="answer prose" aria-live="polite"></div>`;
+}
+
+function pSettings() {
+  const s = S.settings;
+  const radio = (v, t, d) => `<label class="radio"><input type="radio" name="ai" value="${v}" ${s.ai === v ? 'checked' : ''}><span><b>${t}</b><small>${d}</small></span></label>`;
+  return `<h1>Settings</h1>
+  ${sec('Appearance', null, `<label class="fld" style="max-width:280px"><span>Theme</span><select id="themeSel">${[['auto', 'Match my device'], ['light', 'Light'], ['dark', 'Dark']].map(([v, t]) => `<option value="${v}" ${s.theme === v ? 'selected' : ''}>${t}</option>`).join('')}</select></label>`)}
+  ${sec('Smart features', null, `<form id="aiForm" novalidate><fieldset class="radios"><legend class="sr">Smart features</legend>
+    ${radio('off', 'Off', 'Everything works without them.')}
+    ${radio('manual', 'Use my Claude or ChatGPT app', 'Free with your existing account. Lineage prepares the instructions, you paste them into the app with your photo, then paste the reply back.')}
+    ${radio('api', 'Claude API key', 'Fully automatic label reading and questions. Billed by Anthropic per use; reading a label typically costs around a cent or less. The key is stored only on this device.')}
+    </fieldset>
+    <div id="apiFields" ${s.ai !== 'api' ? 'hidden' : ''}>
+      <label class="fld"><span>API key</span><input type="password" name="apiKey" value="${h(s.apiKey)}" placeholder="sk-ant-..." autocomplete="off"></label>
+      <label class="fld"><span>Model</span><input name="model" value="${h(s.model || DEFAULT_MODEL)}"></label>
+      <p class="hint">Create a key at console.anthropic.com. Anyone who can unlock this device can use it.</p>
+    </div>
+    <div class="actions"><button class="btn primary" type="submit">Save</button><button class="btn" type="button" data-act="testAI" ${s.ai !== 'api' ? 'hidden' : ''} id="testBtn">Test connection</button></div></form>`)}
+  ${sec('Backups', null, `<p>Your records and photos live only on this device. A full backup is one zip file with every record and photo, plus spreadsheet copies you can open without Lineage. Restore it on this device or a new one.</p>
+    <p><b>Last full backup:</b> ${s.lastExport ? h(new Date(s.lastExport).toLocaleString()) : 'never'}${s.lastQuick ? `<br><b>Last records-only backup:</b> ${h(new Date(s.lastQuick).toLocaleString())}` : ''}${s.lastExport || s.lastQuick ? `<br>${changesSinceBackup()} changes since then.` : ''}</p>
+    <div class="actions"><button class="btn tagc" data-act="exportBackup">Back up now</button><button class="btn" data-act="importBackup" data-mode="merge">Restore or import a file</button></div>
+    <p class="hint">Restoring adds what's missing and updates records only where the file's copy is newer, so edits made since the backup are kept. Replace wipes this device's records first.</p>
+    <div class="actions"><button class="btn" data-act="importBackup" data-mode="replace">Replace everything with a backup</button>${S.undoAt ? `<button class="btn" data-act="undoRestore">Undo last restore (${h(new Date(S.undoAt).toLocaleString())})</button>` : ''}</div>
+    <p class="muted small" id="storeInfo"></p>`)}
+  ${sec('Recycle bin', null, `<p>Deleted records are kept for 30 days in case you need them back.</p><a class="btn" href="#/bin">Open the recycle bin (${binBatches().length})</a>`)}
+  ${sec('Sharing Lineage', null, '<p>Lineage is a folder of plain web files. Send the folder to someone, or host it free on GitHub Pages or Netlify. Each person keeps their own records on their own device.</p>')}
+  ${sec('Erase', null, '<button class="btn danger" data-act="wipe">Erase all records on this device</button>')}
+  <p class="muted small" style="margin-top:24px">Lineage ${VERSION}. ${S.recs.size} records stored on this device.</p>`;
+}
+/* ---------- Sheets and form fields ---------- */
+function sheet(titleText, body) {
+  closeSheet();
+  const el = document.createElement('div');
+  el.className = 'sheet-wrap';
+  el.innerHTML = `<div class="sheet-back" data-close></div><section class="sheet" role="dialog" aria-modal="true" aria-label="${h(titleText)}"><header class="sheet-head"><h2>${h(titleText)}</h2><button type="button" class="icon-btn" data-close aria-label="Close">${ic('x')}</button></header><div class="sheet-body">${body}</div></section>`;
+  document.body.appendChild(el);
+  el.addEventListener('click', e => { if (e.target.closest('[data-close]')) closeSheet(); });
+  requestAnimationFrame(() => el.classList.add('open'));
+  hydrate(el);
+  setTimeout(() => $('input:not([type=hidden]),select,textarea', el)?.focus({ preventScroll: true }), 260);
+  return el;
+}
+function closeSheet() { $$('.sheet-wrap').forEach(e => e.remove()); }
+
+const F = {
+  text: (k, label, v, ph = '') => `<label class="fld"><span>${label}</span><input name="${k}" value="${h(v)}" placeholder="${h(ph)}"></label>`,
+  area: (k, label, v, ph = '', rows = 3) => `<label class="fld"><span>${label}</span><textarea name="${k}" rows="${rows}" placeholder="${h(ph)}">${h(v)}</textarea></label>`,
+  date: (k, label, v) => `<label class="fld"><span>${label}</span><input type="date" name="${k}" value="${h(v)}"></label>`,
+  month: (k, label, v) => `<label class="fld"><span>${label}</span><input type="month" name="${k}" value="${h((v || '').slice(0, 7))}" placeholder="YYYY-MM"></label>`,
+  select: (k, label, v, opts) => `<label class="fld"><span>${label}</span><select name="${k}">${opts.map(o => { const [val, txt] = Array.isArray(o) ? o : [o, o]; return `<option value="${h(val)}" ${val === (v ?? '') ? 'selected' : ''}>${h(txt)}</option>`; }).join('')}</select></label>`,
+  check: (k, label, v) => `<label class="chk"><input type="checkbox" name="${k}" ${v ? 'checked' : ''}><span>${label}</span></label>`,
+  ref: (k, label, v, groups, none = 'Unknown or none') => `<label class="fld"><span>${label}</span><select name="${k}"><option value="">${h(none)}</option>${groups.filter(g => g.items.length).map(g => `<optgroup label="${h(g.label)}">${g.items.map(([id, t]) => `<option value="${id}" ${id === v ? 'selected' : ''}>${h(t)}</option>`).join('')}</optgroup>`).join('')}</select></label>`,
+};
+const indItems = (exclude) => all('individual').filter(r => r.id !== exclude).sort(byCode).map(r => [r.id, r.code + (r.name ? ` (${r.name})` : '')]);
+const strainItems = () => all('strain').sort(byName).map(r => [r.id, r.name]);
+const projectItems = (exclude) => all('project').filter(r => r.id !== exclude).sort(byName).map(r => [r.id, (get(r.parentId) ? get(r.parentId).name + ': ' : '') + r.name]);
+const lotItems = () => all('stock').sort((a, b) => title(a).localeCompare(title(b))).map(r => [r.id, title(r) + (r.batch ? ` (${r.batch})` : '')]);
+const parentGroups = exclude => [{ label: 'Tagged plants and animals', items: indItems(exclude) }, { label: 'Varieties and breeds', items: strainItems() }];
+const anyGroups = () => [{ label: 'Tagged plants and animals', items: indItems() }, { label: 'Varieties and breeds', items: strainItems() }, { label: 'Projects', items: projectItems() }, { label: 'Lots', items: lotItems() }, { label: 'Crosses', items: all('cross').sort(byDateDesc).map(c => [c.id, crossTitle(c) + (c.date ? `, ${fmtDate(c.date)}` : '')]) }];
+
+function formData(form) {
+  const o = {};
+  for (const el of form.elements) {
+    if (!el.name || el.type === 'radio') continue;
+    o[el.name] = el.type === 'checkbox' ? el.checked : el.value.trim();
+  }
+  return o;
+}
+const photoField = (label = 'Photos') => `<div class="fld"><span>${label}</span><div class="ph-grid" data-phs></div><div class="actions" style="margin:8px 0 0"><button type="button" class="btn" data-ph="cam">${ic('camera')}Camera</button><button type="button" class="btn" data-ph="lib">${ic('image')}Gallery</button></div></div>`;
+function mountPhotos(root, ids) {
+  const st = { ids: [...(ids || [])] };
+  const grid = $('[data-phs]', root);
+  if (!grid) return st;
+  const draw = () => { grid.innerHTML = st.ids.map(id => `<div class="ph-t"><img data-photo="${id}" alt=""><button type="button" class="ph-x" data-rmph="${id}" aria-label="Remove photo">${ic('x')}</button></div>`).join(''); hydrate(grid); };
+  draw();
+  root.addEventListener('click', async e => {
+    const b = e.target.closest('[data-ph]');
+    if (b) {
+      const files = await pickFiles(b.dataset.ph === 'cam');
+      busy(true);
+      try { for (const f of files) st.ids.push(await addPhoto(f)); } catch (err) { toast(err.message); } finally { busy(false); }
+      draw(); return;
+    }
+    const r = e.target.closest('[data-rmph]');
+    if (r) { st.ids = st.ids.filter(x => x !== r.dataset.rmph); draw(); }
+  });
+  return st;
+}
+function formSheet(titleText, inner, { onSave, onDelete, saveLabel = 'Save' }) {
+  const el = sheet(titleText, `<form class="frm" novalidate>${inner}<div class="actions sheet-actions"><button type="submit" class="btn primary">${saveLabel}</button>${onDelete ? '<button type="button" class="btn danger" data-del>Delete</button>' : ''}</div></form>`);
+  const form = $('form', el);
+  form.addEventListener('submit', async e => {
+    e.preventDefault();
+    try { await onSave(formData(form), form, el); } catch (err) { console.error(err); toast(err.message || 'That could not be saved'); }
+  });
+  if (onDelete) $('[data-del]', el).addEventListener('click', async () => {
+    if (!confirm('Move this to the recycle bin? Its notes and records go with it. You can restore it for 30 days.')) return;
+    const to = await onDelete(); closeSheet(); toast('Moved to the recycle bin');
+    if (to && location.hash !== to) location.hash = to; else render();
+  });
+  return { el, form };
+}
+const isNew = (id) => !id;
+function afterSave(rec, wasNew, msg) {
+  closeSheet(); toast(msg || (wasNew ? 'Added' : 'Saved'));
+  const to = link(rec);
+  if (wasNew && rec.type !== 'note' && location.hash !== to) location.hash = to; else render();
+}
+
+/* ---------- Record forms ---------- */
+function strainSheet({ id, preset = {} } = {}) {
+  const s = id ? get(id) : { kind: 'plant', ...preset };
+  let ph;
+  const { el } = formSheet(id ? 'Edit variety or breed' : 'New variety or breed', `
+    ${F.text('name', 'Name', s.name, 'e.g. Black Futsu, Australorp')}
+    <div class="two">${F.select('kind', 'Plant or animal', s.kind || 'plant', [['plant', 'Plant'], ['animal', 'Animal']])}${F.text('group', 'Group', s.group, 'Pumpkin, Herb, Chicken')}</div>
+    ${F.text('species', 'Species (scientific name)', s.species, 'e.g. Cucurbita moschata')}
+    ${F.check('speciesVerified', 'Species confirmed from the packet, breeder or registry', s.speciesVerified)}
+    ${F.text('origin', 'Breeder or source', s.origin)}
+    ${F.area('description', 'Description', s.description, 'What it is and why you keep it')}
+    ${photoField()}`, {
+    onSave: async d => {
+      if (!d.name) throw new Error('Add a name first');
+      const rec = id ? s : { ...preset, id: uid(), type: 'strain' };
+      Object.assign(rec, d, { photoIds: ph.ids });
+      await save(rec); afterSave(rec, isNew(id), id ? 'Saved' : 'Added to library');
+    },
+    onDelete: id && (async () => { await removeRec(id); return '#/library'; }),
+  });
+  ph = mountPhotos(el, s.photoIds);
+}
+
+function lotSheet({ id, preset = {} } = {}) {
+  const l = id ? get(id) : { status: 'active', ...preset };
+  let ph;
+  const { el } = formSheet(id ? 'Edit lot' : 'New lot', `
+    ${F.ref('strainId', 'Variety or breed', l.strainId, [{ label: 'Varieties and breeds', items: strainItems() }], 'None (seed saved from my own cross)')}
+    ${F.text('label', 'Label', l.label, 'Optional, e.g. BF × SA — F2 — Plant 04 — 2028')}
+    <div class="two">${F.text('source', 'Source', l.source, 'Seller, breeder or own')}${F.text('batch', 'Batch or lot number', l.batch)}</div>
+    <div class="two">${F.text('year', 'Packed, harvested or bought', l.year, 'e.g. Autumn 2027')}${F.month('bestBefore', 'Best before', l.bestBefore)}</div>
+    <div class="two">${F.text('quantity', 'Quantity', l.quantity, 'e.g. 40 seeds, 12 eggs')}${F.text('location', 'Stored where', l.location, 'e.g. fridge box 2')}</div>
+    ${F.select('status', 'Status', l.status || 'active', Object.entries(LOT_STATUS))}
+    ${F.ref('projectId', 'Project', l.projectId, [{ label: 'Projects', items: projectItems() }], 'Not part of a project')}
+    <div class="two">${F.ref('motherId', 'Mother', l.motherId, parentGroups())}${F.ref('fatherId', 'Father', l.fatherId, parentGroups())}</div>
+    <p class="hint">Fill in parents for seed or offspring you saved yourself. Bought lots can leave them blank.</p>
+    ${F.area('notes', 'Why this lot was kept', l.notes, 'e.g. best flavour plant, archive backup of F2')}
+    ${photoField('Label photos')}`, {
+    onSave: async d => {
+      if (!d.strainId && !d.label && !d.motherId) throw new Error('Choose a variety or breed, or give the lot a label');
+      const rec = id ? l : { ...preset, id: uid(), type: 'stock' };
+      Object.assign(rec, d, { photoIds: ph.ids });
+      await save(rec); afterSave(rec, isNew(id));
+    },
+    onDelete: id && (async () => { const back = l.strainId ? '#/strain/' + l.strainId : '#/library?tab=lots'; await removeRec(id); return back; }),
+  });
+  ph = mountPhotos(el, l.photoIds);
+}
+
+function indSheet({ id, preset = {} } = {}) {
+  const i = id ? get(id) : { status: 'Active', startDate: today(), ...preset };
+  if (!id && !i.strainId && i.stockId) i.strainId = get(i.stockId)?.strainId || '';
+  if (!id && !i.generation) i.generation = suggestGen(get(i.motherId), get(i.fatherId));
+  if (!id && !i.code) i.code = suggestCode(i.projectId, i.generation, kindOf(i));
+  let ph;
+  const { el, form } = formSheet(id ? 'Edit tag' : 'Tag a plant or animal', `
+    ${F.text('code', 'Tag ID', i.code, 'e.g. BFxSA-F2-P04')}
+    <p class="hint">Short and unique. Suggested from the project code and generation; change it to match your own labels.</p>
+    ${F.text('name', 'Nickname (optional)', i.name)}
+    <div class="two">${F.ref('strainId', 'Variety or breed', i.strainId, [{ label: 'Varieties and breeds', items: strainItems() }], 'None or mixed')}${F.ref('projectId', 'Project', i.projectId, [{ label: 'Projects', items: projectItems() }], 'Not in a project')}</div>
+    <div class="two">${F.text('generation', 'Generation', i.generation, 'F1, F2, BC1')}${F.select('sex', 'Sex', i.sex || '', [['', 'Not applicable'], 'Female', 'Male', 'Unknown'])}</div>
+    <div class="two">${F.ref('motherId', 'Mother (seed parent or dam)', i.motherId, parentGroups(id))}${F.ref('fatherId', 'Father (pollen parent or sire)', i.fatherId, parentGroups(id))}</div>
+    ${F.ref('stockId', 'Grown or hatched from lot', i.stockId, [{ label: 'Lots', items: lotItems() }], 'Not recorded')}
+    <div class="two">${F.date('startDate', 'Sown or born', i.startDate)}${F.select('status', 'Status', i.status || 'Active', IND_STATUS)}</div>
+    ${F.area('description', 'Description', i.description, 'Where it is planted or kept, anything distinctive')}
+    ${id ? '' : photoField('First photo')}`, {
+    onSave: async d => {
+      if (!d.code) throw new Error('Give it a tag ID');
+      const clash = all('individual').find(x => x.id !== id && (x.code || '').toUpperCase() === d.code.toUpperCase());
+      if (clash) throw new Error(`Tag ${d.code} is already used`);
+      const rec = id ? i : { ...preset, id: uid(), type: 'individual' };
+      Object.assign(rec, d);
+      if (rec.stockId && !rec.motherId && !rec.fatherId) { const [m, f] = parentsOf(get(rec.stockId)); rec.motherId = m?.id || ''; rec.fatherId = f?.id || ''; }
+      if (rec.stockId && !rec.strainId) rec.strainId = get(rec.stockId)?.strainId || '';
+      await save(rec);
+      if (!id && ph?.ids.length) await save({ id: uid(), type: 'note', refId: rec.id, date: today(), text: '', photoIds: ph.ids });
+      afterSave(rec, isNew(id), id ? 'Saved' : `Tagged ${rec.code}`);
+    },
+    onDelete: id && (async () => { await removeRec(id); return '#/tagged'; }),
+  });
+  if (!id) {
+    ph = mountPhotos(el, []);
+    let touched = false;
+    const codeIn = form.elements.code;
+    codeIn.addEventListener('input', () => { touched = true; });
+    const refresh = () => {
+      const m = get(form.elements.motherId.value), f = get(form.elements.fatherId.value);
+      if (!form.elements.generation.dataset.touched) { const g = suggestGen(m, f); if (g) form.elements.generation.value = g; }
+      if (!touched) codeIn.value = suggestCode(form.elements.projectId.value, form.elements.generation.value, kindOf({ strainId: form.elements.strainId.value, projectId: form.elements.projectId.value }));
+    };
+    form.elements.generation.addEventListener('input', () => { form.elements.generation.dataset.touched = '1'; refresh(); });
+    ['projectId', 'strainId', 'motherId', 'fatherId'].forEach(k => form.elements[k].addEventListener('change', refresh));
+    form.elements.stockId.addEventListener('change', () => {
+      const lot = get(form.elements.stockId.value); if (!lot) return;
+      if (!form.elements.strainId.value && lot.strainId) form.elements.strainId.value = lot.strainId;
+      const [m, f] = parentsOf(lot);
+      if (!form.elements.motherId.value && m) form.elements.motherId.value = m.id;
+      if (!form.elements.fatherId.value && f) form.elements.fatherId.value = f.id;
+      refresh();
+    });
+  }
+}
+
+function traitRow(t = { name: '', tier: 2, must: false }) {
+  return `<div class="tr-row"><input class="tn" value="${h(t.name)}" placeholder="Trait, e.g. Small seed cavity" aria-label="Trait"><select class="tt" aria-label="Tier">${[1, 2, 3, 4].map(n => `<option value="${n}" ${+t.tier === n ? 'selected' : ''}>Tier ${n}</option>`).join('')}</select><label class="chk"><input type="checkbox" class="tm" ${t.must ? 'checked' : ''}>Must</label><button type="button" class="icon-btn" data-rmtr aria-label="Remove trait">${ic('x')}</button></div>`;
+}
+function projectSheet({ id, preset = {} } = {}) {
+  const p = id ? get(id) : { kind: 'plant', ...preset };
+  const chosen = new Set(p.strainIds || []);
+  const strains = all('strain').sort((a, b) => (chosen.has(b.id) - chosen.has(a.id)) || byName(a, b));
+  const { el, form } = formSheet(id ? 'Edit project' : (p.parentId ? 'New line' : 'New project'), `
+    ${F.text('name', 'Name', p.name, p.parentId ? 'e.g. Line SA (quality and storage)' : 'e.g. Arrakis Black')}
+    <div class="two">${F.text('code', 'Tag code', p.code, 'e.g. AB, BFxSA')}${F.select('kind', 'Plants or animals', p.kind || 'plant', [['plant', 'Plants'], ['animal', 'Animals']])}</div>
+    <p class="hint">The tag code starts every tag ID in this project, like BFxSA-F2-P04.</p>
+    ${F.text('species', 'Species', p.species, 'e.g. Cucurbita moschata')}
+    ${F.ref('parentId', 'Part of a larger project', p.parentId, [{ label: 'Projects', items: projectItems(id) }], 'No, this is a main project')}
+    ${F.area('goal', 'Goal', p.goal, 'What are you breeding towards?', 4)}
+    <div class="fld"><span>Founding varieties and breeds</span>${strains.length ? `<input type="search" placeholder="Filter" data-pickfilter aria-label="Filter varieties"><div class="pickbox" style="margin-top:6px">${strains.map(s => `<label class="chk" data-name="${h(s.name.toLowerCase())}"><input type="checkbox" data-sid="${s.id}" ${chosen.has(s.id) ? 'checked' : ''}><span>${h(s.name)}${s.species ? ` <i class="muted">${h(s.species)}</i>` : ''}</span></label>`).join('')}</div>` : '<p class="hint">Add varieties or breeds to your library first.</p>'}</div>
+    <div class="fld"><span>Target traits</span><p class="hint" style="margin:0 0 6px">Tier 1 matters most. Tick Must for traits a candidate is out without.${p.parentId ? ' Leave empty to use the main project’s targets.' : ''}</p><div id="traitsEd">${(p.traits || []).map(traitRow).join('')}</div><button type="button" class="btn" id="addTrait">${ic('plus')}Add trait</button></div>`, {
+    onSave: async d => {
+      if (!d.name) throw new Error('Give the project a name');
+      const rec = id ? p : { ...preset, id: uid(), type: 'project' };
+      Object.assign(rec, d);
+      rec.strainIds = $$('[data-sid]', el).filter(c => c.checked).map(c => c.dataset.sid);
+      rec.traits = $$('.tr-row', el).map(r => ({ name: $('.tn', r).value.trim(), tier: +$('.tt', r).value, must: $('.tm', r).checked })).filter(t => t.name);
+      await save(rec); afterSave(rec, isNew(id));
+    },
+    onDelete: id && (async () => { await removeRec(id); return '#/projects'; }),
+  });
+  $('#addTrait', el).addEventListener('click', () => { $('#traitsEd', el).insertAdjacentHTML('beforeend', traitRow()); $('#traitsEd .tr-row:last-child .tn', el).focus(); });
+  el.addEventListener('click', e => { const b = e.target.closest('[data-rmtr]'); if (b) b.closest('.tr-row').remove(); });
+  $('[data-pickfilter]', el)?.addEventListener('input', e => { const t = e.target.value.toLowerCase(); $$('.pickbox .chk', el).forEach(c => { c.hidden = t && !c.dataset.name.includes(t); }); });
+  void form;
+}
+
+function crossSheet({ id, preset = {} } = {}) {
+  const c = id ? get(id) : { date: today(), status: 'Done', ...preset };
+  const { el, form } = formSheet(id ? 'Edit cross' : 'Record a cross or pairing', `
+    ${F.date('date', 'Date', c.date)}
+    <div class="two">${F.ref('motherId', 'Mother (seed parent or dam)', c.motherId, parentGroups())}${F.ref('fatherId', 'Father (pollen parent or sire)', c.fatherId, parentGroups())}</div>
+    <div id="guard"></div>
+    <div class="two">${F.select('method', 'Method', c.method || '', [['', 'Choose'], ...CROSS_METHODS])}${F.select('status', 'Status', c.status || 'Done', CROSS_STATUS)}</div>
+    ${F.ref('projectId', 'Project', c.projectId, [{ label: 'Projects', items: projectItems() }], 'Not part of a project')}
+    ${F.text('outcome', 'Result', c.outcome, 'e.g. fruit set, 6 fertile eggs')}
+    ${F.area('notes', 'Details', c.notes, 'Flowers bagged? Time of day? Weather?')}`, {
+    onSave: async d => {
+      if (!d.motherId && !d.fatherId) throw new Error('Choose at least one parent');
+      const rec = id ? c : { ...preset, id: uid(), type: 'cross' };
+      Object.assign(rec, d); await save(rec); afterSave(rec, isNew(id), id ? 'Saved' : 'Cross recorded');
+    },
+    onDelete: id && (async () => { await removeRec(id); return '#/projects'; }),
+  });
+  const upd = () => {
+    const m = form.elements.motherId.value, f = form.elements.fatherId.value;
+    $('#guard', el).innerHTML = guardHTML(m, f);
+    if (m && m === f && !form.elements.method.value) form.elements.method.value = 'Self-pollinated';
+  };
+  form.elements.motherId.addEventListener('change', upd);
+  form.elements.fatherId.addEventListener('change', upd);
+  upd();
+}
+
+function noteSheet({ id, refId } = {}) {
+  const n = id ? get(id) : { date: today(), refId: refId || '', photoIds: [] };
+  let ph;
+  const { el } = formSheet(id ? 'Edit note' : 'Add a note or photo', `
+    ${F.ref('refId', 'About', n.refId, anyGroups(), 'General note, not linked')}
+    ${F.date('date', 'Date', n.date)}
+    ${F.area('text', 'Note', n.text, 'What did you notice? Flowering, fruit set, weights, behaviour, health, flavour...', 5)}
+    ${photoField()}`, {
+    onSave: async d => {
+      if (!d.text && !ph.ids.length) throw new Error('Write something or add a photo');
+      const rec = id ? n : { id: uid(), type: 'note' };
+      Object.assign(rec, d, { photoIds: ph.ids });
+      await save(rec); afterSave(rec, isNew(id), id ? 'Saved' : 'Note added');
+    },
+    onDelete: id && (async () => { await removeRec(id); return null; }),
+  });
+  ph = mountPhotos(el, n.photoIds);
+}
+
+function captureSheet() {
+  const item = (act, icon, t, s) => `<button type="button" class="cap-item" data-act="${act}">${ic(icon)}<span><b>${t}</b><small>${s}</small></span></button>`;
+  sheet('Add to your records', `<div class="cap-list">
+    ${item('scan', 'camera', 'Scan a packet or label', 'Adds a variety or breed and a lot to your library')}
+    ${item('note', 'note', 'Add a note or photo', 'Log an observation against anything')}
+    ${item('newInd', 'tag', 'Tag a plant or animal', 'Give one individual its own ID and history')}
+    ${item('newCross', 'cross', 'Record a cross or pairing', 'Pollination, mating or insemination')}
+    ${item('newStrain', 'library', 'New variety or breed', 'Without scanning a label')}
+    ${item('newProject', 'project', 'New breeding project', 'A goal, target traits, lines and candidates')}
+  </div>`);
+}
+
+async function quickPhoto(refId) {
+  const [file] = await pickFiles(true);
+  if (!file) return;
+  busy(true);
+  try {
+    const pid = await addPhoto(file);
+    await save({ id: uid(), type: 'note', refId, date: today(), text: '', photoIds: [pid] });
+    toast('Photo added'); render();
+  } catch (e) { toast(e.message); } finally { busy(false); }
+}
+
+function lightbox(pid) {
+  const el = document.createElement('div');
+  el.className = 'lb'; el.setAttribute('role', 'dialog'); el.setAttribute('aria-label', 'Photo');
+  el.innerHTML = `<img data-photo="${pid}" data-full="1" alt="">`;
+  el.addEventListener('click', () => el.remove());
+  document.body.appendChild(el); hydrate(el);
+}
+
+/* ---------- Smart features ---------- */
+const LABEL_PROMPT = `This photo shows a seed packet or a label for breeding stock (plants or animals).
+Read it and reply with ONLY a JSON object, no other text, using exactly these keys:
+{"name": "variety or breed name as printed",
+ "kind": "plant" or "animal",
+ "group": "common crop or animal type, e.g. Pumpkin, Tomato, Herb, Chicken",
+ "species": "scientific name if printed, otherwise your best identification, otherwise empty",
+ "speciesPrinted": true if the scientific name is printed on the label, else false,
+ "origin": "seller, breeder or supplier",
+ "batch": "batch or lot number",
+ "year": "packed, harvest or purchase year",
+ "bestBefore": "best-before or sow-by date as YYYY-MM, otherwise empty",
+ "notes": "one or two short sentences of useful printed details such as days to maturity, growth habit or traits"}
+Use an empty string for anything you cannot read.`;
+
+function parseJSON(text) {
+  const m = String(text || '').match(/\{[\s\S]*\}/);
+  if (!m) throw new Error('The reply did not contain the expected details');
+  return JSON.parse(m[0]);
+}
+async function callClaude(content, maxTokens = 1200) {
+  const { apiKey, model } = S.settings;
+  if (!apiKey) throw new Error('Add your API key in Settings');
+  let r;
+  try {
+    r = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'content-type': 'application/json', 'x-api-key': apiKey, 'anthropic-version': '2023-06-01', 'anthropic-dangerous-direct-browser-access': 'true' },
+      body: JSON.stringify({ model: model || DEFAULT_MODEL, max_tokens: maxTokens, messages: [{ role: 'user', content }] }),
+    });
+  } catch { throw new Error('No connection to Claude. Check your internet'); }
+  const data = await r.json().catch(() => ({}));
+  if (!r.ok) throw new Error(data?.error?.message || `Claude returned an error (${r.status})`);
+  return (data.content || []).filter(b => b.type === 'text').map(b => b.text).join('\n');
+}
+async function readLabel(photoId) {
+  const p = await DB.get('photos', photoId);
+  const b64 = (await blobToDataURL(p.full)).split(',')[1];
+  return parseJSON(await callClaude([{ type: 'image', source: { type: 'base64', media_type: 'image/jpeg', data: b64 } }, { type: 'text', text: LABEL_PROMPT }], 800));
+}
+
+function scanSheet() {
+  const mode = S.settings.ai;
+  const el = sheet('Scan a packet or label', `
+    <div id="scanShot"><p class="muted">Photograph the side of the packet or label that shows the name and batch.</p></div>
+    <div class="actions"><button type="button" class="btn tagc" data-scan="cam">${ic('camera')}Take photo</button><button type="button" class="btn" data-scan="lib">${ic('image')}Choose photo</button></div>
+    <div id="aiBox">${mode === 'off' ? '<p class="hint">Turn on smart features in Settings to have these details filled in from the photo.</p>' : ''}</div>
+    <form class="frm" novalidate>
+      ${F.text('name', 'Variety or breed', '', 'As printed on the label')}
+      <p class="hint" id="matchInfo"></p>
+      <div class="two">${F.select('kind', 'Plant or animal', 'plant', [['plant', 'Plant'], ['animal', 'Animal']])}${F.text('group', 'Group', '', 'Pumpkin, Herb, Chicken')}</div>
+      ${F.text('species', 'Species (scientific name)', '')}
+      ${F.check('speciesVerified', 'Species is printed on the label or confirmed', false)}
+      ${F.text('origin', 'Breeder or seller', '')}
+      <div class="two">${F.text('batch', 'Batch or lot number', '')}${F.text('year', 'Packed or bought', '', 'e.g. 2026')}</div>
+      <div class="two">${F.month('bestBefore', 'Best before', '')}${F.text('quantity', 'Quantity', '', 'e.g. 20 seeds')}</div>
+      ${F.text('location', 'Stored where', '', 'e.g. fridge box 2')}
+      ${F.area('notes', 'Printed details worth keeping', '')}
+      <div class="actions sheet-actions"><button type="submit" class="btn primary">Save to library</button></div>
+    </form>`);
+  const form = $('form', el), aiBox = $('#aiBox', el);
+  let photoId = null;
+  const updateMatch = () => {
+    const v = form.elements.name.value.trim(), s = findStrain(v);
+    $('#matchInfo', el).innerHTML = !v ? '' : s ? `Adds a new lot to <b>${h(s.name)}</b>, already in your library.` : 'Creates a new variety or breed in your library.';
+  };
+  form.elements.name.addEventListener('input', updateMatch);
+  const fill = o => {
+    const vals = { name: o.name, kind: o.kind === 'animal' ? 'animal' : 'plant', group: o.group, species: o.species, origin: o.origin, batch: o.batch, year: o.year, bestBefore: /^\d{4}-\d{2}/.test(o.bestBefore || '') ? o.bestBefore.slice(0, 7) : '', notes: o.notes };
+    for (const [k, v] of Object.entries(vals)) if (v && String(v).trim()) form.elements[k].value = String(v).trim();
+    form.elements.speciesVerified.checked = !!o.speciesPrinted && !!o.species;
+    updateMatch();
+  };
+  const manualBox = () => `<div class="manual"><b>Fill this in with your Claude or ChatGPT app</b><ol><li>Copy the instructions.</li><li>Start a chat in Claude or ChatGPT, attach the same photo and paste.</li><li>Copy the whole reply and paste it below.</li></ol><button type="button" class="btn" data-copyprompt>Copy instructions</button><textarea rows="4" placeholder="Paste the reply here" data-paste aria-label="Paste the reply"></textarea><button type="button" class="btn primary" data-fill>Fill in the form</button></div>`;
+  el.addEventListener('click', async e => {
+    if (e.target.closest('[data-copyprompt]')) { toast((await copyText(LABEL_PROMPT)) ? 'Instructions copied' : 'Copy failed. Select and copy by hand'); return; }
+    if (e.target.closest('[data-fill]')) { try { fill(parseJSON($('[data-paste]', el).value)); toast('Form filled in. Check it, then save'); } catch (err) { toast(err.message); } return; }
+    const b = e.target.closest('[data-scan]'); if (!b) return;
+    const [file] = await pickFiles(b.dataset.scan === 'cam'); if (!file) return;
+    busy(true);
+    try { photoId = await addPhoto(file); } catch (err) { toast(err.message); return; } finally { busy(false); }
+    $('#scanShot', el).innerHTML = `<img class="cover" data-photo="${photoId}" data-full="1" alt="Label photo">`; hydrate(el);
+    if (mode === 'api') {
+      aiBox.innerHTML = '<div class="notice">Reading the label...</div>';
+      busy(true);
+      try { fill(await readLabel(photoId)); aiBox.innerHTML = '<div class="notice">Filled in from the photo. Check the details, then save.</div>'; }
+      catch (err) { aiBox.innerHTML = `<div class="notice warn">The label couldn't be read: ${h(err.message)}. Fill in the details below.</div>`; }
+      finally { busy(false); }
+    } else if (mode === 'manual') aiBox.innerHTML = manualBox();
+  });
+  form.addEventListener('submit', async e => {
+    e.preventDefault();
+    const d = formData(form);
+    if (!d.name) { toast('Add the variety or breed name'); return; }
+    let s = findStrain(d.name);
+    if (!s) s = { id: uid(), type: 'strain', name: d.name, kind: d.kind, group: d.group, species: d.species, speciesVerified: d.speciesVerified, origin: d.origin, description: '', photoIds: [] };
+    else { s.group ||= d.group; s.species ||= d.species; if (d.speciesVerified && spKey(d.species) === spKey(s.species)) s.speciesVerified = true; s.origin ||= d.origin; }
+    await save(s);
+    await save({ id: uid(), type: 'stock', strainId: s.id, source: d.origin, batch: d.batch, year: d.year, bestBefore: d.bestBefore, quantity: d.quantity, location: d.location, status: 'active', photoIds: photoId ? [photoId] : [], notes: '' });
+    if (d.notes) await save({ id: uid(), type: 'note', refId: s.id, date: today(), text: `From the label: ${d.notes}`, photoIds: [] });
+    closeSheet(); toast('Added to library');
+    const to = '#/strain/' + s.id; if (location.hash !== to) location.hash = to; else render();
+  });
+}
+
+function contextSnapshot() {
+  const nm = id => (get(id) ? title(get(id)) : undefined);
+  const snap = {
+    today: today(),
+    projects: all('project').map(p => ({ name: p.name, code: p.code, partOf: nm(p.parentId), kind: p.kind, species: p.species, goal: p.goal, targets: (p.traits || []).map(t => `Tier ${t.tier}${t.must ? ' must-have' : ''}: ${t.name}`), founders: (p.strainIds || []).map(nm) })),
+    varieties: all('strain').map(s => ({ name: s.name, kind: s.kind, group: s.group, species: s.species, speciesConfirmed: !!s.speciesVerified, origin: s.origin, description: s.description })),
+    lots: all('stock').map(l => ({ lot: title(l), variety: nm(l.strainId), batch: l.batch, year: l.year, bestBefore: l.bestBefore, status: l.status, quantity: l.quantity, mother: nm(l.motherId), father: nm(l.fatherId) })),
+    tagged: all('individual').map(i => ({ tag: i.code, name: i.name, variety: nm(i.strainId), project: nm(i.projectId), generation: i.generation, sex: i.sex, status: i.status, started: i.startDate, mother: nm(i.motherId), father: nm(i.fatherId), scores: i.scores })),
+    crosses: all('cross').map(c => ({ date: c.date, mother: nm(c.motherId), father: nm(c.fatherId), method: c.method, status: c.status, result: c.outcome, project: nm(c.projectId) })),
+    records: all('entry').sort(byDateAsc).slice(-600).map(e => { const { rt } = rtInfo(e.rtId); if (!rt) return null; const o = { tag: get(e.indId)?.code, type: rt.name, date: e.date }; if (rt.itemName) o.item = `${rt.itemName} ${e.seq}`; const par = get(e.parentEntryId); if (par) o.of = itemLabel(par); for (const f of rt.fields || []) { const v = fieldValue(e, f, rt); if (v != null && v !== '') o[f.label] = v; } if (e.notes) o.notes = e.notes; return o; }).filter(Boolean),
+    notes: all('note').sort(byDateDesc).slice(0, 200).map(n => ({ date: n.date, about: nm(n.refId), text: n.text, photos: n.photoIds?.length || 0 })),
+  };
+  return JSON.stringify(snap).slice(0, 150000);
+}
+const askPrompt = q => `You are a practical plant and animal breeding assistant. Here are my breeding records as JSON:\n<records>\n${contextSnapshot()}\n</records>\n\nAnswer my question using these records. Be practical and concise, name specific tags, varieties and lots, and say plainly if the records don't contain enough to answer.\n\nQuestion: ${q}`;
+function renderAnswer(t) {
+  return h(t).replace(/\*\*(.+?)\*\*/g, '<b>$1</b>').replace(/^#{1,4}\s*(.+)$/gm, '<b>$1</b>');
+}
+
+/* ---------- Backup ---------- */
+function usedPhotoIds() { const s = new Set(); for (const r of S.recs.values()) (r.photoIds || []).forEach(x => s.add(x)); return s; }
+function changesSinceBackup() {
+  const t = Math.max(S.settings.lastExport || 0, S.settings.lastQuick || 0); let n = 0;
+  for (const r of S.recs.values()) if ((r.updatedAt || 0) > t) n++;
+  return n;
+}
+async function saveOrShare(blob, name, mime, how) {
+  const file = new File([blob], name, { type: mime });
+  if (how === 'share') { await navigator.share({ files: [file], title: 'Lineage backup', text: `Lineage backup, ${today()}` }); return; }
+  if ('showSaveFilePicker' in window) {
+    const ext = name.split('.').pop();
+    const handle = await window.showSaveFilePicker({ suggestedName: name, types: [{ description: 'Lineage backup', accept: { [mime]: ['.' + ext] } }] });
+    const w = await handle.createWritable(); await w.write(blob); await w.close(); return;
+  }
+  download(blob, name);
+}
+async function doExport() {
+  busy(true);
+  let b;
+  try { b = await buildZipBackup((n, t) => toast(`Packing ${n} of ${t} files`)); } catch (e) { busy(false); toast(e.message); return; }
+  busy(false);
+  const quick = new Blob([JSON.stringify({ app: 'lineage', version: 2, format: 'records', exportedAt: new Date().toISOString(), records: [...S.recs.values()], photos: [] })], { type: 'application/json' });
+  const quickName = `lineage-records-${today()}.json`;
+  const canShareZip = !!(navigator.canShare && navigator.canShare({ files: [new File([b.blob], b.name, { type: 'application/zip' })] }));
+  const canShareQuick = !!(navigator.canShare && navigator.canShare({ files: [new File([quick], quickName, { type: 'application/json' })] }));
+  const canPick = 'showSaveFilePicker' in window;
+  const mb = n => (n / 1048576).toFixed(n > 1048576 ? 1 : 2);
+  const el = sheet('Your backup is ready', `
+    <p><b>Full backup:</b> ${b.records} record${b.records === 1 ? '' : 's'} and ${b.photos} photo${b.photos === 1 ? '' : 's'}, ${mb(b.blob.size)} MB, in <b>${h(b.name)}</b>.</p>
+    <p class="muted">Keep at least one copy off this device: a USB stick, SD card, computer, or cloud drive. Don't unzip it; Lineage restores straight from the zip.</p>
+    <div class="cap-list">
+      ${canShareZip ? `<button type="button" class="cap-item" data-bk="share-zip">${ic('library')}<span><b>Send full backup to Drive, email or another app</b><small>Opens your device's share options</small></span></button>` : ''}
+      <button type="button" class="cap-item${canShareZip ? ' plain' : ''}" data-bk="save-zip">${ic('note')}<span><b>${canPick ? 'Save full backup to a drive or folder' : 'Save full backup to this device'}</b><small>${canPick ? 'Choose a USB stick, SD card or any folder' : 'Goes to Downloads. From there, copy it to a USB stick or SD card with the Files app, or upload it to Google Drive'}</small></span></button>
+    </div>
+    ${canShareQuick ? `<h3 style="margin-top:18px">Quick backup</h3><p class="muted">Records only, no photos, ${mb(quick.size)} MB. Small enough to send to Drive or email after every session.</p><div class="cap-list"><button type="button" class="cap-item plain" data-bk="share-quick">${ic('note')}<span><b>Send records-only backup</b><small>Restores all records; photos come from your last full backup</small></span></button></div>` : ''}`);
+  el.addEventListener('click', async e => {
+    const btn = e.target.closest('[data-bk]'); if (!btn) return;
+    const how = btn.dataset.bk;
+    try {
+      if (how === 'share-quick') { await saveOrShare(quick, quickName, 'application/json', 'share'); S.settings.lastQuick = Date.now(); }
+      else { await saveOrShare(b.blob, b.name, 'application/zip', how === 'share-zip' ? 'share' : 'save'); S.settings.lastExport = Date.now(); }
+      await saveSettings(); closeSheet(); toast('Backup saved'); render();
+    } catch (err) {
+      if (err?.name === 'AbortError') return;
+      if (how.startsWith('share')) { download(how === 'share-quick' ? quick : b.blob, how === 'share-quick' ? quickName : b.name); toast('Sharing failed, so the backup was saved to this device instead'); return; }
+      toast(err.message || 'The backup could not be saved');
+    }
+  });
+}
+async function doImport(file, replace) {
+  const { data, photo } = await readBackupFile(file);
+  if (data.app !== 'lineage' || !Array.isArray(data.records)) throw new Error('This file is not a Lineage backup');
+  // Keep a copy of the current records so this restore can be undone
+  const undoAt = Date.now();
+  await DB.put('meta', { key: 'undo', at: undoAt, records: [...S.recs.values()] }); S.undoAt = undoAt;
+  let photos = 0;
+  for (const p of data.photos || []) { const ph = await photo(p); if (ph.full) { await DB.put('photos', ph); urlCache.delete(p.id + ':t'); urlCache.delete(p.id + ':f'); photos++; } }
+  if (replace) { await DB.clear('records'); S.recs.clear(); }
+  const now = Date.now(), put = [];
+  let added = 0, updated = 0, kept = 0, same = 0;
+  for (const r of data.records) {
+    if ((r.updatedAt || 0) > now) r.updatedAt = now;
+    if ((r.createdAt || 0) > now) r.createdAt = now;
+    const cur = S.recs.get(r.id);
+    if (!cur) added++;
+    else if ((r.updatedAt || 0) > (cur.updatedAt || 0)) updated++;
+    else { if ((r.updatedAt || 0) === (cur.updatedAt || 0)) same++; else kept++; continue; }
+    put.push(r);
+  }
+  await DB.putMany('records', put);
+  put.forEach(r => S.recs.set(r.id, r)); _noteIdx = null; _rtIdx = null;
+  return [`${added} added`, `${updated} updated`, same && `${same} already up to date`, kept && `${kept} kept because this device's copy is newer`, photos && `${photos} photo${photos === 1 ? '' : 's'}`].filter(Boolean).join(', ');
+}
+async function undoRestore() {
+  const u = await DB.get('meta', 'undo');
+  if (!u) { toast('Nothing to undo'); return; }
+  if (!confirm(`Put records back the way they were before the restore on ${new Date(u.at).toLocaleString()}?`)) return;
+  await DB.clear('records'); S.recs.clear();
+  await DB.putMany('records', u.records); u.records.forEach(r => S.recs.set(r.id, r));
+  await DB.del('meta', 'undo'); S.undoAt = null; _noteIdx = null; _rtIdx = null;
+  toast('Restore undone'); render();
+}
+
+/* ---------- Actions ---------- */
+const P = el => { try { return JSON.parse(el.dataset.preset || '{}'); } catch { return {}; } };
+const ACT = {
+  back: () => (history.length > 1 ? history.back() : (location.hash = '#/')),
+  capture: captureSheet,
+  scan: () => scanSheet(),
+  note: el => noteSheet({ refId: el.dataset.ref }),
+  editNote: el => noteSheet({ id: el.dataset.id }),
+  quickPhoto: el => quickPhoto(el.dataset.ref),
+  newStrain: el => strainSheet({ preset: P(el) }), editStrain: el => strainSheet({ id: el.dataset.id }),
+  newLot: el => lotSheet({ preset: P(el) }), editLot: el => lotSheet({ id: el.dataset.id }),
+  newInd: el => indSheet({ preset: P(el) }), editInd: el => indSheet({ id: el.dataset.id }),
+  newProject: el => projectSheet({ preset: P(el) }), editProject: el => projectSheet({ id: el.dataset.id }),
+  newCross: el => crossSheet({ preset: P(el) }), editCross: el => crossSheet({ id: el.dataset.id }),
+  photo: el => lightbox(el.dataset.photo),
+  score: async el => {
+    const i = get(el.dataset.id), t = el.dataset.trait, v = +el.dataset.v;
+    i.scores = { ...(i.scores || {}) };
+    if (i.scores[t] === v) delete i.scores[t]; else i.scores[t] = v;
+    await save(i); render();
+  },
+  exportBackup: doExport,
+  undoRestore,
+  newEntry: el => entrySheet({ rtId: el.dataset.rt, indId: el.dataset.ind, parentEntryId: el.dataset.parent || '' }),
+  editEntry: el => entrySheet({ id: el.dataset.id }),
+  addRt: el => suggestSheet(el.dataset.project),
+  editRt: el => recordTypeSheet({ rtId: el.dataset.rt }),
+  bulk: el => bulkSheet({ projectId: el.dataset.project, rtId: el.dataset.rt }),
+  binRestore: async el => { const n = await restoreBatch(el.dataset.batch); toast(`Restored ${n} record${n === 1 ? '' : 's'}`); render(); },
+  binPurge: async el => { if (!confirm('Delete these records for good? This can’t be undone.')) return; await purgeBatch(el.dataset.batch); await cleanOrphanPhotos(); toast('Deleted for good'); render(); },
+  importBackup: async el => {
+    const [file] = await pickFiles(false, '.zip,.json,application/zip,application/json'); if (!file) return;
+    const replace = el.dataset.mode === 'replace';
+    if (replace && !confirm('Replace every record on this device with this backup?')) return;
+    busy(true);
+    try { const n = await doImport(file, replace); toast(`Restored: ${n}`); render(); } catch (e) { alert(e.message); } finally { busy(false); }
+  },
+  wipe: async () => {
+    if (prompt('Type ERASE to delete every record and photo on this device.') !== 'ERASE') return;
+    await DB.clear('records'); await DB.clear('photos'); await DB.del('meta', 'undo'); S.recs.clear(); urlCache.clear(); _noteIdx = null; _rtIdx = null; S.undoAt = null;
+    toast('Everything erased'); location.hash = '#/'; render();
+  },
+  testAI: async () => {
+    busy(true);
+    try { await callClaude([{ type: 'text', text: 'Reply with the single word: ready' }], 10); toast('Connected to Claude'); }
+    catch (e) { alert(e.message); } finally { busy(false); }
+  },
+  askRun: async () => {
+    const q = $('#askQ').value.trim(); if (!q) { toast('Type a question first'); return; }
+    const out = $('#askOut'); out.textContent = 'Thinking...'; busy(true);
+    try { out.innerHTML = renderAnswer(await callClaude([{ type: 'text', text: askPrompt(q) }], 1500)); }
+    catch (e) { out.textContent = e.message; } finally { busy(false); }
+  },
+  askCopy: async () => {
+    const q = $('#askQ').value.trim(); if (!q) { toast('Type a question first'); return; }
+    toast((await copyText(askPrompt(q))) ? 'Copied. Paste it into Claude or ChatGPT' : 'Copy failed on this browser');
+  },
+};
+document.addEventListener('click', e => {
+  const el = e.target.closest('[data-act]');
+  if (!el || !ACT[el.dataset.act]) return;
+  e.preventDefault();
+  Promise.resolve(ACT[el.dataset.act](el)).catch(err => { console.error(err); toast(err.message || 'Something went wrong'); });
+});
+document.addEventListener('keydown', e => {
+  if (e.key !== 'Escape') return;
+  const lb = $('.lb'); if (lb) { lb.remove(); return; }
+  closeSheet();
+});
+
+/* ---------- Router ---------- */
+const PAGES = { '': pHome, library: pLibrary, strain: pStrain, lot: pLot, tagged: pTagged, ind: pInd, projects: pProjects, project: pProject, cross: pCross, log: pLog, ask: pAsk, settings: pSettings, bin: pBin };
+const TAB_OF = { '': 'home', library: 'library', strain: 'library', lot: 'library', tagged: 'tagged', ind: 'tagged', projects: 'projects', project: 'projects', cross: 'projects' };
+function parseHash() {
+  const raw = location.hash.replace(/^#\/?/, '');
+  const [path, qs] = raw.split('?');
+  return { parts: path.split('/').filter(Boolean), q: Object.fromEntries(new URLSearchParams(qs || '')) };
+}
+function render() {
+  const { parts, q } = parseHash();
+  const root = PAGES[parts[0]] ? parts[0] : '';
+  const main = $('#main');
+  let html;
+  try { html = PAGES[root](parts[1], q); } catch (e) { console.error(e); html = `<div class="notice warn">This page hit a problem: ${h(e.message)}</div>`; }
+  main.innerHTML = html;
+  hydrate(main);
+  const tab = TAB_OF[root];
+  $$('.tabs a').forEach(a => { if (a.dataset.tab === tab) a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current'); });
+  $('#backBtn').hidden = !parts[1] && !['log', 'ask', 'settings', 'bin'].includes(root);
+  document.title = root ? `${(main.querySelector('h1')?.textContent || 'Lineage').trim()} | Lineage` : 'Lineage';
+  mountPage(root);
+}
+function mountPage(root) {
+  const main = $('#main');
+  const filter = $('input[data-filter]', main);
+  if (filter) filter.addEventListener('input', () => {
+    const t = filter.value.toLowerCase().trim();
+    $$('[data-s]', main).forEach(el => { el.hidden = !!t && !el.dataset.s.includes(t); });
+    $$('[data-grp]', main).forEach(g => { g.hidden = !$$('[data-s]:not([hidden])', g).length; });
+  });
+  if (root === 'settings') {
+    (async () => {
+      const el = $('#storeInfo'); if (!el) return;
+      try {
+        const persisted = await navigator.storage?.persisted?.();
+        const est = await navigator.storage?.estimate?.();
+        const used = est?.usage ? `${(est.usage / 1048576).toFixed(1)} MB used on this device. ` : '';
+        el.textContent = used + (persisted ? 'The browser has agreed not to clear this data on its own.' : 'The browser may clear this data if the device runs low on space, which is another reason to keep backups. Installing Lineage to your home screen usually changes this.');
+      } catch {}
+    })();
+    $('#themeSel').addEventListener('change', async e => { S.settings.theme = e.target.value; applyTheme(); await saveSettings(); });
+    const f = $('#aiForm');
+    f.addEventListener('change', e => { if (e.target.name === 'ai') { $('#apiFields').hidden = e.target.value !== 'api'; $('#testBtn').hidden = e.target.value !== 'api'; } });
+    f.addEventListener('submit', async e => {
+      e.preventDefault();
+      S.settings.ai = f.querySelector('input[name=ai]:checked')?.value || 'off';
+      S.settings.apiKey = f.elements.apiKey.value.trim();
+      S.settings.model = f.elements.model.value.trim() || DEFAULT_MODEL;
+      await saveSettings(); toast('Settings saved');
+    });
+  }
+}
+function applyTheme() {
+  const t = S.settings.theme;
+  if (t === 'light' || t === 'dark') document.documentElement.setAttribute('data-theme', t);
+  else document.documentElement.removeAttribute('data-theme');
+}
+
+/* ---------- Start ---------- */
+async function init() {
+  $('#backBtn').innerHTML = ic('back');
+  $('#logBtn').innerHTML = ic('log');
+  $('#setBtn').innerHTML = ic('gear');
+  $('.tabs .cap').innerHTML = ic('plus');
+  for (const [tab, icon, label] of [['home', 'home', 'Home'], ['library', 'library', 'Library'], ['tagged', 'tag', 'Tagged'], ['projects', 'project', 'Projects']]) $(`.tabs a[data-tab="${tab}"]`).innerHTML = ic(icon) + label;
+  try { await DB.open(); }
+  catch {
+    $('#main').innerHTML = '<div class="notice warn">This browser blocked local storage, so Lineage can\'t save records here. Try Chrome, Edge or Firefox, or open Lineage from a web address instead of a file.</div>';
+    return;
+  }
+  const [recs, meta] = [await DB.all('records'), await DB.get('meta', 'settings')];
+  recs.forEach(r => S.recs.set(r.id, r));
+  if (meta) { const { key, ...rest } = meta; Object.assign(S.settings, rest); }
+  S.undoAt = (await DB.get('meta', 'undo'))?.at || null;
+  applyTheme();
+  lastPath = location.hash.split('?')[0];
+  render();
+  purgeOldBin().catch(() => {});
+  navigator.storage?.persist?.().catch(() => {});
+  if ('serviceWorker' in navigator && /^https?:$/.test(location.protocol)) navigator.serviceWorker.register('sw.js').catch(() => {});
+}
+let lastPath = '';
+window.addEventListener('hashchange', () => {
+  closeSheet(); $('.lb')?.remove(); render();
+  const path = location.hash.split('?')[0];
+  if (path !== lastPath) window.scrollTo(0, 0);
+  lastPath = path;
+});
+init();
+</script>
+</body>
+</html>
