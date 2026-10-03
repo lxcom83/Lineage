@@ -1,0 +1,3207 @@
+{
+ "app": "lineage",
+ "version": 3,
+ "format": "example",
+ "name": "Plant example: Pantry Keeper squash",
+ "anchorDate": "2026-10-01",
+ "records": [
+  {
+   "id": "exp-s-wb",
+   "type": "strain",
+   "name": "Waltham Butternut",
+   "kind": "plant",
+   "group": "Squash",
+   "species": "Cucurbita moschata",
+   "speciesVerified": true,
+   "origin": "Example Seeds Co",
+   "description": "Reliable butternut with dense flesh and a small seed cavity. The common parent of both lines.",
+   "photoIds": []
+  },
+  {
+   "id": "exp-s-li",
+   "type": "strain",
+   "name": "Long Island Cheese",
+   "kind": "plant",
+   "group": "Squash",
+   "species": "Cucurbita moschata",
+   "speciesVerified": true,
+   "origin": "Example Seeds Co",
+   "description": "Flat, tan heirloom pumpkin famous for keeping well and for sweet flesh.",
+   "photoIds": []
+  },
+  {
+   "id": "exp-s-tr",
+   "type": "strain",
+   "name": "Tromboncino",
+   "kind": "plant",
+   "group": "Squash",
+   "species": "Cucurbita moschata",
+   "speciesVerified": true,
+   "origin": "Heritage Seed Swap",
+   "description": "Very vigorous climbing squash. Brings production and vigour, but huge vines.",
+   "photoIds": []
+  },
+  {
+   "id": "exp-s-bc",
+   "type": "strain",
+   "name": "Buttercup",
+   "kind": "plant",
+   "group": "Squash",
+   "species": "Cucurbita maxima",
+   "speciesVerified": true,
+   "origin": "Example Seeds Co",
+   "description": "Included to show the species warning: Buttercup is C. maxima and will not cross with C. moschata.",
+   "photoIds": []
+  },
+  {
+   "id": "exp-n1",
+   "type": "note",
+   "refId": "exp-s-li",
+   "date": "2024-03-20",
+   "text": "Founder fruit kept 11 months in the shed at 15 to 20°C. Excellent keeper.",
+   "photoIds": []
+  },
+  {
+   "id": "exp-n2",
+   "type": "note",
+   "refId": "exp-s-tr",
+   "date": "2024-02-10",
+   "text": "Vines reached 8 m. Needs a strong trellis.",
+   "photoIds": []
+  },
+  {
+   "id": "exp-pl-rb1",
+   "type": "place",
+   "name": "Raised bed 1",
+   "kind": "plant",
+   "method": "Raised bed",
+   "details": "1.2 m × 3 m, compost-rich mix, full sun, drip irrigation.",
+   "photoIds": []
+  },
+  {
+   "id": "exp-pl-rb2",
+   "type": "place",
+   "name": "Raised bed 2",
+   "kind": "plant",
+   "method": "Raised bed",
+   "details": "Same build as bed 1, afternoon shade from the shed.",
+   "photoIds": []
+  },
+  {
+   "id": "exp-pl-mound",
+   "type": "place",
+   "name": "Mound row",
+   "kind": "plant",
+   "method": "Mound or hill",
+   "details": "In-ground mounds along the fence, minimal watering. Tougher conditions.",
+   "photoIds": []
+  },
+  {
+   "id": "exp-pl-pots",
+   "type": "place",
+   "name": "Big pots",
+   "kind": "plant",
+   "method": "Container or pot",
+   "details": "100 L pots on the patio, used for compact selections.",
+   "photoIds": []
+  },
+  {
+   "id": "exp-p",
+   "type": "project",
+   "name": "Pantry Keeper",
+   "code": "PK",
+   "kind": "plant",
+   "species": "Cucurbita moschata",
+   "parentId": "",
+   "goal": "A sweet, dense squash that keeps for a year in an ordinary shed, on a vine small enough for a suburban garden. Example project: everything here is made up.",
+   "strainIds": [
+    "exp-s-wb",
+    "exp-s-li",
+    "exp-s-tr"
+   ],
+   "traits": [
+    {
+     "name": "Storage life",
+     "tier": 1,
+     "must": true
+    },
+    {
+     "name": "Sweet, dense flesh",
+     "tier": 1,
+     "must": true
+    },
+    {
+     "name": "Small seed cavity",
+     "tier": 2,
+     "must": false
+    },
+    {
+     "name": "Fruit 1 to 2 kg",
+     "tier": 2,
+     "must": false
+    },
+    {
+     "name": "Compact vine",
+     "tier": 3,
+     "must": false
+    },
+    {
+     "name": "Early maturity",
+     "tier": 3,
+     "must": false
+    },
+    {
+     "name": "Powdery mildew tolerance",
+     "tier": 3,
+     "must": false
+    },
+    {
+     "name": "Smooth, easy-peel skin",
+     "tier": 4,
+     "must": false
+    }
+   ],
+   "recordTypes": [
+    {
+     "id": "exp-rt-h",
+     "tplKey": "harvest",
+     "name": "Fruit harvest",
+     "itemName": "Fruit",
+     "parentRt": "",
+     "fields": [
+      {
+       "id": "exp-rt-h-f0",
+       "label": "Weight",
+       "type": "number",
+       "unit": "kg",
+       "agg": "avg",
+       "compare": true
+      },
+      {
+       "id": "exp-rt-h-f1",
+       "label": "Length",
+       "type": "number",
+       "unit": "cm",
+       "agg": "avg"
+      },
+      {
+       "id": "exp-rt-h-f2",
+       "label": "Cavity length",
+       "type": "number",
+       "unit": "cm",
+       "agg": "avg"
+      },
+      {
+       "id": "exp-rt-h-f3",
+       "label": "Cavity width",
+       "type": "number",
+       "unit": "cm",
+       "agg": "avg"
+      },
+      {
+       "id": "exp-rt-h-f4",
+       "label": "Flesh thickness",
+       "type": "number",
+       "unit": "cm",
+       "agg": "avg",
+       "compare": true
+      },
+      {
+       "id": "exp-rt-h-f5",
+       "label": "Flesh to cavity ratio",
+       "type": "calc",
+       "formula": "{Flesh thickness} / {Cavity width}",
+       "agg": "avg",
+       "compare": true
+      },
+      {
+       "id": "exp-rt-h-f6",
+       "label": "Skin colour",
+       "type": "score",
+       "agg": "avg"
+      },
+      {
+       "id": "exp-rt-h-f7",
+       "label": "Flesh colour",
+       "type": "score",
+       "agg": "avg",
+       "compare": true
+      },
+      {
+       "id": "exp-rt-h-f8",
+       "label": "Flavour",
+       "type": "score",
+       "agg": "avg",
+       "compare": true
+      },
+      {
+       "id": "exp-rt-h-f9",
+       "label": "Texture",
+       "type": "choice",
+       "options": [
+        "Dry and dense",
+        "Medium",
+        "Watery"
+       ]
+      }
+     ]
+    },
+    {
+     "id": "exp-rt-s",
+     "tplKey": "storage",
+     "name": "Storage check",
+     "itemName": "",
+     "parentRt": "exp-rt-h",
+     "fields": [
+      {
+       "id": "exp-rt-s-f0",
+       "label": "Condition",
+       "type": "choice",
+       "options": [
+        "Sound",
+        "Slight softening",
+        "Softening",
+        "Deteriorating",
+        "Unusable"
+       ],
+       "endOptions": [
+        "Unusable"
+       ]
+      },
+      {
+       "id": "exp-rt-s-f1",
+       "label": "Stored where",
+       "type": "text"
+      }
+     ]
+    },
+    {
+     "id": "exp-rt-p",
+     "tplKey": "plantcheck",
+     "name": "Plant check",
+     "itemName": "",
+     "parentRt": "",
+     "fields": [
+      {
+       "id": "exp-rt-p-f0",
+       "label": "Vine or plant size",
+       "type": "choice",
+       "options": [
+        "Compact",
+        "Moderate",
+        "Large",
+        "Very large"
+       ]
+      },
+      {
+       "id": "exp-rt-p-f1",
+       "label": "Female flowers",
+       "type": "number",
+       "agg": "max",
+       "compare": true
+      },
+      {
+       "id": "exp-rt-p-f2",
+       "label": "Fruit set",
+       "type": "number",
+       "agg": "max",
+       "compare": true
+      },
+      {
+       "id": "exp-rt-p-f3",
+       "label": "Disease or pest pressure",
+       "type": "choice",
+       "options": [
+        "None",
+        "Mild",
+        "Moderate",
+        "Severe"
+       ]
+      },
+      {
+       "id": "exp-rt-p-f4",
+       "label": "Heat or drought stress",
+       "type": "choice",
+       "options": [
+        "None",
+        "Mild",
+        "Moderate",
+        "Severe"
+       ]
+      }
+     ],
+     "repeatDays": 14
+    }
+   ],
+   "goals": [
+    {
+     "v": "1.0",
+     "date": "2024-07-01",
+     "statement": "A sweet, dense squash that keeps for a year in an ordinary shed.",
+     "inScope": "C. moschata only. Butternut and cheese-pumpkin types. Home garden conditions.",
+     "outScope": "C. maxima and C. pepo crosses. Giant fruit.",
+     "success": "An F5 line that reliably keeps 12 months and scores 4+ on flavour.",
+     "timeframe": "Stable line by 2030",
+     "reason": "",
+     "traits": [
+      {
+       "name": "Storage life",
+       "tier": 1,
+       "must": true
+      },
+      {
+       "name": "Sweet, dense flesh",
+       "tier": 1,
+       "must": true
+      },
+      {
+       "name": "Small seed cavity",
+       "tier": 2,
+       "must": false
+      },
+      {
+       "name": "Fruit 1 to 2 kg",
+       "tier": 2,
+       "must": false
+      },
+      {
+       "name": "Early maturity",
+       "tier": 3,
+       "must": false
+      },
+      {
+       "name": "Powdery mildew tolerance",
+       "tier": 3,
+       "must": false
+      },
+      {
+       "name": "Smooth, easy-peel skin",
+       "tier": 4,
+       "must": false
+      }
+     ]
+    },
+    {
+     "v": "1.1",
+     "date": "2026-04-02",
+     "statement": "A sweet, dense squash that keeps for a year in an ordinary shed, on a vine small enough for a suburban garden.",
+     "inScope": "C. moschata only. Butternut and cheese-pumpkin types. Suburban garden: vines under about 3 m.",
+     "outScope": "C. maxima and C. pepo crosses. Giant fruit. Vines that need a paddock.",
+     "success": "An F5 line that keeps 12 months, scores 4+ on flavour and fits a 3 m bed.",
+     "timeframe": "Stable line by 2030",
+     "reason": "Line T showed how much vine size matters in a small garden, so compact vine became a stated target.",
+     "traits": [
+      {
+       "name": "Storage life",
+       "tier": 1,
+       "must": true
+      },
+      {
+       "name": "Sweet, dense flesh",
+       "tier": 1,
+       "must": true
+      },
+      {
+       "name": "Small seed cavity",
+       "tier": 2,
+       "must": false
+      },
+      {
+       "name": "Fruit 1 to 2 kg",
+       "tier": 2,
+       "must": false
+      },
+      {
+       "name": "Early maturity",
+       "tier": 3,
+       "must": false
+      },
+      {
+       "name": "Powdery mildew tolerance",
+       "tier": 3,
+       "must": false
+      },
+      {
+       "name": "Smooth, easy-peel skin",
+       "tier": 4,
+       "must": false
+      },
+      {
+       "name": "Compact vine",
+       "tier": 3,
+       "must": false
+      }
+     ]
+    }
+   ],
+   "goalReviewMonths": 12,
+   "goalReviewedAt": "2026-04-02",
+   "siteId": "exp-site"
+  },
+  {
+   "id": "exp-p-li",
+   "type": "project",
+   "name": "Line LI (storage and flavour)",
+   "code": "LI",
+   "kind": "plant",
+   "species": "Cucurbita moschata",
+   "parentId": "exp-p",
+   "goal": "Waltham Butternut × Long Island Cheese. Keep the butternut shape and small cavity, add Long Island Cheese storage and sweetness.",
+   "strainIds": [
+    "exp-s-wb",
+    "exp-s-li"
+   ],
+   "traits": [],
+   "recordTypes": []
+  },
+  {
+   "id": "exp-p-t",
+   "type": "project",
+   "name": "Line T (vigour and production)",
+   "code": "T",
+   "kind": "plant",
+   "species": "Cucurbita moschata",
+   "parentId": "exp-p",
+   "goal": "Waltham Butternut × Tromboncino. Add vigour and production, then select hard for a smaller vine.",
+   "strainIds": [
+    "exp-s-wb",
+    "exp-s-tr"
+   ],
+   "traits": [],
+   "recordTypes": []
+  },
+  {
+   "id": "exp-n3",
+   "type": "note",
+   "refId": "exp-p",
+   "date": "2024-07-01",
+   "text": "Plan: two lines that share Waltham Butternut. Self each line to F2, select, then combine the best of both.",
+   "photoIds": []
+  },
+  {
+   "id": "exp-n4",
+   "type": "note",
+   "refId": "exp-p",
+   "date": "2026-03-30",
+   "text": "F2 harvest done. Line LI has the keepers so far; Line T is productive but vines are still too big. Crossed the best of each line.",
+   "photoIds": []
+  },
+  {
+   "id": "exp-l-wb",
+   "type": "stock",
+   "strainId": "exp-s-wb",
+   "projectId": "",
+   "label": "",
+   "source": "Example Seeds Co",
+   "batch": "ES-4471",
+   "year": "2023",
+   "bestBefore": "2025-06",
+   "qty": 12,
+   "unit": "seeds",
+   "minQty": 15,
+   "location": "Seed box",
+   "status": "active",
+   "motherId": "",
+   "fatherId": "",
+   "crossId": "",
+   "notes": "",
+   "photoIds": []
+  },
+  {
+   "id": "exp-l-li",
+   "type": "stock",
+   "strainId": "exp-s-li",
+   "projectId": "",
+   "label": "",
+   "source": "Example Seeds Co",
+   "batch": "ES-3019",
+   "year": "2023",
+   "bestBefore": "2027-06",
+   "qty": 18,
+   "unit": "seeds",
+   "minQty": null,
+   "location": "Seed box",
+   "status": "active",
+   "motherId": "",
+   "fatherId": "",
+   "crossId": "",
+   "notes": "",
+   "photoIds": []
+  },
+  {
+   "id": "exp-l-tr",
+   "type": "stock",
+   "strainId": "exp-s-tr",
+   "projectId": "",
+   "label": "",
+   "source": "Heritage Seed Swap",
+   "batch": "",
+   "year": "2022",
+   "bestBefore": "2026-12",
+   "qty": 20,
+   "unit": "seeds",
+   "minQty": null,
+   "location": "Seed box",
+   "status": "active",
+   "motherId": "",
+   "fatherId": "",
+   "crossId": "",
+   "notes": "",
+   "photoIds": []
+  },
+  {
+   "id": "exp-l-bc",
+   "type": "stock",
+   "strainId": "exp-s-bc",
+   "projectId": "",
+   "label": "",
+   "source": "Example Seeds Co",
+   "batch": "ES-5120",
+   "year": "2023",
+   "bestBefore": "2026-06",
+   "qty": 25,
+   "unit": "seeds",
+   "minQty": null,
+   "location": "Seed box",
+   "status": "active",
+   "motherId": "",
+   "fatherId": "",
+   "crossId": "",
+   "notes": "",
+   "photoIds": []
+  },
+  {
+   "id": "exp-g1",
+   "type": "germ",
+   "lotId": "exp-l-wb",
+   "date": "2024-08-10",
+   "method": "Paper towel",
+   "sown": 10,
+   "counts": [
+    {
+     "day": 4,
+     "n": 3
+    },
+    {
+     "day": 7,
+     "n": 8
+    },
+    {
+     "day": 10,
+     "n": 9
+    }
+   ],
+   "done": true,
+   "notes": ""
+  },
+  {
+   "id": "exp-g2",
+   "type": "germ",
+   "lotId": "exp-l-li",
+   "date": "2026-08-15",
+   "method": "Paper towel",
+   "sown": 10,
+   "counts": [
+    {
+     "day": 5,
+     "n": 2
+    },
+    {
+     "day": 8,
+     "n": 5
+    },
+    {
+     "day": 12,
+     "n": 6
+    }
+   ],
+   "done": true,
+   "notes": "Older seed slowing down. Time to grow some out."
+  },
+  {
+   "id": "exp-i-wb1",
+   "type": "individual",
+   "code": "PK-WB-P01",
+   "name": "",
+   "strainId": "exp-s-wb",
+   "projectId": "exp-p",
+   "generation": "",
+   "sex": "",
+   "motherId": "",
+   "fatherId": "",
+   "stockId": "exp-l-wb",
+   "startDate": "2023-10-20",
+   "status": "Harvested",
+   "placeId": "exp-pl-rb1",
+   "crossId": "",
+   "description": "",
+   "scores": {}
+  },
+  {
+   "id": "exp-i-li1",
+   "type": "individual",
+   "code": "PK-LI-P01",
+   "name": "",
+   "strainId": "exp-s-li",
+   "projectId": "exp-p",
+   "generation": "",
+   "sex": "",
+   "motherId": "",
+   "fatherId": "",
+   "stockId": "exp-l-li",
+   "startDate": "2023-10-20",
+   "status": "Harvested",
+   "placeId": "exp-pl-rb1",
+   "crossId": "",
+   "description": "",
+   "scores": {}
+  },
+  {
+   "id": "exp-i-tr1",
+   "type": "individual",
+   "code": "PK-TR-P01",
+   "name": "",
+   "strainId": "exp-s-tr",
+   "projectId": "exp-p",
+   "generation": "",
+   "sex": "",
+   "motherId": "",
+   "fatherId": "",
+   "stockId": "exp-l-tr",
+   "startDate": "2023-10-20",
+   "status": "Harvested",
+   "placeId": "exp-pl-mound",
+   "crossId": "",
+   "description": "",
+   "scores": {}
+  },
+  {
+   "id": "exp-i-bc1",
+   "type": "individual",
+   "code": "PK-BC-P01",
+   "name": "",
+   "strainId": "exp-s-bc",
+   "projectId": "exp-p",
+   "generation": "",
+   "sex": "",
+   "motherId": "",
+   "fatherId": "",
+   "stockId": "exp-l-bc",
+   "startDate": "2023-10-20",
+   "status": "Harvested",
+   "placeId": "exp-pl-rb2",
+   "crossId": "",
+   "description": "",
+   "scores": {}
+  },
+  {
+   "id": "exp-c1",
+   "type": "cross",
+   "date": "2024-01-14",
+   "motherId": "exp-i-wb1",
+   "fatherId": "exp-i-li1",
+   "method": "Hand-pollinated",
+   "status": "Successful",
+   "projectId": "exp-p-li",
+   "outcome": "Fruit set, 1 fruit saved",
+   "notes": "Female flower taped shut the evening before, pollinated at 7am.",
+   "goalV": "1.0"
+  },
+  {
+   "id": "exp-c2",
+   "type": "cross",
+   "date": "2024-01-16",
+   "motherId": "exp-i-wb1",
+   "fatherId": "exp-i-tr1",
+   "method": "Hand-pollinated",
+   "status": "Successful",
+   "projectId": "exp-p-t",
+   "outcome": "Fruit set",
+   "notes": "",
+   "goalV": "1.0"
+  },
+  {
+   "id": "exp-c3",
+   "type": "cross",
+   "date": "2024-01-18",
+   "motherId": "exp-i-wb1",
+   "fatherId": "exp-i-bc1",
+   "method": "Hand-pollinated",
+   "status": "Failed",
+   "projectId": "exp-p",
+   "outcome": "Fruit aborted after 5 days",
+   "notes": "Expected: Buttercup is C. maxima, Waltham is C. moschata.",
+   "goalV": "1.0"
+  },
+  {
+   "id": "exp-l-c1",
+   "type": "stock",
+   "strainId": "",
+   "projectId": "exp-p-li",
+   "label": "PK-WB-P01 × PK-LI-P01 — F1 — 2024",
+   "source": "Own",
+   "batch": "",
+   "year": "Autumn 2024",
+   "bestBefore": "",
+   "qty": 41,
+   "unit": "seeds",
+   "minQty": null,
+   "location": "Seed box",
+   "status": "active",
+   "motherId": "exp-i-wb1",
+   "fatherId": "exp-i-li1",
+   "crossId": "exp-c1",
+   "notes": "",
+   "photoIds": []
+  },
+  {
+   "id": "exp-l-c2",
+   "type": "stock",
+   "strainId": "",
+   "projectId": "exp-p-t",
+   "label": "PK-WB-P01 × PK-TR-P01 — F1 — 2024",
+   "source": "Own",
+   "batch": "",
+   "year": "Autumn 2024",
+   "bestBefore": "",
+   "qty": 55,
+   "unit": "seeds",
+   "minQty": null,
+   "location": "Seed box",
+   "status": "active",
+   "motherId": "exp-i-wb1",
+   "fatherId": "exp-i-tr1",
+   "crossId": "exp-c2",
+   "notes": "",
+   "photoIds": []
+  },
+  {
+   "id": "exp-i-lf1",
+   "type": "individual",
+   "code": "LI-F1-P01",
+   "name": "",
+   "strainId": "",
+   "projectId": "exp-p-li",
+   "generation": "F1",
+   "sex": "",
+   "motherId": "exp-i-wb1",
+   "fatherId": "exp-i-li1",
+   "stockId": "exp-l-c1",
+   "startDate": "2024-10-15",
+   "status": "Harvested",
+   "placeId": "exp-pl-rb1",
+   "crossId": "",
+   "description": "",
+   "scores": {}
+  },
+  {
+   "id": "exp-i-lf2",
+   "type": "individual",
+   "code": "LI-F1-P02",
+   "name": "",
+   "strainId": "",
+   "projectId": "exp-p-li",
+   "generation": "F1",
+   "sex": "",
+   "motherId": "exp-i-wb1",
+   "fatherId": "exp-i-li1",
+   "stockId": "exp-l-c1",
+   "startDate": "2024-10-15",
+   "status": "Harvested",
+   "placeId": "exp-pl-rb2",
+   "crossId": "",
+   "description": "",
+   "scores": {}
+  },
+  {
+   "id": "exp-i-tf1",
+   "type": "individual",
+   "code": "T-F1-P01",
+   "name": "",
+   "strainId": "",
+   "projectId": "exp-p-t",
+   "generation": "F1",
+   "sex": "",
+   "motherId": "exp-i-wb1",
+   "fatherId": "exp-i-tr1",
+   "stockId": "exp-l-c2",
+   "startDate": "2024-10-15",
+   "status": "Harvested",
+   "placeId": "exp-pl-mound",
+   "crossId": "",
+   "description": "",
+   "scores": {}
+  },
+  {
+   "id": "exp-c4",
+   "type": "cross",
+   "date": "2025-01-10",
+   "motherId": "exp-i-lf1",
+   "fatherId": "exp-i-lf1",
+   "method": "Hand-pollinated",
+   "status": "Successful",
+   "projectId": "exp-p-li",
+   "outcome": "Two fruit set",
+   "notes": "",
+   "goalV": "1.0"
+  },
+  {
+   "id": "exp-c5",
+   "type": "cross",
+   "date": "2025-01-12",
+   "motherId": "exp-i-tf1",
+   "fatherId": "exp-i-tf1",
+   "method": "Self-pollinated",
+   "status": "Successful",
+   "projectId": "exp-p-t",
+   "outcome": "Fruit set",
+   "notes": "",
+   "goalV": "1.0"
+  },
+  {
+   "id": "exp-l-c4",
+   "type": "stock",
+   "strainId": "",
+   "projectId": "exp-p-li",
+   "label": "LI-F1-P01 selfed — F2 — 2025",
+   "source": "Own",
+   "batch": "",
+   "year": "Autumn 2025",
+   "bestBefore": "",
+   "qty": 120,
+   "unit": "seeds",
+   "minQty": null,
+   "location": "Seed box",
+   "status": "active",
+   "motherId": "exp-i-lf1",
+   "fatherId": "exp-i-lf1",
+   "crossId": "exp-c4",
+   "notes": "",
+   "photoIds": []
+  },
+  {
+   "id": "exp-l-c5",
+   "type": "stock",
+   "strainId": "",
+   "projectId": "exp-p-t",
+   "label": "T-F1-P01 selfed — F2 — 2025",
+   "source": "Own",
+   "batch": "",
+   "year": "Autumn 2025",
+   "bestBefore": "",
+   "qty": 90,
+   "unit": "seeds",
+   "minQty": null,
+   "location": "Seed box",
+   "status": "active",
+   "motherId": "exp-i-tf1",
+   "fatherId": "exp-i-tf1",
+   "crossId": "exp-c5",
+   "notes": "",
+   "photoIds": []
+  },
+  {
+   "id": "exp-l-op",
+   "type": "stock",
+   "strainId": "",
+   "projectId": "exp-p-li",
+   "label": "LI-F1-P02 open-pollinated — 2025",
+   "source": "Own",
+   "batch": "",
+   "year": "Autumn 2025",
+   "bestBefore": "",
+   "qty": 30,
+   "unit": "seeds",
+   "minQty": null,
+   "location": "Seed box",
+   "status": "active",
+   "motherId": "exp-i-lf2",
+   "fatherId": "",
+   "crossId": "",
+   "notes": "Seed from an open-pollinated fruit. Father unknown.",
+   "photoIds": []
+  },
+  {
+   "id": "exp-n5",
+   "type": "note",
+   "refId": "exp-i-lf1",
+   "date": "2025-03-01",
+   "text": "F1 fruit uniform, tan with butternut neck. Strong plant.",
+   "photoIds": []
+  },
+  {
+   "id": "exp-i-lf2-p01",
+   "type": "individual",
+   "code": "LI-F2-P01",
+   "name": "",
+   "strainId": "",
+   "projectId": "exp-p-li",
+   "generation": "F2",
+   "sex": "",
+   "motherId": "exp-i-lf1",
+   "fatherId": "exp-i-lf1",
+   "stockId": "exp-l-c4",
+   "startDate": "2025-10-12",
+   "status": "Culled",
+   "placeId": "exp-pl-rb1",
+   "crossId": "",
+   "description": "",
+   "scores": {
+    "Storage life": 1,
+    "Sweet, dense flesh": 3,
+    "Small seed cavity": 1,
+    "Fruit 1 to 2 kg": 2,
+    "Compact vine": 3
+   }
+  },
+  {
+   "id": "exp-e1",
+   "type": "entry",
+   "rtId": "exp-rt-h",
+   "indId": "exp-i-lf2-p01",
+   "parentEntryId": "",
+   "date": "2026-03-10",
+   "values": {
+    "exp-rt-h-f0": 2.9,
+    "exp-rt-h-f1": 52.6,
+    "exp-rt-h-f2": 14.4,
+    "exp-rt-h-f3": 9,
+    "exp-rt-h-f4": 2.6,
+    "exp-rt-h-f6": 3,
+    "exp-rt-h-f7": 3,
+    "exp-rt-h-f8": 3,
+    "exp-rt-h-f9": "Watery"
+   },
+   "photoIds": [],
+   "notes": "",
+   "seq": 1
+  },
+  {
+   "id": "exp-e2",
+   "type": "entry",
+   "rtId": "exp-rt-s",
+   "indId": "exp-i-lf2-p01",
+   "parentEntryId": "exp-e1",
+   "date": "2026-04-01",
+   "values": {
+    "exp-rt-s-f0": "Sound",
+    "exp-rt-s-f1": "Shed shelf"
+   },
+   "photoIds": [],
+   "notes": ""
+  },
+  {
+   "id": "exp-e3",
+   "type": "entry",
+   "rtId": "exp-rt-s",
+   "indId": "exp-i-lf2-p01",
+   "parentEntryId": "exp-e1",
+   "date": "2026-05-01",
+   "values": {
+    "exp-rt-s-f0": "Sound",
+    "exp-rt-s-f1": "Shed shelf"
+   },
+   "photoIds": [],
+   "notes": ""
+  },
+  {
+   "id": "exp-e4",
+   "type": "entry",
+   "rtId": "exp-rt-s",
+   "indId": "exp-i-lf2-p01",
+   "parentEntryId": "exp-e1",
+   "date": "2026-06-01",
+   "values": {
+    "exp-rt-s-f0": "Softening",
+    "exp-rt-s-f1": "Shed shelf"
+   },
+   "photoIds": [],
+   "notes": ""
+  },
+  {
+   "id": "exp-e5",
+   "type": "entry",
+   "rtId": "exp-rt-s",
+   "indId": "exp-i-lf2-p01",
+   "parentEntryId": "exp-e1",
+   "date": "2026-07-01",
+   "values": {
+    "exp-rt-s-f0": "Softening",
+    "exp-rt-s-f1": "Shed shelf"
+   },
+   "photoIds": [],
+   "notes": ""
+  },
+  {
+   "id": "exp-e6",
+   "type": "entry",
+   "rtId": "exp-rt-s",
+   "indId": "exp-i-lf2-p01",
+   "parentEntryId": "exp-e1",
+   "date": "2026-08-01",
+   "values": {
+    "exp-rt-s-f0": "Softening",
+    "exp-rt-s-f1": "Shed shelf"
+   },
+   "photoIds": [],
+   "notes": ""
+  },
+  {
+   "id": "exp-e7",
+   "type": "entry",
+   "rtId": "exp-rt-s",
+   "indId": "exp-i-lf2-p01",
+   "parentEntryId": "exp-e1",
+   "date": "2026-09-01",
+   "values": {
+    "exp-rt-s-f0": "Softening",
+    "exp-rt-s-f1": "Shed shelf"
+   },
+   "photoIds": [],
+   "notes": ""
+  },
+  {
+   "id": "exp-e8",
+   "type": "entry",
+   "rtId": "exp-rt-p",
+   "indId": "exp-i-lf2-p01",
+   "parentEntryId": "",
+   "date": "2026-01-05",
+   "values": {
+    "exp-rt-p-f0": "Moderate",
+    "exp-rt-p-f1": 7,
+    "exp-rt-p-f2": 3,
+    "exp-rt-p-f3": "None",
+    "exp-rt-p-f4": "None"
+   },
+   "photoIds": [],
+   "notes": ""
+  },
+  {
+   "id": "exp-i-lf2-p02",
+   "type": "individual",
+   "code": "LI-F2-P02",
+   "name": "",
+   "strainId": "",
+   "projectId": "exp-p-li",
+   "generation": "F2",
+   "sex": "",
+   "motherId": "exp-i-lf1",
+   "fatherId": "exp-i-lf1",
+   "stockId": "exp-l-c4",
+   "startDate": "2025-10-12",
+   "status": "Harvested",
+   "placeId": "exp-pl-rb2",
+   "crossId": "",
+   "description": "",
+   "scores": {
+    "Storage life": 3,
+    "Sweet, dense flesh": 4,
+    "Small seed cavity": 5,
+    "Fruit 1 to 2 kg": 5,
+    "Compact vine": 2
+   }
+  },
+  {
+   "id": "exp-e9",
+   "type": "entry",
+   "rtId": "exp-rt-h",
+   "indId": "exp-i-lf2-p02",
+   "parentEntryId": "",
+   "date": "2026-03-11",
+   "values": {
+    "exp-rt-h-f0": 1.6,
+    "exp-rt-h-f1": 34.4,
+    "exp-rt-h-f2": 8.0,
+    "exp-rt-h-f3": 5,
+    "exp-rt-h-f4": 3.8,
+    "exp-rt-h-f6": 3,
+    "exp-rt-h-f7": 4,
+    "exp-rt-h-f8": 4,
+    "exp-rt-h-f9": "Dry and dense"
+   },
+   "photoIds": [],
+   "notes": "",
+   "seq": 1
+  },
+  {
+   "id": "exp-e10",
+   "type": "entry",
+   "rtId": "exp-rt-s",
+   "indId": "exp-i-lf2-p02",
+   "parentEntryId": "exp-e9",
+   "date": "2026-04-01",
+   "values": {
+    "exp-rt-s-f0": "Sound",
+    "exp-rt-s-f1": "Shed shelf"
+   },
+   "photoIds": [],
+   "notes": ""
+  },
+  {
+   "id": "exp-e11",
+   "type": "entry",
+   "rtId": "exp-rt-s",
+   "indId": "exp-i-lf2-p02",
+   "parentEntryId": "exp-e9",
+   "date": "2026-05-01",
+   "values": {
+    "exp-rt-s-f0": "Sound",
+    "exp-rt-s-f1": "Shed shelf"
+   },
+   "photoIds": [],
+   "notes": ""
+  },
+  {
+   "id": "exp-e12",
+   "type": "entry",
+   "rtId": "exp-rt-s",
+   "indId": "exp-i-lf2-p02",
+   "parentEntryId": "exp-e9",
+   "date": "2026-06-01",
+   "values": {
+    "exp-rt-s-f0": "Sound",
+    "exp-rt-s-f1": "Shed shelf"
+   },
+   "photoIds": [],
+   "notes": ""
+  },
+  {
+   "id": "exp-e13",
+   "type": "entry",
+   "rtId": "exp-rt-s",
+   "indId": "exp-i-lf2-p02",
+   "parentEntryId": "exp-e9",
+   "date": "2026-07-01",
+   "values": {
+    "exp-rt-s-f0": "Sound",
+    "exp-rt-s-f1": "Shed shelf"
+   },
+   "photoIds": [],
+   "notes": ""
+  },
+  {
+   "id": "exp-e14",
+   "type": "entry",
+   "rtId": "exp-rt-s",
+   "indId": "exp-i-lf2-p02",
+   "parentEntryId": "exp-e9",
+   "date": "2026-08-01",
+   "values": {
+    "exp-rt-s-f0": "Sound",
+    "exp-rt-s-f1": "Shed shelf"
+   },
+   "photoIds": [],
+   "notes": ""
+  },
+  {
+   "id": "exp-e15",
+   "type": "entry",
+   "rtId": "exp-rt-s",
+   "indId": "exp-i-lf2-p02",
+   "parentEntryId": "exp-e9",
+   "date": "2026-09-01",
+   "values": {
+    "exp-rt-s-f0": "Softening",
+    "exp-rt-s-f1": "Shed shelf"
+   },
+   "photoIds": [],
+   "notes": ""
+  },
+  {
+   "id": "exp-e16",
+   "type": "entry",
+   "rtId": "exp-rt-p",
+   "indId": "exp-i-lf2-p02",
+   "parentEntryId": "",
+   "date": "2026-01-05",
+   "values": {
+    "exp-rt-p-f0": "Large",
+    "exp-rt-p-f1": 8,
+    "exp-rt-p-f2": 1,
+    "exp-rt-p-f3": "None",
+    "exp-rt-p-f4": "None"
+   },
+   "photoIds": [],
+   "notes": ""
+  },
+  {
+   "id": "exp-i-lf2-p03",
+   "type": "individual",
+   "code": "LI-F2-P03",
+   "name": "",
+   "strainId": "",
+   "projectId": "exp-p-li",
+   "generation": "F2",
+   "sex": "",
+   "motherId": "exp-i-lf1",
+   "fatherId": "exp-i-lf1",
+   "stockId": "exp-l-c4",
+   "startDate": "2025-10-12",
+   "status": "Selected",
+   "placeId": "exp-pl-mound",
+   "crossId": "",
+   "description": "",
+   "scores": {
+    "Storage life": 5,
+    "Sweet, dense flesh": 5,
+    "Small seed cavity": 5,
+    "Fruit 1 to 2 kg": 5,
+    "Compact vine": 2
+   },
+   "goalV": "1.0"
+  },
+  {
+   "id": "exp-e17",
+   "type": "entry",
+   "rtId": "exp-rt-h",
+   "indId": "exp-i-lf2-p03",
+   "parentEntryId": "",
+   "date": "2026-03-12",
+   "values": {
+    "exp-rt-h-f0": 1.4,
+    "exp-rt-h-f1": 31.6,
+    "exp-rt-h-f2": 6.4,
+    "exp-rt-h-f3": 4,
+    "exp-rt-h-f4": 4.2,
+    "exp-rt-h-f6": 3,
+    "exp-rt-h-f7": 5,
+    "exp-rt-h-f8": 5,
+    "exp-rt-h-f9": "Dry and dense"
+   },
+   "photoIds": [],
+   "notes": "",
+   "seq": 1
+  },
+  {
+   "id": "exp-e18",
+   "type": "entry",
+   "rtId": "exp-rt-s",
+   "indId": "exp-i-lf2-p03",
+   "parentEntryId": "exp-e17",
+   "date": "2026-04-01",
+   "values": {
+    "exp-rt-s-f0": "Sound",
+    "exp-rt-s-f1": "Shed shelf"
+   },
+   "photoIds": [],
+   "notes": ""
+  },
+  {
+   "id": "exp-e19",
+   "type": "entry",
+   "rtId": "exp-rt-s",
+   "indId": "exp-i-lf2-p03",
+   "parentEntryId": "exp-e17",
+   "date": "2026-05-01",
+   "values": {
+    "exp-rt-s-f0": "Sound",
+    "exp-rt-s-f1": "Shed shelf"
+   },
+   "photoIds": [],
+   "notes": ""
+  },
+  {
+   "id": "exp-e20",
+   "type": "entry",
+   "rtId": "exp-rt-s",
+   "indId": "exp-i-lf2-p03",
+   "parentEntryId": "exp-e17",
+   "date": "2026-06-01",
+   "values": {
+    "exp-rt-s-f0": "Sound",
+    "exp-rt-s-f1": "Shed shelf"
+   },
+   "photoIds": [],
+   "notes": ""
+  },
+  {
+   "id": "exp-e21",
+   "type": "entry",
+   "rtId": "exp-rt-s",
+   "indId": "exp-i-lf2-p03",
+   "parentEntryId": "exp-e17",
+   "date": "2026-07-01",
+   "values": {
+    "exp-rt-s-f0": "Sound",
+    "exp-rt-s-f1": "Shed shelf"
+   },
+   "photoIds": [],
+   "notes": ""
+  },
+  {
+   "id": "exp-e22",
+   "type": "entry",
+   "rtId": "exp-rt-s",
+   "indId": "exp-i-lf2-p03",
+   "parentEntryId": "exp-e17",
+   "date": "2026-08-01",
+   "values": {
+    "exp-rt-s-f0": "Sound",
+    "exp-rt-s-f1": "Shed shelf"
+   },
+   "photoIds": [],
+   "notes": ""
+  },
+  {
+   "id": "exp-e23",
+   "type": "entry",
+   "rtId": "exp-rt-s",
+   "indId": "exp-i-lf2-p03",
+   "parentEntryId": "exp-e17",
+   "date": "2026-09-01",
+   "values": {
+    "exp-rt-s-f0": "Sound",
+    "exp-rt-s-f1": "Shed shelf"
+   },
+   "photoIds": [],
+   "notes": ""
+  },
+  {
+   "id": "exp-e24",
+   "type": "entry",
+   "rtId": "exp-rt-p",
+   "indId": "exp-i-lf2-p03",
+   "parentEntryId": "",
+   "date": "2026-01-05",
+   "values": {
+    "exp-rt-p-f0": "Large",
+    "exp-rt-p-f1": 7,
+    "exp-rt-p-f2": 1,
+    "exp-rt-p-f3": "None",
+    "exp-rt-p-f4": "None"
+   },
+   "photoIds": [],
+   "notes": ""
+  },
+  {
+   "id": "exp-i-lf2-p04",
+   "type": "individual",
+   "code": "LI-F2-P04",
+   "name": "",
+   "strainId": "",
+   "projectId": "exp-p-li",
+   "generation": "F2",
+   "sex": "",
+   "motherId": "exp-i-lf1",
+   "fatherId": "exp-i-lf1",
+   "stockId": "exp-l-c4",
+   "startDate": "2025-10-12",
+   "status": "Culled",
+   "placeId": "exp-pl-pots",
+   "crossId": "",
+   "description": "",
+   "scores": {
+    "Storage life": 1,
+    "Sweet, dense flesh": 2,
+    "Small seed cavity": 1,
+    "Fruit 1 to 2 kg": 2,
+    "Compact vine": 4
+   }
+  },
+  {
+   "id": "exp-e25",
+   "type": "entry",
+   "rtId": "exp-rt-h",
+   "indId": "exp-i-lf2-p04",
+   "parentEntryId": "",
+   "date": "2026-03-13",
+   "values": {
+    "exp-rt-h-f0": 2.2,
+    "exp-rt-h-f1": 42.8,
+    "exp-rt-h-f2": 12.8,
+    "exp-rt-h-f3": 8,
+    "exp-rt-h-f4": 2.8,
+    "exp-rt-h-f6": 3,
+    "exp-rt-h-f7": 3,
+    "exp-rt-h-f8": 2,
+    "exp-rt-h-f9": "Medium"
+   },
+   "photoIds": [],
+   "notes": "",
+   "seq": 1
+  },
+  {
+   "id": "exp-e26",
+   "type": "entry",
+   "rtId": "exp-rt-s",
+   "indId": "exp-i-lf2-p04",
+   "parentEntryId": "exp-e25",
+   "date": "2026-04-01",
+   "values": {
+    "exp-rt-s-f0": "Sound",
+    "exp-rt-s-f1": "Shed shelf"
+   },
+   "photoIds": [],
+   "notes": ""
+  },
+  {
+   "id": "exp-e27",
+   "type": "entry",
+   "rtId": "exp-rt-s",
+   "indId": "exp-i-lf2-p04",
+   "parentEntryId": "exp-e25",
+   "date": "2026-05-01",
+   "values": {
+    "exp-rt-s-f0": "Sound",
+    "exp-rt-s-f1": "Shed shelf"
+   },
+   "photoIds": [],
+   "notes": ""
+  },
+  {
+   "id": "exp-e28",
+   "type": "entry",
+   "rtId": "exp-rt-s",
+   "indId": "exp-i-lf2-p04",
+   "parentEntryId": "exp-e25",
+   "date": "2026-06-01",
+   "values": {
+    "exp-rt-s-f0": "Sound",
+    "exp-rt-s-f1": "Shed shelf"
+   },
+   "photoIds": [],
+   "notes": ""
+  },
+  {
+   "id": "exp-e29",
+   "type": "entry",
+   "rtId": "exp-rt-s",
+   "indId": "exp-i-lf2-p04",
+   "parentEntryId": "exp-e25",
+   "date": "2026-07-01",
+   "values": {
+    "exp-rt-s-f0": "Unusable",
+    "exp-rt-s-f1": "Shed shelf"
+   },
+   "photoIds": [],
+   "notes": ""
+  },
+  {
+   "id": "exp-e30",
+   "type": "entry",
+   "rtId": "exp-rt-p",
+   "indId": "exp-i-lf2-p04",
+   "parentEntryId": "",
+   "date": "2026-01-05",
+   "values": {
+    "exp-rt-p-f0": "Moderate",
+    "exp-rt-p-f1": 8,
+    "exp-rt-p-f2": 1,
+    "exp-rt-p-f3": "None",
+    "exp-rt-p-f4": "Moderate"
+   },
+   "photoIds": [],
+   "notes": ""
+  },
+  {
+   "id": "exp-i-lf2-p05",
+   "type": "individual",
+   "code": "LI-F2-P05",
+   "name": "",
+   "strainId": "",
+   "projectId": "exp-p-li",
+   "generation": "F2",
+   "sex": "",
+   "motherId": "exp-i-lf1",
+   "fatherId": "exp-i-lf1",
+   "stockId": "exp-l-c4",
+   "startDate": "2025-10-12",
+   "status": "Harvested",
+   "placeId": "exp-pl-rb1",
+   "crossId": "",
+   "description": "",
+   "scores": {
+    "Storage life": 2,
+    "Sweet, dense flesh": 3,
+    "Small seed cavity": 3,
+    "Fruit 1 to 2 kg": 5,
+    "Compact vine": 2
+   }
+  },
+  {
+   "id": "exp-e31",
+   "type": "entry",
+   "rtId": "exp-rt-h",
+   "indId": "exp-i-lf2-p05",
+   "parentEntryId": "",
+   "date": "2026-03-14",
+   "values": {
+    "exp-rt-h-f0": 1.9,
+    "exp-rt-h-f1": 38.6,
+    "exp-rt-h-f2": 9.6,
+    "exp-rt-h-f3": 6,
+    "exp-rt-h-f4": 3.5,
+    "exp-rt-h-f6": 3,
+    "exp-rt-h-f7": 4,
+    "exp-rt-h-f8": 3,
+    "exp-rt-h-f9": "Medium"
+   },
+   "photoIds": [],
+   "notes": "",
+   "seq": 1
+  },
+  {
+   "id": "exp-e32",
+   "type": "entry",
+   "rtId": "exp-rt-s",
+   "indId": "exp-i-lf2-p05",
+   "parentEntryId": "exp-e31",
+   "date": "2026-04-01",
+   "values": {
+    "exp-rt-s-f0": "Sound",
+    "exp-rt-s-f1": "Shed shelf"
+   },
+   "photoIds": [],
+   "notes": ""
+  },
+  {
+   "id": "exp-e33",
+   "type": "entry",
+   "rtId": "exp-rt-s",
+   "indId": "exp-i-lf2-p05",
+   "parentEntryId": "exp-e31",
+   "date": "2026-05-01",
+   "values": {
+    "exp-rt-s-f0": "Sound",
+    "exp-rt-s-f1": "Shed shelf"
+   },
+   "photoIds": [],
+   "notes": ""
+  },
+  {
+   "id": "exp-e34",
+   "type": "entry",
+   "rtId": "exp-rt-s",
+   "indId": "exp-i-lf2-p05",
+   "parentEntryId": "exp-e31",
+   "date": "2026-06-01",
+   "values": {
+    "exp-rt-s-f0": "Sound",
+    "exp-rt-s-f1": "Shed shelf"
+   },
+   "photoIds": [],
+   "notes": ""
+  },
+  {
+   "id": "exp-e35",
+   "type": "entry",
+   "rtId": "exp-rt-s",
+   "indId": "exp-i-lf2-p05",
+   "parentEntryId": "exp-e31",
+   "date": "2026-07-01",
+   "values": {
+    "exp-rt-s-f0": "Sound",
+    "exp-rt-s-f1": "Shed shelf"
+   },
+   "photoIds": [],
+   "notes": ""
+  },
+  {
+   "id": "exp-e36",
+   "type": "entry",
+   "rtId": "exp-rt-s",
+   "indId": "exp-i-lf2-p05",
+   "parentEntryId": "exp-e31",
+   "date": "2026-08-01",
+   "values": {
+    "exp-rt-s-f0": "Softening",
+    "exp-rt-s-f1": "Shed shelf"
+   },
+   "photoIds": [],
+   "notes": ""
+  },
+  {
+   "id": "exp-e37",
+   "type": "entry",
+   "rtId": "exp-rt-s",
+   "indId": "exp-i-lf2-p05",
+   "parentEntryId": "exp-e31",
+   "date": "2026-09-01",
+   "values": {
+    "exp-rt-s-f0": "Unusable",
+    "exp-rt-s-f1": "Shed shelf"
+   },
+   "photoIds": [],
+   "notes": ""
+  },
+  {
+   "id": "exp-e38",
+   "type": "entry",
+   "rtId": "exp-rt-p",
+   "indId": "exp-i-lf2-p05",
+   "parentEntryId": "",
+   "date": "2026-01-05",
+   "values": {
+    "exp-rt-p-f0": "Large",
+    "exp-rt-p-f1": 4,
+    "exp-rt-p-f2": 1,
+    "exp-rt-p-f3": "None",
+    "exp-rt-p-f4": "Moderate"
+   },
+   "photoIds": [],
+   "notes": ""
+  },
+  {
+   "id": "exp-i-lf2-p06",
+   "type": "individual",
+   "code": "LI-F2-P06",
+   "name": "",
+   "strainId": "",
+   "projectId": "exp-p-li",
+   "generation": "F2",
+   "sex": "",
+   "motherId": "exp-i-lf1",
+   "fatherId": "exp-i-lf1",
+   "stockId": "exp-l-c4",
+   "startDate": "2025-10-12",
+   "status": "Culled",
+   "placeId": "exp-pl-rb2",
+   "crossId": "",
+   "description": "",
+   "scores": {
+    "Storage life": 1,
+    "Sweet, dense flesh": 3,
+    "Small seed cavity": 1,
+    "Fruit 1 to 2 kg": 2,
+    "Compact vine": 3
+   }
+  },
+  {
+   "id": "exp-e39",
+   "type": "entry",
+   "rtId": "exp-rt-h",
+   "indId": "exp-i-lf2-p06",
+   "parentEntryId": "",
+   "date": "2026-03-15",
+   "values": {
+    "exp-rt-h-f0": 2.6,
+    "exp-rt-h-f1": 48.4,
+    "exp-rt-h-f2": 14.4,
+    "exp-rt-h-f3": 9,
+    "exp-rt-h-f4": 2.5,
+    "exp-rt-h-f6": 3,
+    "exp-rt-h-f7": 2,
+    "exp-rt-h-f8": 3,
+    "exp-rt-h-f9": "Watery"
+   },
+   "photoIds": [],
+   "notes": "",
+   "seq": 1
+  },
+  {
+   "id": "exp-e40",
+   "type": "entry",
+   "rtId": "exp-rt-s",
+   "indId": "exp-i-lf2-p06",
+   "parentEntryId": "exp-e39",
+   "date": "2026-04-01",
+   "values": {
+    "exp-rt-s-f0": "Sound",
+    "exp-rt-s-f1": "Shed shelf"
+   },
+   "photoIds": [],
+   "notes": ""
+  },
+  {
+   "id": "exp-e41",
+   "type": "entry",
+   "rtId": "exp-rt-s",
+   "indId": "exp-i-lf2-p06",
+   "parentEntryId": "exp-e39",
+   "date": "2026-05-01",
+   "values": {
+    "exp-rt-s-f0": "Softening",
+    "exp-rt-s-f1": "Shed shelf"
+   },
+   "photoIds": [],
+   "notes": ""
+  },
+  {
+   "id": "exp-e42",
+   "type": "entry",
+   "rtId": "exp-rt-s",
+   "indId": "exp-i-lf2-p06",
+   "parentEntryId": "exp-e39",
+   "date": "2026-06-01",
+   "values": {
+    "exp-rt-s-f0": "Unusable",
+    "exp-rt-s-f1": "Shed shelf"
+   },
+   "photoIds": [],
+   "notes": ""
+  },
+  {
+   "id": "exp-e43",
+   "type": "entry",
+   "rtId": "exp-rt-p",
+   "indId": "exp-i-lf2-p06",
+   "parentEntryId": "",
+   "date": "2026-01-05",
+   "values": {
+    "exp-rt-p-f0": "Large",
+    "exp-rt-p-f1": 7,
+    "exp-rt-p-f2": 1,
+    "exp-rt-p-f3": "None",
+    "exp-rt-p-f4": "Moderate"
+   },
+   "photoIds": [],
+   "notes": ""
+  },
+  {
+   "id": "exp-i-lf2-p07",
+   "type": "individual",
+   "code": "LI-F2-P07",
+   "name": "",
+   "strainId": "",
+   "projectId": "exp-p-li",
+   "generation": "F2",
+   "sex": "",
+   "motherId": "exp-i-lf1",
+   "fatherId": "exp-i-lf1",
+   "stockId": "exp-l-c4",
+   "startDate": "2025-10-12",
+   "status": "Kept for breeding",
+   "placeId": "exp-pl-mound",
+   "crossId": "",
+   "description": "",
+   "scores": {
+    "Storage life": 5,
+    "Sweet, dense flesh": 4,
+    "Small seed cavity": 5,
+    "Fruit 1 to 2 kg": 5,
+    "Compact vine": 3
+   },
+   "goalV": "1.0"
+  },
+  {
+   "id": "exp-e44",
+   "type": "entry",
+   "rtId": "exp-rt-h",
+   "indId": "exp-i-lf2-p07",
+   "parentEntryId": "",
+   "date": "2026-03-16",
+   "values": {
+    "exp-rt-h-f0": 1.5,
+    "exp-rt-h-f1": 33.0,
+    "exp-rt-h-f2": 7.2,
+    "exp-rt-h-f3": 4.5,
+    "exp-rt-h-f4": 4.0,
+    "exp-rt-h-f6": 3,
+    "exp-rt-h-f7": 5,
+    "exp-rt-h-f8": 4,
+    "exp-rt-h-f9": "Dry and dense"
+   },
+   "photoIds": [],
+   "notes": "",
+   "seq": 1
+  },
+  {
+   "id": "exp-e45",
+   "type": "entry",
+   "rtId": "exp-rt-s",
+   "indId": "exp-i-lf2-p07",
+   "parentEntryId": "exp-e44",
+   "date": "2026-04-01",
+   "values": {
+    "exp-rt-s-f0": "Sound",
+    "exp-rt-s-f1": "Shed shelf"
+   },
+   "photoIds": [],
+   "notes": ""
+  },
+  {
+   "id": "exp-e46",
+   "type": "entry",
+   "rtId": "exp-rt-s",
+   "indId": "exp-i-lf2-p07",
+   "parentEntryId": "exp-e44",
+   "date": "2026-05-01",
+   "values": {
+    "exp-rt-s-f0": "Sound",
+    "exp-rt-s-f1": "Shed shelf"
+   },
+   "photoIds": [],
+   "notes": ""
+  },
+  {
+   "id": "exp-e47",
+   "type": "entry",
+   "rtId": "exp-rt-s",
+   "indId": "exp-i-lf2-p07",
+   "parentEntryId": "exp-e44",
+   "date": "2026-06-01",
+   "values": {
+    "exp-rt-s-f0": "Sound",
+    "exp-rt-s-f1": "Shed shelf"
+   },
+   "photoIds": [],
+   "notes": ""
+  },
+  {
+   "id": "exp-e48",
+   "type": "entry",
+   "rtId": "exp-rt-s",
+   "indId": "exp-i-lf2-p07",
+   "parentEntryId": "exp-e44",
+   "date": "2026-07-01",
+   "values": {
+    "exp-rt-s-f0": "Sound",
+    "exp-rt-s-f1": "Shed shelf"
+   },
+   "photoIds": [],
+   "notes": ""
+  },
+  {
+   "id": "exp-e49",
+   "type": "entry",
+   "rtId": "exp-rt-s",
+   "indId": "exp-i-lf2-p07",
+   "parentEntryId": "exp-e44",
+   "date": "2026-08-01",
+   "values": {
+    "exp-rt-s-f0": "Sound",
+    "exp-rt-s-f1": "Shed shelf"
+   },
+   "photoIds": [],
+   "notes": ""
+  },
+  {
+   "id": "exp-e50",
+   "type": "entry",
+   "rtId": "exp-rt-s",
+   "indId": "exp-i-lf2-p07",
+   "parentEntryId": "exp-e44",
+   "date": "2026-09-01",
+   "values": {
+    "exp-rt-s-f0": "Sound",
+    "exp-rt-s-f1": "Shed shelf"
+   },
+   "photoIds": [],
+   "notes": ""
+  },
+  {
+   "id": "exp-e51",
+   "type": "entry",
+   "rtId": "exp-rt-p",
+   "indId": "exp-i-lf2-p07",
+   "parentEntryId": "",
+   "date": "2026-01-05",
+   "values": {
+    "exp-rt-p-f0": "Moderate",
+    "exp-rt-p-f1": 4,
+    "exp-rt-p-f2": 3,
+    "exp-rt-p-f3": "None",
+    "exp-rt-p-f4": "Mild"
+   },
+   "photoIds": [],
+   "notes": ""
+  },
+  {
+   "id": "exp-i-lf2-p08",
+   "type": "individual",
+   "code": "LI-F2-P08",
+   "name": "",
+   "strainId": "",
+   "projectId": "exp-p-li",
+   "generation": "F2",
+   "sex": "",
+   "motherId": "exp-i-lf1",
+   "fatherId": "exp-i-lf1",
+   "stockId": "exp-l-c4",
+   "startDate": "2025-10-12",
+   "status": "Culled",
+   "placeId": "exp-pl-pots",
+   "crossId": "",
+   "description": "",
+   "scores": {
+    "Storage life": 1,
+    "Sweet, dense flesh": 2,
+    "Small seed cavity": 1,
+    "Fruit 1 to 2 kg": 2,
+    "Compact vine": 2
+   }
+  },
+  {
+   "id": "exp-e52",
+   "type": "entry",
+   "rtId": "exp-rt-h",
+   "indId": "exp-i-lf2-p08",
+   "parentEntryId": "",
+   "date": "2026-03-17",
+   "values": {
+    "exp-rt-h-f0": 3.1,
+    "exp-rt-h-f1": 55.4,
+    "exp-rt-h-f2": 16.0,
+    "exp-rt-h-f3": 10,
+    "exp-rt-h-f4": 2.4,
+    "exp-rt-h-f6": 3,
+    "exp-rt-h-f7": 3,
+    "exp-rt-h-f8": 2,
+    "exp-rt-h-f9": "Watery"
+   },
+   "photoIds": [],
+   "notes": "",
+   "seq": 1
+  },
+  {
+   "id": "exp-e53",
+   "type": "entry",
+   "rtId": "exp-rt-s",
+   "indId": "exp-i-lf2-p08",
+   "parentEntryId": "exp-e52",
+   "date": "2026-04-01",
+   "values": {
+    "exp-rt-s-f0": "Sound",
+    "exp-rt-s-f1": "Shed shelf"
+   },
+   "photoIds": [],
+   "notes": ""
+  },
+  {
+   "id": "exp-e54",
+   "type": "entry",
+   "rtId": "exp-rt-s",
+   "indId": "exp-i-lf2-p08",
+   "parentEntryId": "exp-e52",
+   "date": "2026-05-01",
+   "values": {
+    "exp-rt-s-f0": "Sound",
+    "exp-rt-s-f1": "Shed shelf"
+   },
+   "photoIds": [],
+   "notes": ""
+  },
+  {
+   "id": "exp-e55",
+   "type": "entry",
+   "rtId": "exp-rt-s",
+   "indId": "exp-i-lf2-p08",
+   "parentEntryId": "exp-e52",
+   "date": "2026-06-01",
+   "values": {
+    "exp-rt-s-f0": "Unusable",
+    "exp-rt-s-f1": "Shed shelf"
+   },
+   "photoIds": [],
+   "notes": ""
+  },
+  {
+   "id": "exp-e56",
+   "type": "entry",
+   "rtId": "exp-rt-p",
+   "indId": "exp-i-lf2-p08",
+   "parentEntryId": "",
+   "date": "2026-01-05",
+   "values": {
+    "exp-rt-p-f0": "Moderate",
+    "exp-rt-p-f1": 8,
+    "exp-rt-p-f2": 1,
+    "exp-rt-p-f3": "None",
+    "exp-rt-p-f4": "Mild"
+   },
+   "photoIds": [],
+   "notes": ""
+  },
+  {
+   "id": "exp-i-lf2-p09",
+   "type": "individual",
+   "code": "LI-F2-P09",
+   "name": "",
+   "strainId": "",
+   "projectId": "exp-p-li",
+   "generation": "F2",
+   "sex": "",
+   "motherId": "exp-i-lf1",
+   "fatherId": "exp-i-lf1",
+   "stockId": "exp-l-c4",
+   "startDate": "2025-10-12",
+   "status": "Harvested",
+   "placeId": "exp-pl-rb1",
+   "crossId": "",
+   "description": "",
+   "scores": {
+    "Storage life": 3,
+    "Sweet, dense flesh": 4,
+    "Small seed cavity": 3,
+    "Fruit 1 to 2 kg": 5,
+    "Compact vine": 4
+   }
+  },
+  {
+   "id": "exp-e57",
+   "type": "entry",
+   "rtId": "exp-rt-h",
+   "indId": "exp-i-lf2-p09",
+   "parentEntryId": "",
+   "date": "2026-03-18",
+   "values": {
+    "exp-rt-h-f0": 1.7,
+    "exp-rt-h-f1": 35.8,
+    "exp-rt-h-f2": 8.8,
+    "exp-rt-h-f3": 5.5,
+    "exp-rt-h-f4": 3.6,
+    "exp-rt-h-f6": 3,
+    "exp-rt-h-f7": 4,
+    "exp-rt-h-f8": 4,
+    "exp-rt-h-f9": "Medium"
+   },
+   "photoIds": [],
+   "notes": "",
+   "seq": 1
+  },
+  {
+   "id": "exp-e58",
+   "type": "entry",
+   "rtId": "exp-rt-s",
+   "indId": "exp-i-lf2-p09",
+   "parentEntryId": "exp-e57",
+   "date": "2026-04-01",
+   "values": {
+    "exp-rt-s-f0": "Sound",
+    "exp-rt-s-f1": "Shed shelf"
+   },
+   "photoIds": [],
+   "notes": ""
+  },
+  {
+   "id": "exp-e59",
+   "type": "entry",
+   "rtId": "exp-rt-s",
+   "indId": "exp-i-lf2-p09",
+   "parentEntryId": "exp-e57",
+   "date": "2026-05-01",
+   "values": {
+    "exp-rt-s-f0": "Sound",
+    "exp-rt-s-f1": "Shed shelf"
+   },
+   "photoIds": [],
+   "notes": ""
+  },
+  {
+   "id": "exp-e60",
+   "type": "entry",
+   "rtId": "exp-rt-s",
+   "indId": "exp-i-lf2-p09",
+   "parentEntryId": "exp-e57",
+   "date": "2026-06-01",
+   "values": {
+    "exp-rt-s-f0": "Sound",
+    "exp-rt-s-f1": "Shed shelf"
+   },
+   "photoIds": [],
+   "notes": ""
+  },
+  {
+   "id": "exp-e61",
+   "type": "entry",
+   "rtId": "exp-rt-s",
+   "indId": "exp-i-lf2-p09",
+   "parentEntryId": "exp-e57",
+   "date": "2026-07-01",
+   "values": {
+    "exp-rt-s-f0": "Sound",
+    "exp-rt-s-f1": "Shed shelf"
+   },
+   "photoIds": [],
+   "notes": ""
+  },
+  {
+   "id": "exp-e62",
+   "type": "entry",
+   "rtId": "exp-rt-s",
+   "indId": "exp-i-lf2-p09",
+   "parentEntryId": "exp-e57",
+   "date": "2026-08-01",
+   "values": {
+    "exp-rt-s-f0": "Sound",
+    "exp-rt-s-f1": "Shed shelf"
+   },
+   "photoIds": [],
+   "notes": ""
+  },
+  {
+   "id": "exp-e63",
+   "type": "entry",
+   "rtId": "exp-rt-s",
+   "indId": "exp-i-lf2-p09",
+   "parentEntryId": "exp-e57",
+   "date": "2026-09-01",
+   "values": {
+    "exp-rt-s-f0": "Softening",
+    "exp-rt-s-f1": "Shed shelf"
+   },
+   "photoIds": [],
+   "notes": ""
+  },
+  {
+   "id": "exp-e64",
+   "type": "entry",
+   "rtId": "exp-rt-p",
+   "indId": "exp-i-lf2-p09",
+   "parentEntryId": "",
+   "date": "2026-01-05",
+   "values": {
+    "exp-rt-p-f0": "Large",
+    "exp-rt-p-f1": 7,
+    "exp-rt-p-f2": 3,
+    "exp-rt-p-f3": "Mild",
+    "exp-rt-p-f4": "Mild"
+   },
+   "photoIds": [],
+   "notes": ""
+  },
+  {
+   "id": "exp-i-lf2-p10",
+   "type": "individual",
+   "code": "LI-F2-P10",
+   "name": "",
+   "strainId": "",
+   "projectId": "exp-p-li",
+   "generation": "F2",
+   "sex": "",
+   "motherId": "exp-i-lf1",
+   "fatherId": "exp-i-lf1",
+   "stockId": "exp-l-c4",
+   "startDate": "2025-10-12",
+   "status": "Culled",
+   "placeId": "exp-pl-rb2",
+   "crossId": "",
+   "description": "",
+   "scores": {
+    "Storage life": 1,
+    "Sweet, dense flesh": 3,
+    "Small seed cavity": 3,
+    "Fruit 1 to 2 kg": 5,
+    "Compact vine": 3
+   }
+  },
+  {
+   "id": "exp-e65",
+   "type": "entry",
+   "rtId": "exp-rt-h",
+   "indId": "exp-i-lf2-p10",
+   "parentEntryId": "",
+   "date": "2026-03-10",
+   "values": {
+    "exp-rt-h-f0": 2.0,
+    "exp-rt-h-f1": 40.0,
+    "exp-rt-h-f2": 11.2,
+    "exp-rt-h-f3": 7,
+    "exp-rt-h-f4": 3.0,
+    "exp-rt-h-f6": 3,
+    "exp-rt-h-f7": 3,
+    "exp-rt-h-f8": 3,
+    "exp-rt-h-f9": "Medium"
+   },
+   "photoIds": [],
+   "notes": "",
+   "seq": 1
+  },
+  {
+   "id": "exp-e66",
+   "type": "entry",
+   "rtId": "exp-rt-s",
+   "indId": "exp-i-lf2-p10",
+   "parentEntryId": "exp-e65",
+   "date": "2026-04-01",
+   "values": {
+    "exp-rt-s-f0": "Sound",
+    "exp-rt-s-f1": "Shed shelf"
+   },
+   "photoIds": [],
+   "notes": ""
+  },
+  {
+   "id": "exp-e67",
+   "type": "entry",
+   "rtId": "exp-rt-s",
+   "indId": "exp-i-lf2-p10",
+   "parentEntryId": "exp-e65",
+   "date": "2026-05-01",
+   "values": {
+    "exp-rt-s-f0": "Sound",
+    "exp-rt-s-f1": "Shed shelf"
+   },
+   "photoIds": [],
+   "notes": ""
+  },
+  {
+   "id": "exp-e68",
+   "type": "entry",
+   "rtId": "exp-rt-s",
+   "indId": "exp-i-lf2-p10",
+   "parentEntryId": "exp-e65",
+   "date": "2026-06-01",
+   "values": {
+    "exp-rt-s-f0": "Sound",
+    "exp-rt-s-f1": "Shed shelf"
+   },
+   "photoIds": [],
+   "notes": ""
+  },
+  {
+   "id": "exp-e69",
+   "type": "entry",
+   "rtId": "exp-rt-s",
+   "indId": "exp-i-lf2-p10",
+   "parentEntryId": "exp-e65",
+   "date": "2026-07-01",
+   "values": {
+    "exp-rt-s-f0": "Softening",
+    "exp-rt-s-f1": "Shed shelf"
+   },
+   "photoIds": [],
+   "notes": ""
+  },
+  {
+   "id": "exp-e70",
+   "type": "entry",
+   "rtId": "exp-rt-s",
+   "indId": "exp-i-lf2-p10",
+   "parentEntryId": "exp-e65",
+   "date": "2026-08-01",
+   "values": {
+    "exp-rt-s-f0": "Unusable",
+    "exp-rt-s-f1": "Shed shelf"
+   },
+   "photoIds": [],
+   "notes": ""
+  },
+  {
+   "id": "exp-e71",
+   "type": "entry",
+   "rtId": "exp-rt-p",
+   "indId": "exp-i-lf2-p10",
+   "parentEntryId": "",
+   "date": "2026-01-05",
+   "values": {
+    "exp-rt-p-f0": "Moderate",
+    "exp-rt-p-f1": 5,
+    "exp-rt-p-f2": 3,
+    "exp-rt-p-f3": "None",
+    "exp-rt-p-f4": "None"
+   },
+   "photoIds": [],
+   "notes": ""
+  },
+  {
+   "id": "exp-e72",
+   "type": "entry",
+   "rtId": "exp-rt-h",
+   "indId": "exp-i-lf2-p03",
+   "parentEntryId": "",
+   "date": "2026-03-22",
+   "values": {
+    "exp-rt-h-f0": 1.3,
+    "exp-rt-h-f1": 30.2,
+    "exp-rt-h-f2": 6.4,
+    "exp-rt-h-f3": 4,
+    "exp-rt-h-f4": 4.1,
+    "exp-rt-h-f6": 3,
+    "exp-rt-h-f7": 5,
+    "exp-rt-h-f8": 5,
+    "exp-rt-h-f9": "Dry and dense"
+   },
+   "photoIds": [],
+   "notes": "",
+   "seq": 2
+  },
+  {
+   "id": "exp-i-op1",
+   "type": "individual",
+   "code": "LI-OP-P01",
+   "name": "",
+   "strainId": "",
+   "projectId": "exp-p-li",
+   "generation": "F2",
+   "sex": "",
+   "motherId": "exp-i-lf2",
+   "fatherId": "",
+   "stockId": "exp-l-op",
+   "startDate": "2025-10-12",
+   "status": "Harvested",
+   "placeId": "exp-pl-mound",
+   "crossId": "",
+   "description": "Grown from open-pollinated seed, so the father is unknown.",
+   "scores": {}
+  },
+  {
+   "id": "exp-i-tf2-p01",
+   "type": "individual",
+   "code": "T-F2-P01",
+   "name": "",
+   "strainId": "",
+   "projectId": "exp-p-t",
+   "generation": "F2",
+   "sex": "",
+   "motherId": "exp-i-tf1",
+   "fatherId": "exp-i-tf1",
+   "stockId": "exp-l-c5",
+   "startDate": "2025-10-12",
+   "status": "Culled",
+   "placeId": "exp-pl-mound",
+   "crossId": "",
+   "description": "",
+   "scores": {
+    "Storage life": 2,
+    "Sweet, dense flesh": 3,
+    "Small seed cavity": 2,
+    "Fruit 1 to 2 kg": 2,
+    "Compact vine": 2
+   }
+  },
+  {
+   "id": "exp-e73",
+   "type": "entry",
+   "rtId": "exp-rt-h",
+   "indId": "exp-i-tf2-p01",
+   "parentEntryId": "",
+   "date": "2026-03-02",
+   "values": {
+    "exp-rt-h-f0": 3.4,
+    "exp-rt-h-f1": 59.6,
+    "exp-rt-h-f2": 12.8,
+    "exp-rt-h-f3": 8,
+    "exp-rt-h-f4": 3.0,
+    "exp-rt-h-f6": 3,
+    "exp-rt-h-f7": 4,
+    "exp-rt-h-f8": 3,
+    "exp-rt-h-f9": "Medium"
+   },
+   "photoIds": [],
+   "notes": "",
+   "seq": 1
+  },
+  {
+   "id": "exp-e74",
+   "type": "entry",
+   "rtId": "exp-rt-h",
+   "indId": "exp-i-tf2-p01",
+   "parentEntryId": "",
+   "date": "2026-03-12",
+   "values": {
+    "exp-rt-h-f0": 3.1,
+    "exp-rt-h-f1": 55.4,
+    "exp-rt-h-f2": 12.8,
+    "exp-rt-h-f3": 8,
+    "exp-rt-h-f4": 3.0,
+    "exp-rt-h-f6": 3,
+    "exp-rt-h-f7": 4,
+    "exp-rt-h-f8": 3,
+    "exp-rt-h-f9": "Medium"
+   },
+   "photoIds": [],
+   "notes": "",
+   "seq": 2
+  },
+  {
+   "id": "exp-e75",
+   "type": "entry",
+   "rtId": "exp-rt-s",
+   "indId": "exp-i-tf2-p01",
+   "parentEntryId": "exp-e73",
+   "date": "2026-04-01",
+   "values": {
+    "exp-rt-s-f0": "Sound",
+    "exp-rt-s-f1": "Shed shelf"
+   },
+   "photoIds": [],
+   "notes": ""
+  },
+  {
+   "id": "exp-e76",
+   "type": "entry",
+   "rtId": "exp-rt-s",
+   "indId": "exp-i-tf2-p01",
+   "parentEntryId": "exp-e73",
+   "date": "2026-05-01",
+   "values": {
+    "exp-rt-s-f0": "Sound",
+    "exp-rt-s-f1": "Shed shelf"
+   },
+   "photoIds": [],
+   "notes": ""
+  },
+  {
+   "id": "exp-e77",
+   "type": "entry",
+   "rtId": "exp-rt-s",
+   "indId": "exp-i-tf2-p01",
+   "parentEntryId": "exp-e73",
+   "date": "2026-06-01",
+   "values": {
+    "exp-rt-s-f0": "Sound",
+    "exp-rt-s-f1": "Shed shelf"
+   },
+   "photoIds": [],
+   "notes": ""
+  },
+  {
+   "id": "exp-e78",
+   "type": "entry",
+   "rtId": "exp-rt-s",
+   "indId": "exp-i-tf2-p01",
+   "parentEntryId": "exp-e73",
+   "date": "2026-07-01",
+   "values": {
+    "exp-rt-s-f0": "Sound",
+    "exp-rt-s-f1": "Shed shelf"
+   },
+   "photoIds": [],
+   "notes": ""
+  },
+  {
+   "id": "exp-e79",
+   "type": "entry",
+   "rtId": "exp-rt-s",
+   "indId": "exp-i-tf2-p01",
+   "parentEntryId": "exp-e73",
+   "date": "2026-08-01",
+   "values": {
+    "exp-rt-s-f0": "Softening",
+    "exp-rt-s-f1": "Shed shelf"
+   },
+   "photoIds": [],
+   "notes": ""
+  },
+  {
+   "id": "exp-e80",
+   "type": "entry",
+   "rtId": "exp-rt-s",
+   "indId": "exp-i-tf2-p01",
+   "parentEntryId": "exp-e73",
+   "date": "2026-09-01",
+   "values": {
+    "exp-rt-s-f0": "Unusable",
+    "exp-rt-s-f1": "Shed shelf"
+   },
+   "photoIds": [],
+   "notes": ""
+  },
+  {
+   "id": "exp-i-tf2-p02",
+   "type": "individual",
+   "code": "T-F2-P02",
+   "name": "",
+   "strainId": "",
+   "projectId": "exp-p-t",
+   "generation": "F2",
+   "sex": "",
+   "motherId": "exp-i-tf1",
+   "fatherId": "exp-i-tf1",
+   "stockId": "exp-l-c5",
+   "startDate": "2025-10-12",
+   "status": "Selected",
+   "placeId": "exp-pl-mound",
+   "crossId": "",
+   "description": "",
+   "scores": {
+    "Storage life": 4,
+    "Sweet, dense flesh": 4,
+    "Small seed cavity": 4,
+    "Fruit 1 to 2 kg": 5,
+    "Compact vine": 2
+   },
+   "goalV": "1.0"
+  },
+  {
+   "id": "exp-e81",
+   "type": "entry",
+   "rtId": "exp-rt-h",
+   "indId": "exp-i-tf2-p02",
+   "parentEntryId": "",
+   "date": "2026-03-03",
+   "values": {
+    "exp-rt-h-f0": 2.0,
+    "exp-rt-h-f1": 40.0,
+    "exp-rt-h-f2": 9.6,
+    "exp-rt-h-f3": 6,
+    "exp-rt-h-f4": 3.6,
+    "exp-rt-h-f6": 3,
+    "exp-rt-h-f7": 4,
+    "exp-rt-h-f8": 4,
+    "exp-rt-h-f9": "Dry and dense"
+   },
+   "photoIds": [],
+   "notes": "",
+   "seq": 1
+  },
+  {
+   "id": "exp-e82",
+   "type": "entry",
+   "rtId": "exp-rt-h",
+   "indId": "exp-i-tf2-p02",
+   "parentEntryId": "",
+   "date": "2026-03-13",
+   "values": {
+    "exp-rt-h-f0": 1.8,
+    "exp-rt-h-f1": 37.2,
+    "exp-rt-h-f2": 9.6,
+    "exp-rt-h-f3": 6,
+    "exp-rt-h-f4": 3.6,
+    "exp-rt-h-f6": 3,
+    "exp-rt-h-f7": 4,
+    "exp-rt-h-f8": 4,
+    "exp-rt-h-f9": "Dry and dense"
+   },
+   "photoIds": [],
+   "notes": "",
+   "seq": 2
+  },
+  {
+   "id": "exp-e83",
+   "type": "entry",
+   "rtId": "exp-rt-s",
+   "indId": "exp-i-tf2-p02",
+   "parentEntryId": "exp-e81",
+   "date": "2026-04-01",
+   "values": {
+    "exp-rt-s-f0": "Sound",
+    "exp-rt-s-f1": "Shed shelf"
+   },
+   "photoIds": [],
+   "notes": ""
+  },
+  {
+   "id": "exp-e84",
+   "type": "entry",
+   "rtId": "exp-rt-s",
+   "indId": "exp-i-tf2-p02",
+   "parentEntryId": "exp-e81",
+   "date": "2026-05-01",
+   "values": {
+    "exp-rt-s-f0": "Sound",
+    "exp-rt-s-f1": "Shed shelf"
+   },
+   "photoIds": [],
+   "notes": ""
+  },
+  {
+   "id": "exp-e85",
+   "type": "entry",
+   "rtId": "exp-rt-s",
+   "indId": "exp-i-tf2-p02",
+   "parentEntryId": "exp-e81",
+   "date": "2026-06-01",
+   "values": {
+    "exp-rt-s-f0": "Sound",
+    "exp-rt-s-f1": "Shed shelf"
+   },
+   "photoIds": [],
+   "notes": ""
+  },
+  {
+   "id": "exp-e86",
+   "type": "entry",
+   "rtId": "exp-rt-s",
+   "indId": "exp-i-tf2-p02",
+   "parentEntryId": "exp-e81",
+   "date": "2026-07-01",
+   "values": {
+    "exp-rt-s-f0": "Sound",
+    "exp-rt-s-f1": "Shed shelf"
+   },
+   "photoIds": [],
+   "notes": ""
+  },
+  {
+   "id": "exp-e87",
+   "type": "entry",
+   "rtId": "exp-rt-s",
+   "indId": "exp-i-tf2-p02",
+   "parentEntryId": "exp-e81",
+   "date": "2026-08-01",
+   "values": {
+    "exp-rt-s-f0": "Sound",
+    "exp-rt-s-f1": "Shed shelf"
+   },
+   "photoIds": [],
+   "notes": ""
+  },
+  {
+   "id": "exp-e88",
+   "type": "entry",
+   "rtId": "exp-rt-s",
+   "indId": "exp-i-tf2-p02",
+   "parentEntryId": "exp-e81",
+   "date": "2026-09-01",
+   "values": {
+    "exp-rt-s-f0": "Sound",
+    "exp-rt-s-f1": "Shed shelf"
+   },
+   "photoIds": [],
+   "notes": ""
+  },
+  {
+   "id": "exp-i-tf2-p03",
+   "type": "individual",
+   "code": "T-F2-P03",
+   "name": "",
+   "strainId": "",
+   "projectId": "exp-p-t",
+   "generation": "F2",
+   "sex": "",
+   "motherId": "exp-i-tf1",
+   "fatherId": "exp-i-tf1",
+   "stockId": "exp-l-c5",
+   "startDate": "2025-10-12",
+   "status": "Harvested",
+   "placeId": "exp-pl-mound",
+   "crossId": "",
+   "description": "",
+   "scores": {
+    "Storage life": 2,
+    "Sweet, dense flesh": 3,
+    "Small seed cavity": 2,
+    "Fruit 1 to 2 kg": 2,
+    "Compact vine": 2
+   }
+  },
+  {
+   "id": "exp-e89",
+   "type": "entry",
+   "rtId": "exp-rt-h",
+   "indId": "exp-i-tf2-p03",
+   "parentEntryId": "",
+   "date": "2026-03-04",
+   "values": {
+    "exp-rt-h-f0": 2.8,
+    "exp-rt-h-f1": 51.2,
+    "exp-rt-h-f2": 11.2,
+    "exp-rt-h-f3": 7,
+    "exp-rt-h-f4": 3.2,
+    "exp-rt-h-f6": 3,
+    "exp-rt-h-f7": 3,
+    "exp-rt-h-f8": 3,
+    "exp-rt-h-f9": "Medium"
+   },
+   "photoIds": [],
+   "notes": "",
+   "seq": 1
+  },
+  {
+   "id": "exp-e90",
+   "type": "entry",
+   "rtId": "exp-rt-h",
+   "indId": "exp-i-tf2-p03",
+   "parentEntryId": "",
+   "date": "2026-03-14",
+   "values": {
+    "exp-rt-h-f0": 2.5,
+    "exp-rt-h-f1": 47.0,
+    "exp-rt-h-f2": 11.2,
+    "exp-rt-h-f3": 7,
+    "exp-rt-h-f4": 3.2,
+    "exp-rt-h-f6": 3,
+    "exp-rt-h-f7": 3,
+    "exp-rt-h-f8": 3,
+    "exp-rt-h-f9": "Medium"
+   },
+   "photoIds": [],
+   "notes": "",
+   "seq": 2
+  },
+  {
+   "id": "exp-e91",
+   "type": "entry",
+   "rtId": "exp-rt-s",
+   "indId": "exp-i-tf2-p03",
+   "parentEntryId": "exp-e89",
+   "date": "2026-04-01",
+   "values": {
+    "exp-rt-s-f0": "Sound",
+    "exp-rt-s-f1": "Shed shelf"
+   },
+   "photoIds": [],
+   "notes": ""
+  },
+  {
+   "id": "exp-e92",
+   "type": "entry",
+   "rtId": "exp-rt-s",
+   "indId": "exp-i-tf2-p03",
+   "parentEntryId": "exp-e89",
+   "date": "2026-05-01",
+   "values": {
+    "exp-rt-s-f0": "Sound",
+    "exp-rt-s-f1": "Shed shelf"
+   },
+   "photoIds": [],
+   "notes": ""
+  },
+  {
+   "id": "exp-e93",
+   "type": "entry",
+   "rtId": "exp-rt-s",
+   "indId": "exp-i-tf2-p03",
+   "parentEntryId": "exp-e89",
+   "date": "2026-06-01",
+   "values": {
+    "exp-rt-s-f0": "Sound",
+    "exp-rt-s-f1": "Shed shelf"
+   },
+   "photoIds": [],
+   "notes": ""
+  },
+  {
+   "id": "exp-e94",
+   "type": "entry",
+   "rtId": "exp-rt-s",
+   "indId": "exp-i-tf2-p03",
+   "parentEntryId": "exp-e89",
+   "date": "2026-07-01",
+   "values": {
+    "exp-rt-s-f0": "Sound",
+    "exp-rt-s-f1": "Shed shelf"
+   },
+   "photoIds": [],
+   "notes": ""
+  },
+  {
+   "id": "exp-e95",
+   "type": "entry",
+   "rtId": "exp-rt-s",
+   "indId": "exp-i-tf2-p03",
+   "parentEntryId": "exp-e89",
+   "date": "2026-08-01",
+   "values": {
+    "exp-rt-s-f0": "Unusable",
+    "exp-rt-s-f1": "Shed shelf"
+   },
+   "photoIds": [],
+   "notes": ""
+  },
+  {
+   "id": "exp-i-tf2-p04",
+   "type": "individual",
+   "code": "T-F2-P04",
+   "name": "",
+   "strainId": "",
+   "projectId": "exp-p-t",
+   "generation": "F2",
+   "sex": "",
+   "motherId": "exp-i-tf1",
+   "fatherId": "exp-i-tf1",
+   "stockId": "exp-l-c5",
+   "startDate": "2025-10-12",
+   "status": "Culled",
+   "placeId": "exp-pl-mound",
+   "crossId": "",
+   "description": "",
+   "scores": {
+    "Storage life": 1,
+    "Sweet, dense flesh": 2,
+    "Small seed cavity": 2,
+    "Fruit 1 to 2 kg": 2,
+    "Compact vine": 2
+   }
+  },
+  {
+   "id": "exp-e96",
+   "type": "entry",
+   "rtId": "exp-rt-h",
+   "indId": "exp-i-tf2-p04",
+   "parentEntryId": "",
+   "date": "2026-03-05",
+   "values": {
+    "exp-rt-h-f0": 3.9,
+    "exp-rt-h-f1": 66.6,
+    "exp-rt-h-f2": 14.4,
+    "exp-rt-h-f3": 9,
+    "exp-rt-h-f4": 2.7,
+    "exp-rt-h-f6": 3,
+    "exp-rt-h-f7": 3,
+    "exp-rt-h-f8": 2,
+    "exp-rt-h-f9": "Watery"
+   },
+   "photoIds": [],
+   "notes": "",
+   "seq": 1
+  },
+  {
+   "id": "exp-e97",
+   "type": "entry",
+   "rtId": "exp-rt-h",
+   "indId": "exp-i-tf2-p04",
+   "parentEntryId": "",
+   "date": "2026-03-15",
+   "values": {
+    "exp-rt-h-f0": 3.5,
+    "exp-rt-h-f1": 61.0,
+    "exp-rt-h-f2": 14.4,
+    "exp-rt-h-f3": 9,
+    "exp-rt-h-f4": 2.7,
+    "exp-rt-h-f6": 3,
+    "exp-rt-h-f7": 3,
+    "exp-rt-h-f8": 2,
+    "exp-rt-h-f9": "Watery"
+   },
+   "photoIds": [],
+   "notes": "",
+   "seq": 2
+  },
+  {
+   "id": "exp-e98",
+   "type": "entry",
+   "rtId": "exp-rt-s",
+   "indId": "exp-i-tf2-p04",
+   "parentEntryId": "exp-e96",
+   "date": "2026-04-01",
+   "values": {
+    "exp-rt-s-f0": "Sound",
+    "exp-rt-s-f1": "Shed shelf"
+   },
+   "photoIds": [],
+   "notes": ""
+  },
+  {
+   "id": "exp-e99",
+   "type": "entry",
+   "rtId": "exp-rt-s",
+   "indId": "exp-i-tf2-p04",
+   "parentEntryId": "exp-e96",
+   "date": "2026-05-01",
+   "values": {
+    "exp-rt-s-f0": "Sound",
+    "exp-rt-s-f1": "Shed shelf"
+   },
+   "photoIds": [],
+   "notes": ""
+  },
+  {
+   "id": "exp-e100",
+   "type": "entry",
+   "rtId": "exp-rt-s",
+   "indId": "exp-i-tf2-p04",
+   "parentEntryId": "exp-e96",
+   "date": "2026-06-01",
+   "values": {
+    "exp-rt-s-f0": "Unusable",
+    "exp-rt-s-f1": "Shed shelf"
+   },
+   "photoIds": [],
+   "notes": ""
+  },
+  {
+   "id": "exp-n6",
+   "type": "note",
+   "refId": "exp-i-lf2-p03",
+   "date": "2026-03-20",
+   "text": "Best fruit of the season: small cavity, deep orange, very sweet. Still sound after 6 months.",
+   "photoIds": []
+  },
+  {
+   "id": "exp-n7",
+   "type": "note",
+   "refId": "exp-i-tf2-p02",
+   "date": "2026-02-01",
+   "text": "Most productive Line T plant, and the smallest vine in the line.",
+   "photoIds": []
+  },
+  {
+   "id": "exp-c6",
+   "type": "cross",
+   "date": "2026-02-08",
+   "motherId": "exp-i-lf2-p03",
+   "fatherId": "exp-i-tf2-p02",
+   "method": "Hand-pollinated",
+   "status": "Successful",
+   "projectId": "exp-p",
+   "outcome": "Fruit set",
+   "notes": "Combining the two lines.",
+   "goalV": "1.0"
+  },
+  {
+   "id": "exp-c7",
+   "type": "cross",
+   "date": "2026-02-10",
+   "motherId": "exp-i-lf2-p07",
+   "fatherId": "exp-i-lf2-p07",
+   "method": "Hand-pollinated",
+   "status": "Successful",
+   "projectId": "exp-p-li",
+   "outcome": "Fruit set",
+   "notes": "",
+   "goalV": "1.0"
+  },
+  {
+   "id": "exp-l-c6",
+   "type": "stock",
+   "strainId": "",
+   "projectId": "exp-p",
+   "label": "LI-F2-P03 × T-F2-P02 — combined — 2026",
+   "source": "Own",
+   "batch": "",
+   "year": "Autumn 2026",
+   "bestBefore": "",
+   "qty": 36,
+   "unit": "seeds",
+   "minQty": null,
+   "location": "Seed box",
+   "status": "active",
+   "motherId": "exp-i-lf2-p03",
+   "fatherId": "exp-i-tf2-p02",
+   "crossId": "exp-c6",
+   "notes": "",
+   "photoIds": []
+  },
+  {
+   "id": "exp-l-c7",
+   "type": "stock",
+   "strainId": "",
+   "projectId": "exp-p-li",
+   "label": "LI-F2-P07 selfed — F3 — 2026",
+   "source": "Own",
+   "batch": "",
+   "year": "Autumn 2026",
+   "bestBefore": "",
+   "qty": 64,
+   "unit": "seeds",
+   "minQty": null,
+   "location": "Seed box",
+   "status": "active",
+   "motherId": "exp-i-lf2-p07",
+   "fatherId": "exp-i-lf2-p07",
+   "crossId": "exp-c7",
+   "notes": "",
+   "photoIds": []
+  },
+  {
+   "id": "exp-l-arch",
+   "type": "stock",
+   "strainId": "",
+   "projectId": "exp-p-li",
+   "label": "LI-F1-P01 selfed — F2 — archive backup",
+   "source": "Own",
+   "batch": "",
+   "year": "Autumn 2025",
+   "bestBefore": "",
+   "qty": 40,
+   "unit": "seeds",
+   "minQty": null,
+   "location": "Seed box",
+   "status": "archive",
+   "motherId": "exp-i-lf1",
+   "fatherId": "exp-i-lf1",
+   "crossId": "exp-c4",
+   "notes": "Backup of the F2 seed. Do not sow unless the working lot fails.",
+   "photoIds": []
+  },
+  {
+   "id": "exp-g3",
+   "type": "germ",
+   "lotId": "exp-l-c7",
+   "date": "2026-09-24",
+   "method": "Paper towel",
+   "sown": 8,
+   "counts": [
+    {
+     "day": 4,
+     "n": 3
+    },
+    {
+     "day": 6,
+     "n": 6
+    }
+   ],
+   "done": false,
+   "notes": ""
+  },
+  {
+   "id": "exp-i-lf3-1",
+   "type": "individual",
+   "code": "LI-F3-P01",
+   "name": "",
+   "strainId": "",
+   "projectId": "exp-p-li",
+   "generation": "F3",
+   "sex": "",
+   "motherId": "exp-i-lf2-p07",
+   "fatherId": "exp-i-lf2-p07",
+   "stockId": "exp-l-c7",
+   "startDate": "2026-09-20",
+   "status": "Active",
+   "placeId": "exp-pl-rb2",
+   "crossId": "",
+   "description": "",
+   "scores": {}
+  },
+  {
+   "id": "exp-i-lf3-2",
+   "type": "individual",
+   "code": "LI-F3-P02",
+   "name": "",
+   "strainId": "",
+   "projectId": "exp-p-li",
+   "generation": "F3",
+   "sex": "",
+   "motherId": "exp-i-lf2-p07",
+   "fatherId": "exp-i-lf2-p07",
+   "stockId": "exp-l-c7",
+   "startDate": "2026-09-20",
+   "status": "Active",
+   "placeId": "exp-pl-rb1",
+   "crossId": "",
+   "description": "",
+   "scores": {}
+  },
+  {
+   "id": "exp-i-lf3-3",
+   "type": "individual",
+   "code": "LI-F3-P03",
+   "name": "",
+   "strainId": "",
+   "projectId": "exp-p-li",
+   "generation": "F3",
+   "sex": "",
+   "motherId": "exp-i-lf2-p07",
+   "fatherId": "exp-i-lf2-p07",
+   "stockId": "exp-l-c7",
+   "startDate": "2026-09-20",
+   "status": "Active",
+   "placeId": "exp-pl-rb2",
+   "crossId": "",
+   "description": "",
+   "scores": {}
+  },
+  {
+   "id": "exp-i-cb-1",
+   "type": "individual",
+   "code": "PK-X-P01",
+   "name": "",
+   "strainId": "",
+   "projectId": "exp-p",
+   "generation": "LI×T",
+   "sex": "",
+   "motherId": "exp-i-lf2-p03",
+   "fatherId": "exp-i-tf2-p02",
+   "stockId": "exp-l-c6",
+   "startDate": "2026-09-20",
+   "status": "Active",
+   "placeId": "exp-pl-pots",
+   "crossId": "",
+   "description": "",
+   "scores": {}
+  },
+  {
+   "id": "exp-i-cb-2",
+   "type": "individual",
+   "code": "PK-X-P02",
+   "name": "",
+   "strainId": "",
+   "projectId": "exp-p",
+   "generation": "LI×T",
+   "sex": "",
+   "motherId": "exp-i-lf2-p03",
+   "fatherId": "exp-i-tf2-p02",
+   "stockId": "exp-l-c6",
+   "startDate": "2026-09-20",
+   "status": "Active",
+   "placeId": "exp-pl-pots",
+   "crossId": "",
+   "description": "",
+   "scores": {}
+  },
+  {
+   "id": "exp-e101",
+   "type": "entry",
+   "rtId": "exp-rt-p",
+   "indId": "exp-i-lf3-1",
+   "parentEntryId": "",
+   "date": "2026-09-28",
+   "values": {
+    "exp-rt-p-f0": "Compact",
+    "exp-rt-p-f1": 0,
+    "exp-rt-p-f2": 0,
+    "exp-rt-p-f3": "None",
+    "exp-rt-p-f4": "None"
+   },
+   "photoIds": [],
+   "notes": ""
+  },
+  {
+   "id": "exp-r1",
+   "type": "reminder",
+   "date": "2026-10-04",
+   "text": "Order fresh Waltham Butternut seed",
+   "refId": "exp-l-wb",
+   "done": false
+  },
+  {
+   "id": "exp-site",
+   "type": "site",
+   "name": "Example garden",
+   "lat": -33.87,
+   "lon": 151.21,
+   "locLabel": "Sydney, NSW (example)",
+   "seasonStart": 7,
+   "heat": 35,
+   "frost": 2,
+   "gddBase": 10,
+   "manual": true,
+   "manualMode": "mixed"
+  },
+  {
+   "id": "exp-rd0",
+   "type": "reading",
+   "siteId": "exp-site",
+   "date": "2026-08-24",
+   "rain": "",
+   "tmax": "",
+   "tmin": "",
+   "notes": "First reading after installing the gauge"
+  },
+  {
+   "id": "exp-rd1",
+   "type": "reading",
+   "siteId": "exp-site",
+   "date": "2026-08-31",
+   "rain": 12.5,
+   "tmax": 22.1,
+   "tmin": 6.4,
+   "notes": ""
+  },
+  {
+   "id": "exp-rd2",
+   "type": "reading",
+   "siteId": "exp-site",
+   "date": "2026-09-07",
+   "rain": 3,
+   "tmax": 24.6,
+   "tmin": 7.9,
+   "notes": ""
+  },
+  {
+   "id": "exp-rd3",
+   "type": "reading",
+   "siteId": "exp-site",
+   "date": "2026-09-14",
+   "rain": 0,
+   "tmax": 26.2,
+   "tmin": 9.1,
+   "notes": ""
+  },
+  {
+   "id": "exp-rd4",
+   "type": "reading",
+   "siteId": "exp-site",
+   "date": "2026-09-21",
+   "rain": 28.4,
+   "tmax": 21.3,
+   "tmin": 10.2,
+   "notes": ""
+  },
+  {
+   "id": "exp-rd5",
+   "type": "reading",
+   "siteId": "exp-site",
+   "date": "2026-09-28",
+   "rain": 6,
+   "tmax": 25.8,
+   "tmin": 8.7,
+   "notes": ""
+  }
+ ],
+ "photos": []
+}

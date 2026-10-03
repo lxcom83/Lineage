@@ -1,0 +1,1788 @@
+{
+ "app": "lineage",
+ "version": 3,
+ "format": "example",
+ "name": "Animal example: Blue Australorp laying line",
+ "anchorDate": "2026-10-01",
+ "records": [
+  {
+   "id": "exa-s-black",
+   "type": "strain",
+   "name": "Black Australorp",
+   "kind": "animal",
+   "group": "Chicken",
+   "species": "Gallus gallus domesticus",
+   "speciesVerified": true,
+   "origin": "Example Poultry",
+   "description": "Australian utility breed, excellent layer, calm.",
+   "photoIds": []
+  },
+  {
+   "id": "exa-s-blue",
+   "type": "strain",
+   "name": "Blue Australorp",
+   "kind": "animal",
+   "group": "Chicken",
+   "species": "Gallus gallus domesticus",
+   "speciesVerified": true,
+   "origin": "Example Poultry",
+   "description": "Blue colour variety. Blue does not breed true: blue × blue gives about a quarter black, half blue and a quarter splash.",
+   "photoIds": []
+  },
+  {
+   "id": "exa-pl-coop",
+   "type": "place",
+   "name": "Coop A",
+   "kind": "animal",
+   "method": "Coop and run",
+   "details": "Main laying flock. 6 m² coop, 20 m² run, deep litter.",
+   "photoIds": []
+  },
+  {
+   "id": "exa-pl-pen",
+   "type": "place",
+   "name": "Breeding pen",
+   "kind": "animal",
+   "method": "Pen",
+   "details": "Small pen for one rooster and chosen hens during breeding.",
+   "photoIds": []
+  },
+  {
+   "id": "exa-pl-grow",
+   "type": "place",
+   "name": "Grow-out run",
+   "kind": "animal",
+   "method": "Free range",
+   "details": "Fenced paddock for young birds from 8 weeks.",
+   "photoIds": []
+  },
+  {
+   "id": "exa-p",
+   "type": "project",
+   "name": "Blue Australorp laying line",
+   "code": "BA",
+   "kind": "animal",
+   "species": "Gallus gallus domesticus",
+   "parentId": "",
+   "goal": "A calm, high-laying Australorp line with good egg size, keeping blue feathering where possible. Example project: everything here is made up.",
+   "strainIds": [
+    "exa-s-black",
+    "exa-s-blue"
+   ],
+   "traits": [
+    {
+     "name": "Laying rate",
+     "tier": 1,
+     "must": true
+    },
+    {
+     "name": "Egg size",
+     "tier": 2,
+     "must": false
+    },
+    {
+     "name": "Body condition",
+     "tier": 2,
+     "must": false
+    },
+    {
+     "name": "Calm temperament",
+     "tier": 2,
+     "must": false
+    },
+    {
+     "name": "Blue feathering",
+     "tier": 3,
+     "must": false
+    },
+    {
+     "name": "Low broodiness",
+     "tier": 3,
+     "must": false
+    }
+   ],
+   "recordTypes": [
+    {
+     "id": "exa-rt-w",
+     "tplKey": "weigh",
+     "name": "Weigh-in",
+     "itemName": "",
+     "parentRt": "",
+     "fields": [
+      {
+       "id": "exa-rt-w-f0",
+       "label": "Weight",
+       "type": "number",
+       "unit": "kg",
+       "agg": "latest",
+       "compare": true
+      },
+      {
+       "id": "exa-rt-w-f1",
+       "label": "Body condition",
+       "type": "score",
+       "agg": "latest",
+       "compare": true
+      }
+     ],
+     "repeatDays": 30
+    },
+    {
+     "id": "exa-rt-c",
+     "tplKey": "litter",
+     "name": "Clutch",
+     "itemName": "Clutch",
+     "parentRt": "",
+     "fields": [
+      {
+       "id": "exa-rt-c-f0",
+       "label": "Eggs set",
+       "type": "number",
+       "agg": "avg",
+       "compare": true
+      },
+      {
+       "id": "exa-rt-c-f1",
+       "label": "Fertile",
+       "type": "number",
+       "agg": "avg"
+      },
+      {
+       "id": "exa-rt-c-f2",
+       "label": "Hatched",
+       "type": "number",
+       "agg": "avg",
+       "compare": true
+      },
+      {
+       "id": "exa-rt-c-f3",
+       "label": "Hatch rate",
+       "type": "calc",
+       "unit": "%",
+       "formula": "{Hatched} / {Eggs set} * 100",
+       "agg": "avg",
+       "compare": true
+      }
+     ]
+    },
+    {
+     "id": "exa-rt-e",
+     "tplKey": "eggs",
+     "name": "Egg count",
+     "itemName": "",
+     "parentRt": "",
+     "fields": [
+      {
+       "id": "exa-rt-e-f0",
+       "label": "Days counted",
+       "type": "number",
+       "agg": "sum"
+      },
+      {
+       "id": "exa-rt-e-f1",
+       "label": "Eggs laid",
+       "type": "number",
+       "agg": "sum"
+      },
+      {
+       "id": "exa-rt-e-f2",
+       "label": "Laying rate",
+       "type": "calc",
+       "unit": "%",
+       "formula": "{Eggs laid} / {Days counted} * 100",
+       "agg": "avg",
+       "compare": true
+      },
+      {
+       "id": "exa-rt-e-f3",
+       "label": "Average egg weight",
+       "type": "number",
+       "unit": "g",
+       "agg": "avg",
+       "compare": true
+      }
+     ]
+    },
+    {
+     "id": "exa-rt-hl",
+     "tplKey": "health",
+     "name": "Health event",
+     "itemName": "",
+     "parentRt": "",
+     "fields": [
+      {
+       "id": "exa-rt-hl-f0",
+       "label": "Event",
+       "type": "choice",
+       "options": [
+        "Vaccination",
+        "Parasite treatment",
+        "Illness",
+        "Injury",
+        "Vet visit",
+        "Other"
+       ]
+      },
+      {
+       "id": "exa-rt-hl-f1",
+       "label": "Details",
+       "type": "text"
+      }
+     ]
+    }
+   ],
+   "goals": [
+    {
+     "v": "1.0",
+     "date": "2024-08-01",
+     "statement": "A calm, high-laying Australorp line with good egg size, keeping blue feathering where possible.",
+     "inScope": "Australorps only. Backyard flock of up to 20 birds.",
+     "outScope": "Show standards beyond basic type. Meat production.",
+     "success": "Hens averaging 5 eggs a week in their first year, eggs over 55 g, calm temperament.",
+     "timeframe": "Three generations",
+     "reason": "",
+     "traits": [
+      {
+       "name": "Laying rate",
+       "tier": 1,
+       "must": true
+      },
+      {
+       "name": "Egg size",
+       "tier": 2,
+       "must": false
+      },
+      {
+       "name": "Body condition",
+       "tier": 2,
+       "must": false
+      },
+      {
+       "name": "Calm temperament",
+       "tier": 2,
+       "must": false
+      },
+      {
+       "name": "Blue feathering",
+       "tier": 3,
+       "must": false
+      },
+      {
+       "name": "Low broodiness",
+       "tier": 3,
+       "must": false
+      }
+     ]
+    }
+   ],
+   "goalReviewMonths": 12,
+   "siteId": "exa-site"
+  },
+  {
+   "id": "exa-n1",
+   "type": "note",
+   "refId": "exa-p",
+   "date": "2024-08-01",
+   "text": "Starting with one Black rooster over two Blue hens. Black × blue gives roughly half black, half blue chicks.",
+   "photoIds": []
+  },
+  {
+   "id": "exa-n2",
+   "type": "note",
+   "refId": "exa-p",
+   "date": "2026-07-15",
+   "text": "Brought in an unrelated Black Australorp rooster to widen the gene pool after the sibling pairing.",
+   "photoIds": []
+  },
+  {
+   "id": "exa-l-eggs",
+   "type": "stock",
+   "strainId": "exa-s-blue",
+   "label": "Blue Australorp hatching eggs",
+   "source": "Example Poultry",
+   "batch": "",
+   "year": "2024",
+   "bestBefore": "",
+   "qty": 0,
+   "unit": "eggs",
+   "location": "",
+   "status": "used",
+   "projectId": "exa-p",
+   "motherId": "",
+   "fatherId": "",
+   "notes": "Hatched to produce the two foundation hens.",
+   "photoIds": []
+  },
+  {
+   "id": "exa-r1",
+   "type": "individual",
+   "code": "BA-R01",
+   "name": "Arthur",
+   "strainId": "exa-s-black",
+   "projectId": "exa-p",
+   "generation": "",
+   "sex": "Male",
+   "motherId": "",
+   "fatherId": "",
+   "stockId": "",
+   "startDate": "2023-09-01",
+   "status": "Kept for breeding",
+   "placeId": "exa-pl-pen",
+   "crossId": "",
+   "description": "",
+   "scores": {
+    "Calm temperament": 5,
+    "Body condition": 4
+   }
+  },
+  {
+   "id": "exa-h1",
+   "type": "individual",
+   "code": "BA-H01",
+   "name": "Bluebell",
+   "strainId": "exa-s-blue",
+   "projectId": "exa-p",
+   "generation": "",
+   "sex": "Female",
+   "motherId": "",
+   "fatherId": "",
+   "stockId": "",
+   "startDate": "2023-09-15",
+   "status": "Kept for breeding",
+   "placeId": "exa-pl-pen",
+   "crossId": "",
+   "description": "",
+   "scores": {
+    "Laying rate": 4,
+    "Egg size": 4,
+    "Body condition": 4,
+    "Calm temperament": 4,
+    "Blue feathering": 5
+   }
+  },
+  {
+   "id": "exa-h2",
+   "type": "individual",
+   "code": "BA-H02",
+   "name": "Sky",
+   "strainId": "exa-s-blue",
+   "projectId": "exa-p",
+   "generation": "",
+   "sex": "Female",
+   "motherId": "",
+   "fatherId": "",
+   "stockId": "",
+   "startDate": "2023-09-15",
+   "status": "Died",
+   "placeId": "exa-pl-coop",
+   "crossId": "",
+   "description": "",
+   "scores": {
+    "Laying rate": 3,
+    "Egg size": 3
+   }
+  },
+  {
+   "id": "exa-e1",
+   "type": "entry",
+   "rtId": "exa-rt-c",
+   "indId": "exa-h1",
+   "parentEntryId": "",
+   "date": "2024-09-10",
+   "values": {
+    "exa-rt-c-f0": 10,
+    "exa-rt-c-f1": 9,
+    "exa-rt-c-f2": 7
+   },
+   "photoIds": [],
+   "notes": "Incubator, hatched day 21.",
+   "seq": 1
+  },
+  {
+   "id": "exa-e2",
+   "type": "entry",
+   "rtId": "exa-rt-c",
+   "indId": "exa-h2",
+   "parentEntryId": "",
+   "date": "2024-09-10",
+   "values": {
+    "exa-rt-c-f0": 8,
+    "exa-rt-c-f1": 6,
+    "exa-rt-c-f2": 4
+   },
+   "photoIds": [],
+   "notes": "",
+   "seq": 1
+  },
+  {
+   "id": "exa-e3",
+   "type": "entry",
+   "rtId": "exa-rt-hl",
+   "indId": "exa-h2",
+   "parentEntryId": "",
+   "date": "2025-06-02",
+   "values": {
+    "exa-rt-hl-f0": "Illness",
+    "exa-rt-hl-f1": "Lethargic, stopped eating. Died two days later."
+   },
+   "photoIds": [],
+   "notes": ""
+  },
+  {
+   "id": "exa-c1",
+   "type": "cross",
+   "date": "2024-08-20",
+   "motherId": "exa-h1",
+   "fatherId": "exa-r1",
+   "method": "Natural mating",
+   "status": "Successful",
+   "projectId": "exa-p",
+   "outcome": "7 chicks from 10 eggs",
+   "notes": "",
+   "goalV": "1.0"
+  },
+  {
+   "id": "exa-c2",
+   "type": "cross",
+   "date": "2024-08-20",
+   "motherId": "exa-h2",
+   "fatherId": "exa-r1",
+   "method": "Natural mating",
+   "status": "Successful",
+   "projectId": "exa-p",
+   "outcome": "4 chicks from 8 eggs",
+   "notes": "",
+   "goalV": "1.0"
+  },
+  {
+   "id": "exa-f1-a01",
+   "type": "individual",
+   "code": "BA-F1-A01",
+   "name": "",
+   "strainId": "",
+   "projectId": "exa-p",
+   "generation": "F1",
+   "sex": "Male",
+   "motherId": "exa-h1",
+   "fatherId": "exa-r1",
+   "stockId": "",
+   "startDate": "2024-10-01",
+   "status": "Sold or rehomed",
+   "placeId": "exa-pl-grow",
+   "crossId": "exa-c1",
+   "description": "Black cockerel.",
+   "scores": {
+    "Body condition": 4,
+    "Calm temperament": 5,
+    "Blue feathering": 1
+   }
+  },
+  {
+   "id": "exa-e4",
+   "type": "entry",
+   "rtId": "exa-rt-w",
+   "indId": "exa-f1-a01",
+   "parentEntryId": "",
+   "date": "2025-01-01",
+   "values": {
+    "exa-rt-w-f0": 2.61,
+    "exa-rt-w-f1": 3
+   },
+   "photoIds": [],
+   "notes": ""
+  },
+  {
+   "id": "exa-f1-a02",
+   "type": "individual",
+   "code": "BA-F1-A02",
+   "name": "",
+   "strainId": "",
+   "projectId": "exa-p",
+   "generation": "F1",
+   "sex": "Male",
+   "motherId": "exa-h1",
+   "fatherId": "exa-r1",
+   "stockId": "",
+   "startDate": "2024-10-01",
+   "status": "Kept for breeding",
+   "placeId": "exa-pl-coop",
+   "crossId": "exa-c1",
+   "description": "Blue cockerel.",
+   "scores": {
+    "Body condition": 3,
+    "Calm temperament": 5,
+    "Blue feathering": 5
+   }
+  },
+  {
+   "id": "exa-e5",
+   "type": "entry",
+   "rtId": "exa-rt-w",
+   "indId": "exa-f1-a02",
+   "parentEntryId": "",
+   "date": "2025-01-01",
+   "values": {
+    "exa-rt-w-f0": 2.59,
+    "exa-rt-w-f1": 4
+   },
+   "photoIds": [],
+   "notes": ""
+  },
+  {
+   "id": "exa-f1-a03",
+   "type": "individual",
+   "code": "BA-F1-A03",
+   "name": "",
+   "strainId": "",
+   "projectId": "exa-p",
+   "generation": "F1",
+   "sex": "Female",
+   "motherId": "exa-h1",
+   "fatherId": "exa-r1",
+   "stockId": "",
+   "startDate": "2024-10-01",
+   "status": "Active",
+   "placeId": "exa-pl-coop",
+   "crossId": "exa-c1",
+   "description": "Black pullet.",
+   "scores": {
+    "Laying rate": 4,
+    "Body condition": 4,
+    "Calm temperament": 4,
+    "Blue feathering": 1
+   }
+  },
+  {
+   "id": "exa-e6",
+   "type": "entry",
+   "rtId": "exa-rt-w",
+   "indId": "exa-f1-a03",
+   "parentEntryId": "",
+   "date": "2025-01-01",
+   "values": {
+    "exa-rt-w-f0": 1.63,
+    "exa-rt-w-f1": 3
+   },
+   "photoIds": [],
+   "notes": ""
+  },
+  {
+   "id": "exa-e7",
+   "type": "entry",
+   "rtId": "exa-rt-e",
+   "indId": "exa-f1-a03",
+   "parentEntryId": "",
+   "date": "2025-04-01",
+   "values": {
+    "exa-rt-e-f0": 30,
+    "exa-rt-e-f1": 26,
+    "exa-rt-e-f3": 62
+   },
+   "photoIds": [],
+   "notes": ""
+  },
+  {
+   "id": "exa-e8",
+   "type": "entry",
+   "rtId": "exa-rt-e",
+   "indId": "exa-f1-a03",
+   "parentEntryId": "",
+   "date": "2025-07-01",
+   "values": {
+    "exa-rt-e-f0": 30,
+    "exa-rt-e-f1": 23,
+    "exa-rt-e-f3": 59
+   },
+   "photoIds": [],
+   "notes": ""
+  },
+  {
+   "id": "exa-e9",
+   "type": "entry",
+   "rtId": "exa-rt-e",
+   "indId": "exa-f1-a03",
+   "parentEntryId": "",
+   "date": "2025-10-01",
+   "values": {
+    "exa-rt-e-f0": 30,
+    "exa-rt-e-f1": 19,
+    "exa-rt-e-f3": 59
+   },
+   "photoIds": [],
+   "notes": ""
+  },
+  {
+   "id": "exa-e10",
+   "type": "entry",
+   "rtId": "exa-rt-e",
+   "indId": "exa-f1-a03",
+   "parentEntryId": "",
+   "date": "2026-01-01",
+   "values": {
+    "exa-rt-e-f0": 30,
+    "exa-rt-e-f1": 23,
+    "exa-rt-e-f3": 61
+   },
+   "photoIds": [],
+   "notes": ""
+  },
+  {
+   "id": "exa-e11",
+   "type": "entry",
+   "rtId": "exa-rt-e",
+   "indId": "exa-f1-a03",
+   "parentEntryId": "",
+   "date": "2026-04-01",
+   "values": {
+    "exa-rt-e-f0": 30,
+    "exa-rt-e-f1": 23,
+    "exa-rt-e-f3": 61
+   },
+   "photoIds": [],
+   "notes": ""
+  },
+  {
+   "id": "exa-e12",
+   "type": "entry",
+   "rtId": "exa-rt-e",
+   "indId": "exa-f1-a03",
+   "parentEntryId": "",
+   "date": "2026-07-01",
+   "values": {
+    "exa-rt-e-f0": 30,
+    "exa-rt-e-f1": 15,
+    "exa-rt-e-f3": 55
+   },
+   "photoIds": [],
+   "notes": ""
+  },
+  {
+   "id": "exa-e13",
+   "type": "entry",
+   "rtId": "exa-rt-w",
+   "indId": "exa-f1-a03",
+   "parentEntryId": "",
+   "date": "2026-08-25",
+   "values": {
+    "exa-rt-w-f0": 2.87,
+    "exa-rt-w-f1": 4
+   },
+   "photoIds": [],
+   "notes": ""
+  },
+  {
+   "id": "exa-f1-a04",
+   "type": "individual",
+   "code": "BA-F1-A04",
+   "name": "",
+   "strainId": "",
+   "projectId": "exa-p",
+   "generation": "F1",
+   "sex": "Female",
+   "motherId": "exa-h1",
+   "fatherId": "exa-r1",
+   "stockId": "",
+   "startDate": "2024-10-01",
+   "status": "Kept for breeding",
+   "placeId": "exa-pl-coop",
+   "crossId": "exa-c1",
+   "description": "Blue pullet.",
+   "scores": {
+    "Laying rate": 3,
+    "Body condition": 3,
+    "Calm temperament": 5,
+    "Blue feathering": 5
+   }
+  },
+  {
+   "id": "exa-e14",
+   "type": "entry",
+   "rtId": "exa-rt-w",
+   "indId": "exa-f1-a04",
+   "parentEntryId": "",
+   "date": "2025-01-01",
+   "values": {
+    "exa-rt-w-f0": 2.16,
+    "exa-rt-w-f1": 4
+   },
+   "photoIds": [],
+   "notes": ""
+  },
+  {
+   "id": "exa-e15",
+   "type": "entry",
+   "rtId": "exa-rt-e",
+   "indId": "exa-f1-a04",
+   "parentEntryId": "",
+   "date": "2025-04-01",
+   "values": {
+    "exa-rt-e-f0": 30,
+    "exa-rt-e-f1": 18,
+    "exa-rt-e-f3": 60
+   },
+   "photoIds": [],
+   "notes": ""
+  },
+  {
+   "id": "exa-e16",
+   "type": "entry",
+   "rtId": "exa-rt-e",
+   "indId": "exa-f1-a04",
+   "parentEntryId": "",
+   "date": "2025-07-01",
+   "values": {
+    "exa-rt-e-f0": 30,
+    "exa-rt-e-f1": 24,
+    "exa-rt-e-f3": 59
+   },
+   "photoIds": [],
+   "notes": ""
+  },
+  {
+   "id": "exa-e17",
+   "type": "entry",
+   "rtId": "exa-rt-e",
+   "indId": "exa-f1-a04",
+   "parentEntryId": "",
+   "date": "2025-10-01",
+   "values": {
+    "exa-rt-e-f0": 30,
+    "exa-rt-e-f1": 14,
+    "exa-rt-e-f3": 61
+   },
+   "photoIds": [],
+   "notes": ""
+  },
+  {
+   "id": "exa-e18",
+   "type": "entry",
+   "rtId": "exa-rt-e",
+   "indId": "exa-f1-a04",
+   "parentEntryId": "",
+   "date": "2026-01-01",
+   "values": {
+    "exa-rt-e-f0": 30,
+    "exa-rt-e-f1": 19,
+    "exa-rt-e-f3": 56
+   },
+   "photoIds": [],
+   "notes": ""
+  },
+  {
+   "id": "exa-e19",
+   "type": "entry",
+   "rtId": "exa-rt-e",
+   "indId": "exa-f1-a04",
+   "parentEntryId": "",
+   "date": "2026-04-01",
+   "values": {
+    "exa-rt-e-f0": 30,
+    "exa-rt-e-f1": 23,
+    "exa-rt-e-f3": 55
+   },
+   "photoIds": [],
+   "notes": ""
+  },
+  {
+   "id": "exa-e20",
+   "type": "entry",
+   "rtId": "exa-rt-e",
+   "indId": "exa-f1-a04",
+   "parentEntryId": "",
+   "date": "2026-07-01",
+   "values": {
+    "exa-rt-e-f0": 30,
+    "exa-rt-e-f1": 21,
+    "exa-rt-e-f3": 54
+   },
+   "photoIds": [],
+   "notes": ""
+  },
+  {
+   "id": "exa-e21",
+   "type": "entry",
+   "rtId": "exa-rt-w",
+   "indId": "exa-f1-a04",
+   "parentEntryId": "",
+   "date": "2026-08-25",
+   "values": {
+    "exa-rt-w-f0": 2.51,
+    "exa-rt-w-f1": 4
+   },
+   "photoIds": [],
+   "notes": ""
+  },
+  {
+   "id": "exa-f1-a05",
+   "type": "individual",
+   "code": "BA-F1-A05",
+   "name": "",
+   "strainId": "",
+   "projectId": "exa-p",
+   "generation": "F1",
+   "sex": "Female",
+   "motherId": "exa-h1",
+   "fatherId": "exa-r1",
+   "stockId": "",
+   "startDate": "2024-10-01",
+   "status": "Selected",
+   "placeId": "exa-pl-coop",
+   "crossId": "exa-c1",
+   "description": "Blue pullet.",
+   "scores": {
+    "Laying rate": 4,
+    "Body condition": 4,
+    "Calm temperament": 3,
+    "Blue feathering": 5
+   }
+  },
+  {
+   "id": "exa-e22",
+   "type": "entry",
+   "rtId": "exa-rt-w",
+   "indId": "exa-f1-a05",
+   "parentEntryId": "",
+   "date": "2025-01-01",
+   "values": {
+    "exa-rt-w-f0": 1.92,
+    "exa-rt-w-f1": 4
+   },
+   "photoIds": [],
+   "notes": ""
+  },
+  {
+   "id": "exa-e23",
+   "type": "entry",
+   "rtId": "exa-rt-e",
+   "indId": "exa-f1-a05",
+   "parentEntryId": "",
+   "date": "2025-04-01",
+   "values": {
+    "exa-rt-e-f0": 30,
+    "exa-rt-e-f1": 15,
+    "exa-rt-e-f3": 56
+   },
+   "photoIds": [],
+   "notes": ""
+  },
+  {
+   "id": "exa-e24",
+   "type": "entry",
+   "rtId": "exa-rt-e",
+   "indId": "exa-f1-a05",
+   "parentEntryId": "",
+   "date": "2025-07-01",
+   "values": {
+    "exa-rt-e-f0": 30,
+    "exa-rt-e-f1": 21,
+    "exa-rt-e-f3": 60
+   },
+   "photoIds": [],
+   "notes": ""
+  },
+  {
+   "id": "exa-e25",
+   "type": "entry",
+   "rtId": "exa-rt-e",
+   "indId": "exa-f1-a05",
+   "parentEntryId": "",
+   "date": "2025-10-01",
+   "values": {
+    "exa-rt-e-f0": 30,
+    "exa-rt-e-f1": 22,
+    "exa-rt-e-f3": 58
+   },
+   "photoIds": [],
+   "notes": ""
+  },
+  {
+   "id": "exa-e26",
+   "type": "entry",
+   "rtId": "exa-rt-e",
+   "indId": "exa-f1-a05",
+   "parentEntryId": "",
+   "date": "2026-01-01",
+   "values": {
+    "exa-rt-e-f0": 30,
+    "exa-rt-e-f1": 16,
+    "exa-rt-e-f3": 60
+   },
+   "photoIds": [],
+   "notes": ""
+  },
+  {
+   "id": "exa-e27",
+   "type": "entry",
+   "rtId": "exa-rt-e",
+   "indId": "exa-f1-a05",
+   "parentEntryId": "",
+   "date": "2026-04-01",
+   "values": {
+    "exa-rt-e-f0": 30,
+    "exa-rt-e-f1": 22,
+    "exa-rt-e-f3": 58
+   },
+   "photoIds": [],
+   "notes": ""
+  },
+  {
+   "id": "exa-e28",
+   "type": "entry",
+   "rtId": "exa-rt-e",
+   "indId": "exa-f1-a05",
+   "parentEntryId": "",
+   "date": "2026-07-01",
+   "values": {
+    "exa-rt-e-f0": 30,
+    "exa-rt-e-f1": 25,
+    "exa-rt-e-f3": 60
+   },
+   "photoIds": [],
+   "notes": ""
+  },
+  {
+   "id": "exa-e29",
+   "type": "entry",
+   "rtId": "exa-rt-w",
+   "indId": "exa-f1-a05",
+   "parentEntryId": "",
+   "date": "2026-08-25",
+   "values": {
+    "exa-rt-w-f0": 2.89,
+    "exa-rt-w-f1": 5
+   },
+   "photoIds": [],
+   "notes": ""
+  },
+  {
+   "id": "exa-f1-a06",
+   "type": "individual",
+   "code": "BA-F1-A06",
+   "name": "",
+   "strainId": "",
+   "projectId": "exa-p",
+   "generation": "F1",
+   "sex": "Male",
+   "motherId": "exa-h1",
+   "fatherId": "exa-r1",
+   "stockId": "",
+   "startDate": "2024-10-01",
+   "status": "Sold or rehomed",
+   "placeId": "exa-pl-grow",
+   "crossId": "exa-c1",
+   "description": "Black cockerel.",
+   "scores": {
+    "Body condition": 4,
+    "Calm temperament": 3,
+    "Blue feathering": 1
+   }
+  },
+  {
+   "id": "exa-e30",
+   "type": "entry",
+   "rtId": "exa-rt-w",
+   "indId": "exa-f1-a06",
+   "parentEntryId": "",
+   "date": "2025-01-01",
+   "values": {
+    "exa-rt-w-f0": 2.41,
+    "exa-rt-w-f1": 3
+   },
+   "photoIds": [],
+   "notes": ""
+  },
+  {
+   "id": "exa-f1-a07",
+   "type": "individual",
+   "code": "BA-F1-A07",
+   "name": "",
+   "strainId": "",
+   "projectId": "exa-p",
+   "generation": "F1",
+   "sex": "Female",
+   "motherId": "exa-h1",
+   "fatherId": "exa-r1",
+   "stockId": "",
+   "startDate": "2024-10-01",
+   "status": "Active",
+   "placeId": "exa-pl-coop",
+   "crossId": "exa-c1",
+   "description": "Black pullet.",
+   "scores": {
+    "Laying rate": 4,
+    "Body condition": 3,
+    "Calm temperament": 5,
+    "Blue feathering": 1
+   }
+  },
+  {
+   "id": "exa-e31",
+   "type": "entry",
+   "rtId": "exa-rt-w",
+   "indId": "exa-f1-a07",
+   "parentEntryId": "",
+   "date": "2025-01-01",
+   "values": {
+    "exa-rt-w-f0": 1.79,
+    "exa-rt-w-f1": 4
+   },
+   "photoIds": [],
+   "notes": ""
+  },
+  {
+   "id": "exa-e32",
+   "type": "entry",
+   "rtId": "exa-rt-e",
+   "indId": "exa-f1-a07",
+   "parentEntryId": "",
+   "date": "2025-04-01",
+   "values": {
+    "exa-rt-e-f0": 30,
+    "exa-rt-e-f1": 23,
+    "exa-rt-e-f3": 56
+   },
+   "photoIds": [],
+   "notes": ""
+  },
+  {
+   "id": "exa-e33",
+   "type": "entry",
+   "rtId": "exa-rt-e",
+   "indId": "exa-f1-a07",
+   "parentEntryId": "",
+   "date": "2025-07-01",
+   "values": {
+    "exa-rt-e-f0": 30,
+    "exa-rt-e-f1": 18,
+    "exa-rt-e-f3": 58
+   },
+   "photoIds": [],
+   "notes": ""
+  },
+  {
+   "id": "exa-e34",
+   "type": "entry",
+   "rtId": "exa-rt-e",
+   "indId": "exa-f1-a07",
+   "parentEntryId": "",
+   "date": "2025-10-01",
+   "values": {
+    "exa-rt-e-f0": 30,
+    "exa-rt-e-f1": 14,
+    "exa-rt-e-f3": 56
+   },
+   "photoIds": [],
+   "notes": ""
+  },
+  {
+   "id": "exa-e35",
+   "type": "entry",
+   "rtId": "exa-rt-e",
+   "indId": "exa-f1-a07",
+   "parentEntryId": "",
+   "date": "2026-01-01",
+   "values": {
+    "exa-rt-e-f0": 30,
+    "exa-rt-e-f1": 20,
+    "exa-rt-e-f3": 62
+   },
+   "photoIds": [],
+   "notes": ""
+  },
+  {
+   "id": "exa-e36",
+   "type": "entry",
+   "rtId": "exa-rt-e",
+   "indId": "exa-f1-a07",
+   "parentEntryId": "",
+   "date": "2026-04-01",
+   "values": {
+    "exa-rt-e-f0": 30,
+    "exa-rt-e-f1": 19,
+    "exa-rt-e-f3": 63
+   },
+   "photoIds": [],
+   "notes": ""
+  },
+  {
+   "id": "exa-e37",
+   "type": "entry",
+   "rtId": "exa-rt-e",
+   "indId": "exa-f1-a07",
+   "parentEntryId": "",
+   "date": "2026-07-01",
+   "values": {
+    "exa-rt-e-f0": 30,
+    "exa-rt-e-f1": 23,
+    "exa-rt-e-f3": 59
+   },
+   "photoIds": [],
+   "notes": ""
+  },
+  {
+   "id": "exa-e38",
+   "type": "entry",
+   "rtId": "exa-rt-w",
+   "indId": "exa-f1-a07",
+   "parentEntryId": "",
+   "date": "2026-08-25",
+   "values": {
+    "exa-rt-w-f0": 2.88,
+    "exa-rt-w-f1": 5
+   },
+   "photoIds": [],
+   "notes": ""
+  },
+  {
+   "id": "exa-f1b-1",
+   "type": "individual",
+   "code": "BA-F1-B01",
+   "name": "",
+   "strainId": "",
+   "projectId": "exa-p",
+   "generation": "F1",
+   "sex": "Female",
+   "motherId": "exa-h2",
+   "fatherId": "exa-r1",
+   "stockId": "",
+   "startDate": "2024-10-01",
+   "status": "Active",
+   "placeId": "exa-pl-coop",
+   "crossId": "exa-c2",
+   "description": "Black pullet.",
+   "scores": {}
+  },
+  {
+   "id": "exa-f1b-2",
+   "type": "individual",
+   "code": "BA-F1-B02",
+   "name": "",
+   "strainId": "",
+   "projectId": "exa-p",
+   "generation": "F1",
+   "sex": "Male",
+   "motherId": "exa-h2",
+   "fatherId": "exa-r1",
+   "stockId": "",
+   "startDate": "2024-10-01",
+   "status": "Sold or rehomed",
+   "placeId": "exa-pl-coop",
+   "crossId": "exa-c2",
+   "description": "Blue cockerel.",
+   "scores": {}
+  },
+  {
+   "id": "exa-f1b-3",
+   "type": "individual",
+   "code": "BA-F1-B03",
+   "name": "",
+   "strainId": "",
+   "projectId": "exa-p",
+   "generation": "F1",
+   "sex": "Female",
+   "motherId": "exa-h2",
+   "fatherId": "exa-r1",
+   "stockId": "",
+   "startDate": "2024-10-01",
+   "status": "Active",
+   "placeId": "exa-pl-coop",
+   "crossId": "exa-c2",
+   "description": "Blue pullet.",
+   "scores": {}
+  },
+  {
+   "id": "exa-f1b-4",
+   "type": "individual",
+   "code": "BA-F1-B04",
+   "name": "",
+   "strainId": "",
+   "projectId": "exa-p",
+   "generation": "F1",
+   "sex": "Female",
+   "motherId": "exa-h2",
+   "fatherId": "exa-r1",
+   "stockId": "",
+   "startDate": "2024-10-01",
+   "status": "Active",
+   "placeId": "exa-pl-coop",
+   "crossId": "exa-c2",
+   "description": "Black pullet.",
+   "scores": {}
+  },
+  {
+   "id": "exa-n3",
+   "type": "note",
+   "refId": "exa-f1-a01",
+   "date": "2025-02-10",
+   "text": "Rehomed to a neighbour with two other cockerels.",
+   "photoIds": []
+  },
+  {
+   "id": "exa-e39",
+   "type": "entry",
+   "rtId": "exa-rt-hl",
+   "indId": "exa-f1-a04",
+   "parentEntryId": "",
+   "date": "2025-03-01",
+   "values": {
+    "exa-rt-hl-f0": "Vaccination",
+    "exa-rt-hl-f1": "Marek's booster (example)."
+   },
+   "photoIds": [],
+   "notes": ""
+  },
+  {
+   "id": "exa-e40",
+   "type": "entry",
+   "rtId": "exa-rt-hl",
+   "indId": "exa-f1-a05",
+   "parentEntryId": "",
+   "date": "2025-11-12",
+   "values": {
+    "exa-rt-hl-f0": "Parasite treatment",
+    "exa-rt-hl-f1": "Wormed whole coop after a positive egg count."
+   },
+   "photoIds": [],
+   "notes": ""
+  },
+  {
+   "id": "exa-c3",
+   "type": "cross",
+   "date": "2025-09-01",
+   "motherId": "exa-f1-a04",
+   "fatherId": "exa-f1-a02",
+   "method": "Natural mating",
+   "status": "Successful",
+   "projectId": "exa-p",
+   "outcome": "8 chicks from 11 eggs",
+   "notes": "Sibling pairing: blue × blue to see the colour split.",
+   "goalV": "1.0"
+  },
+  {
+   "id": "exa-e41",
+   "type": "entry",
+   "rtId": "exa-rt-c",
+   "indId": "exa-f1-a04",
+   "parentEntryId": "",
+   "date": "2025-09-25",
+   "values": {
+    "exa-rt-c-f0": 11,
+    "exa-rt-c-f1": 10,
+    "exa-rt-c-f2": 8
+   },
+   "photoIds": [],
+   "notes": "Sibling pairing. Expect black, blue and splash chicks.",
+   "seq": 1
+  },
+  {
+   "id": "exa-f2-a01",
+   "type": "individual",
+   "code": "BA-F2-A01",
+   "name": "",
+   "strainId": "",
+   "projectId": "exa-p",
+   "generation": "F2",
+   "sex": "Female",
+   "motherId": "exa-f1-a04",
+   "fatherId": "exa-f1-a02",
+   "stockId": "",
+   "startDate": "2025-10-16",
+   "status": "Selected",
+   "placeId": "exa-pl-coop",
+   "crossId": "exa-c3",
+   "description": "Splash pullet.",
+   "scores": {
+    "Laying rate": 5,
+    "Body condition": 5,
+    "Calm temperament": 5,
+    "Blue feathering": 3
+   }
+  },
+  {
+   "id": "exa-e42",
+   "type": "entry",
+   "rtId": "exa-rt-e",
+   "indId": "exa-f2-a01",
+   "parentEntryId": "",
+   "date": "2026-04-01",
+   "values": {
+    "exa-rt-e-f0": 30,
+    "exa-rt-e-f1": 26,
+    "exa-rt-e-f3": 52
+   },
+   "photoIds": [],
+   "notes": ""
+  },
+  {
+   "id": "exa-e43",
+   "type": "entry",
+   "rtId": "exa-rt-e",
+   "indId": "exa-f2-a01",
+   "parentEntryId": "",
+   "date": "2026-07-01",
+   "values": {
+    "exa-rt-e-f0": 30,
+    "exa-rt-e-f1": 23,
+    "exa-rt-e-f3": 62
+   },
+   "photoIds": [],
+   "notes": ""
+  },
+  {
+   "id": "exa-e44",
+   "type": "entry",
+   "rtId": "exa-rt-w",
+   "indId": "exa-f2-a01",
+   "parentEntryId": "",
+   "date": "2026-08-25",
+   "values": {
+    "exa-rt-w-f0": 2.68,
+    "exa-rt-w-f1": 4
+   },
+   "photoIds": [],
+   "notes": ""
+  },
+  {
+   "id": "exa-f2-a02",
+   "type": "individual",
+   "code": "BA-F2-A02",
+   "name": "",
+   "strainId": "",
+   "projectId": "exa-p",
+   "generation": "F2",
+   "sex": "Male",
+   "motherId": "exa-f1-a04",
+   "fatherId": "exa-f1-a02",
+   "stockId": "",
+   "startDate": "2025-10-16",
+   "status": "Sold or rehomed",
+   "placeId": "exa-pl-coop",
+   "crossId": "exa-c3",
+   "description": "Blue cockerel.",
+   "scores": {
+    "Body condition": 4,
+    "Calm temperament": 4,
+    "Blue feathering": 5
+   }
+  },
+  {
+   "id": "exa-f2-a03",
+   "type": "individual",
+   "code": "BA-F2-A03",
+   "name": "",
+   "strainId": "",
+   "projectId": "exa-p",
+   "generation": "F2",
+   "sex": "Female",
+   "motherId": "exa-f1-a04",
+   "fatherId": "exa-f1-a02",
+   "stockId": "",
+   "startDate": "2025-10-16",
+   "status": "Selected",
+   "placeId": "exa-pl-coop",
+   "crossId": "exa-c3",
+   "description": "Blue pullet.",
+   "scores": {
+    "Laying rate": 4,
+    "Body condition": 3,
+    "Calm temperament": 4,
+    "Blue feathering": 5
+   }
+  },
+  {
+   "id": "exa-e45",
+   "type": "entry",
+   "rtId": "exa-rt-e",
+   "indId": "exa-f2-a03",
+   "parentEntryId": "",
+   "date": "2026-04-01",
+   "values": {
+    "exa-rt-e-f0": 30,
+    "exa-rt-e-f1": 26,
+    "exa-rt-e-f3": 58
+   },
+   "photoIds": [],
+   "notes": ""
+  },
+  {
+   "id": "exa-e46",
+   "type": "entry",
+   "rtId": "exa-rt-e",
+   "indId": "exa-f2-a03",
+   "parentEntryId": "",
+   "date": "2026-07-01",
+   "values": {
+    "exa-rt-e-f0": 30,
+    "exa-rt-e-f1": 16,
+    "exa-rt-e-f3": 55
+   },
+   "photoIds": [],
+   "notes": ""
+  },
+  {
+   "id": "exa-e47",
+   "type": "entry",
+   "rtId": "exa-rt-w",
+   "indId": "exa-f2-a03",
+   "parentEntryId": "",
+   "date": "2026-08-25",
+   "values": {
+    "exa-rt-w-f0": 2.24,
+    "exa-rt-w-f1": 3
+   },
+   "photoIds": [],
+   "notes": ""
+  },
+  {
+   "id": "exa-f2-a04",
+   "type": "individual",
+   "code": "BA-F2-A04",
+   "name": "",
+   "strainId": "",
+   "projectId": "exa-p",
+   "generation": "F2",
+   "sex": "Female",
+   "motherId": "exa-f1-a04",
+   "fatherId": "exa-f1-a02",
+   "stockId": "",
+   "startDate": "2025-10-16",
+   "status": "Active",
+   "placeId": "exa-pl-coop",
+   "crossId": "exa-c3",
+   "description": "Black pullet.",
+   "scores": {
+    "Laying rate": 4,
+    "Body condition": 3,
+    "Calm temperament": 3,
+    "Blue feathering": 1
+   }
+  },
+  {
+   "id": "exa-e48",
+   "type": "entry",
+   "rtId": "exa-rt-e",
+   "indId": "exa-f2-a04",
+   "parentEntryId": "",
+   "date": "2026-04-01",
+   "values": {
+    "exa-rt-e-f0": 30,
+    "exa-rt-e-f1": 21,
+    "exa-rt-e-f3": 61
+   },
+   "photoIds": [],
+   "notes": ""
+  },
+  {
+   "id": "exa-e49",
+   "type": "entry",
+   "rtId": "exa-rt-e",
+   "indId": "exa-f2-a04",
+   "parentEntryId": "",
+   "date": "2026-07-01",
+   "values": {
+    "exa-rt-e-f0": 30,
+    "exa-rt-e-f1": 16,
+    "exa-rt-e-f3": 53
+   },
+   "photoIds": [],
+   "notes": ""
+  },
+  {
+   "id": "exa-e50",
+   "type": "entry",
+   "rtId": "exa-rt-w",
+   "indId": "exa-f2-a04",
+   "parentEntryId": "",
+   "date": "2026-08-25",
+   "values": {
+    "exa-rt-w-f0": 2.2,
+    "exa-rt-w-f1": 3
+   },
+   "photoIds": [],
+   "notes": ""
+  },
+  {
+   "id": "exa-f2-a05",
+   "type": "individual",
+   "code": "BA-F2-A05",
+   "name": "",
+   "strainId": "",
+   "projectId": "exa-p",
+   "generation": "F2",
+   "sex": "Male",
+   "motherId": "exa-f1-a04",
+   "fatherId": "exa-f1-a02",
+   "stockId": "",
+   "startDate": "2025-10-16",
+   "status": "Sold or rehomed",
+   "placeId": "exa-pl-coop",
+   "crossId": "exa-c3",
+   "description": "Black cockerel.",
+   "scores": {
+    "Body condition": 5,
+    "Calm temperament": 3,
+    "Blue feathering": 1
+   }
+  },
+  {
+   "id": "exa-f2-a06",
+   "type": "individual",
+   "code": "BA-F2-A06",
+   "name": "",
+   "strainId": "",
+   "projectId": "exa-p",
+   "generation": "F2",
+   "sex": "Female",
+   "motherId": "exa-f1-a04",
+   "fatherId": "exa-f1-a02",
+   "stockId": "",
+   "startDate": "2025-10-16",
+   "status": "Kept for breeding",
+   "placeId": "exa-pl-coop",
+   "crossId": "exa-c3",
+   "description": "Blue pullet.",
+   "scores": {
+    "Laying rate": 4,
+    "Body condition": 5,
+    "Calm temperament": 3,
+    "Blue feathering": 5
+   }
+  },
+  {
+   "id": "exa-e51",
+   "type": "entry",
+   "rtId": "exa-rt-e",
+   "indId": "exa-f2-a06",
+   "parentEntryId": "",
+   "date": "2026-04-01",
+   "values": {
+    "exa-rt-e-f0": 30,
+    "exa-rt-e-f1": 17,
+    "exa-rt-e-f3": 55
+   },
+   "photoIds": [],
+   "notes": ""
+  },
+  {
+   "id": "exa-e52",
+   "type": "entry",
+   "rtId": "exa-rt-e",
+   "indId": "exa-f2-a06",
+   "parentEntryId": "",
+   "date": "2026-07-01",
+   "values": {
+    "exa-rt-e-f0": 30,
+    "exa-rt-e-f1": 25,
+    "exa-rt-e-f3": 58
+   },
+   "photoIds": [],
+   "notes": ""
+  },
+  {
+   "id": "exa-e53",
+   "type": "entry",
+   "rtId": "exa-rt-w",
+   "indId": "exa-f2-a06",
+   "parentEntryId": "",
+   "date": "2026-08-25",
+   "values": {
+    "exa-rt-w-f0": 2.29,
+    "exa-rt-w-f1": 4
+   },
+   "photoIds": [],
+   "notes": ""
+  },
+  {
+   "id": "exa-f2-a07",
+   "type": "individual",
+   "code": "BA-F2-A07",
+   "name": "",
+   "strainId": "",
+   "projectId": "exa-p",
+   "generation": "F2",
+   "sex": "Male",
+   "motherId": "exa-f1-a04",
+   "fatherId": "exa-f1-a02",
+   "stockId": "",
+   "startDate": "2025-10-16",
+   "status": "Sold or rehomed",
+   "placeId": "exa-pl-coop",
+   "crossId": "exa-c3",
+   "description": "Splash cockerel.",
+   "scores": {
+    "Body condition": 4,
+    "Calm temperament": 5,
+    "Blue feathering": 3
+   }
+  },
+  {
+   "id": "exa-f2-a08",
+   "type": "individual",
+   "code": "BA-F2-A08",
+   "name": "",
+   "strainId": "",
+   "projectId": "exa-p",
+   "generation": "F2",
+   "sex": "Female",
+   "motherId": "exa-f1-a04",
+   "fatherId": "exa-f1-a02",
+   "stockId": "",
+   "startDate": "2025-10-16",
+   "status": "Died",
+   "placeId": "exa-pl-coop",
+   "crossId": "exa-c3",
+   "description": "Blue pullet.",
+   "scores": {
+    "Laying rate": 4,
+    "Body condition": 4,
+    "Calm temperament": 3,
+    "Blue feathering": 5
+   }
+  },
+  {
+   "id": "exa-e54",
+   "type": "entry",
+   "rtId": "exa-rt-hl",
+   "indId": "exa-f2-a08",
+   "parentEntryId": "",
+   "date": "2026-02-14",
+   "values": {
+    "exa-rt-hl-f0": "Injury",
+    "exa-rt-hl-f1": "Taken by a fox through the run fence. Fence repaired."
+   },
+   "photoIds": [],
+   "notes": ""
+  },
+  {
+   "id": "exa-r2",
+   "type": "individual",
+   "code": "BA-R02",
+   "name": "Duke",
+   "strainId": "exa-s-black",
+   "projectId": "exa-p",
+   "generation": "",
+   "sex": "Male",
+   "motherId": "",
+   "fatherId": "",
+   "stockId": "",
+   "startDate": "2025-08-01",
+   "status": "Kept for breeding",
+   "placeId": "exa-pl-pen",
+   "crossId": "",
+   "description": "Unrelated rooster from a different breeder, brought in as a new founder.",
+   "scores": {
+    "Calm temperament": 4,
+    "Body condition": 5
+   }
+  },
+  {
+   "id": "exa-c4",
+   "type": "cross",
+   "date": "2026-08-10",
+   "motherId": "exa-f1-a05",
+   "fatherId": "exa-r2",
+   "method": "Natural mating",
+   "status": "Successful",
+   "projectId": "exa-p",
+   "outcome": "3 chicks",
+   "notes": "Outcross to the new rooster.",
+   "goalV": "1.0"
+  },
+  {
+   "id": "exa-e55",
+   "type": "entry",
+   "rtId": "exa-rt-c",
+   "indId": "exa-f1-a05",
+   "parentEntryId": "",
+   "date": "2026-08-31",
+   "values": {
+    "exa-rt-c-f0": 6,
+    "exa-rt-c-f1": 5,
+    "exa-rt-c-f2": 3
+   },
+   "photoIds": [],
+   "notes": "",
+   "seq": 1
+  },
+  {
+   "id": "exa-x-1",
+   "type": "individual",
+   "code": "BA-X-A01",
+   "name": "",
+   "strainId": "",
+   "projectId": "exa-p",
+   "generation": "Outcross",
+   "sex": "Female",
+   "motherId": "exa-f1-a05",
+   "fatherId": "exa-r2",
+   "stockId": "",
+   "startDate": "2026-09-21",
+   "status": "Active",
+   "placeId": "exa-pl-grow",
+   "crossId": "exa-c4",
+   "description": "Blue chick.",
+   "scores": {}
+  },
+  {
+   "id": "exa-x-2",
+   "type": "individual",
+   "code": "BA-X-A02",
+   "name": "",
+   "strainId": "",
+   "projectId": "exa-p",
+   "generation": "Outcross",
+   "sex": "Male",
+   "motherId": "exa-f1-a05",
+   "fatherId": "exa-r2",
+   "stockId": "",
+   "startDate": "2026-09-21",
+   "status": "Active",
+   "placeId": "exa-pl-grow",
+   "crossId": "exa-c4",
+   "description": "Black chick.",
+   "scores": {}
+  },
+  {
+   "id": "exa-x-3",
+   "type": "individual",
+   "code": "BA-X-A03",
+   "name": "",
+   "strainId": "",
+   "projectId": "exa-p",
+   "generation": "Outcross",
+   "sex": "Female",
+   "motherId": "exa-f1-a05",
+   "fatherId": "exa-r2",
+   "stockId": "",
+   "startDate": "2026-09-21",
+   "status": "Active",
+   "placeId": "exa-pl-grow",
+   "crossId": "exa-c4",
+   "description": "Black chick.",
+   "scores": {}
+  },
+  {
+   "id": "exa-r1rem",
+   "type": "reminder",
+   "date": "2026-10-06",
+   "text": "Move outcross chicks from brooder to grow-out run",
+   "refId": "exa-p",
+   "done": false
+  },
+  {
+   "id": "exa-site",
+   "type": "site",
+   "name": "Example farm",
+   "lat": -33.42,
+   "lon": 149.58,
+   "locLabel": "Bathurst, NSW (example)",
+   "seasonStart": 7,
+   "heat": 32,
+   "frost": 0,
+   "gddBase": 10,
+   "manual": false,
+   "manualMode": "regional"
+  }
+ ],
+ "photos": []
+}

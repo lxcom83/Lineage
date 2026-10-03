@@ -1,0 +1,1099 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "lineage-schema.json",
+  "title": "Lineage import and backup file",
+  "description": "Format version 9. See DATA-FORMAT.md for meanings and conventions.",
+  "type": "object",
+  "required": [
+    "app",
+    "records"
+  ],
+  "properties": {
+    "app": {
+      "const": "lineage"
+    },
+    "version": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "exportedAt": {
+      "type": "string"
+    },
+    "anchorDate": {
+      "type": "string",
+      "description": "Example files only: dates shift so this date becomes today."
+    },
+    "records": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/record"
+      }
+    },
+    "photos": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/photo"
+      }
+    }
+  },
+  "$defs": {
+    "id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "ref": {
+      "type": "string"
+    },
+    "date": {
+      "type": "string",
+      "pattern": "^$|^\\d{4}-\\d{2}-\\d{2}$"
+    },
+    "month": {
+      "type": "string",
+      "pattern": "^$|^\\d{4}-\\d{2}(-\\d{2})?$"
+    },
+    "kind": {
+      "enum": [
+        "plant",
+        "animal"
+      ]
+    },
+    "frame": {
+      "type": "object",
+      "properties": {
+        "x": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "y": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "z": {
+          "type": "number",
+          "minimum": 1
+        }
+      }
+    },
+    "photoIds": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "photo": {
+      "type": "object",
+      "required": [
+        "id",
+        "full"
+      ],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "at": {
+          "type": "number"
+        },
+        "full": {
+          "type": "string"
+        },
+        "thumb": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "base": {
+      "type": "object",
+      "required": [
+        "id",
+        "type"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "createdAt": {
+          "type": "number"
+        },
+        "updatedAt": {
+          "type": "number"
+        },
+        "deletedAt": {
+          "type": "number"
+        },
+        "delBatch": {
+          "type": "string"
+        },
+        "delRoot": {
+          "type": "string"
+        },
+        "example": {
+          "type": "boolean"
+        },
+        "purged": {
+          "type": "boolean"
+        },
+        "importBatch": {
+          "type": "string"
+        }
+      }
+    },
+    "field": {
+      "type": "object",
+      "required": [
+        "id",
+        "label",
+        "type"
+      ],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "label": {
+          "type": "string"
+        },
+        "type": {
+          "enum": [
+            "number",
+            "score",
+            "choice",
+            "text",
+            "date",
+            "yesno",
+            "calc"
+          ]
+        },
+        "unit": {
+          "type": "string"
+        },
+        "options": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "endOptions": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "formula": {
+          "type": "string"
+        },
+        "agg": {
+          "enum": [
+            "avg",
+            "max",
+            "min",
+            "sum",
+            "latest"
+          ]
+        },
+        "compare": {
+          "type": "boolean"
+        },
+        "archived": {
+          "type": "boolean"
+        }
+      }
+    },
+    "recordType": {
+      "type": "object",
+      "required": [
+        "id",
+        "name",
+        "fields"
+      ],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "tplKey": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "name": {
+          "type": "string"
+        },
+        "itemName": {
+          "type": "string"
+        },
+        "parentRt": {
+          "type": "string"
+        },
+        "repeatDays": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 1
+        },
+        "archived": {
+          "type": "boolean"
+        },
+        "fields": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/field"
+          }
+        }
+      }
+    },
+    "record": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/base"
+        }
+      ],
+      "oneOf": [
+        {
+          "properties": {
+            "type": {
+              "const": "strain"
+            },
+            "name": {
+              "type": "string",
+              "minLength": 1
+            },
+            "kind": {
+              "$ref": "#/$defs/kind"
+            },
+            "group": {
+              "type": "string"
+            },
+            "species": {
+              "type": "string"
+            },
+            "speciesVerified": {
+              "type": "boolean"
+            },
+            "origin": {
+              "type": "string"
+            },
+            "description": {
+              "type": "string"
+            },
+            "photoIds": {
+              "$ref": "#/$defs/photoIds"
+            },
+            "mainPhotoId": {
+              "type": "string"
+            },
+            "frame": {
+              "$ref": "#/$defs/frame"
+            },
+            "hybrid": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "type",
+            "name"
+          ]
+        },
+        {
+          "properties": {
+            "type": {
+              "const": "stock"
+            },
+            "strainId": {
+              "$ref": "#/$defs/ref"
+            },
+            "label": {
+              "type": "string"
+            },
+            "source": {
+              "type": "string"
+            },
+            "batch": {
+              "type": "string"
+            },
+            "year": {
+              "type": "string"
+            },
+            "bestBefore": {
+              "$ref": "#/$defs/month"
+            },
+            "qty": {
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "unit": {
+              "type": "string"
+            },
+            "minQty": {
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "quantity": {
+              "type": "string"
+            },
+            "location": {
+              "type": "string"
+            },
+            "status": {
+              "enum": [
+                "active",
+                "archive",
+                "used"
+              ]
+            },
+            "projectId": {
+              "$ref": "#/$defs/ref"
+            },
+            "motherId": {
+              "$ref": "#/$defs/ref"
+            },
+            "fatherId": {
+              "$ref": "#/$defs/ref"
+            },
+            "crossId": {
+              "$ref": "#/$defs/ref"
+            },
+            "notes": {
+              "type": "string"
+            },
+            "photoIds": {
+              "$ref": "#/$defs/photoIds"
+            },
+            "form": {
+              "enum": [
+                "seed",
+                "cuttings",
+                "seedlings",
+                "tubers",
+                "divisions",
+                "scions",
+                "tissue",
+                "eggs",
+                "young",
+                "adults",
+                "other"
+              ]
+            },
+            "cloneOf": {
+              "$ref": "#/$defs/ref"
+            },
+            "propMethod": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "type"
+          ]
+        },
+        {
+          "properties": {
+            "type": {
+              "const": "individual"
+            },
+            "code": {
+              "type": "string",
+              "minLength": 1
+            },
+            "name": {
+              "type": "string"
+            },
+            "strainId": {
+              "$ref": "#/$defs/ref"
+            },
+            "projectId": {
+              "$ref": "#/$defs/ref"
+            },
+            "generation": {
+              "type": "string"
+            },
+            "sex": {
+              "enum": [
+                "",
+                "Female",
+                "Male",
+                "Unknown"
+              ]
+            },
+            "motherId": {
+              "$ref": "#/$defs/ref"
+            },
+            "fatherId": {
+              "$ref": "#/$defs/ref"
+            },
+            "stockId": {
+              "$ref": "#/$defs/ref"
+            },
+            "crossId": {
+              "$ref": "#/$defs/ref"
+            },
+            "startDate": {
+              "$ref": "#/$defs/date"
+            },
+            "status": {
+              "enum": [
+                "Active",
+                "Selected",
+                "Kept for breeding",
+                "Harvested",
+                "Culled",
+                "Sold or rehomed",
+                "Died"
+              ]
+            },
+            "placeId": {
+              "$ref": "#/$defs/ref"
+            },
+            "description": {
+              "type": "string"
+            },
+            "goalV": {
+              "type": "string"
+            },
+            "scores": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 5
+              }
+            },
+            "photoIds": {
+              "$ref": "#/$defs/photoIds"
+            },
+            "mainPhotoId": {
+              "type": "string"
+            },
+            "frame": {
+              "$ref": "#/$defs/frame"
+            },
+            "ringId": {
+              "type": "string"
+            },
+            "microchip": {
+              "type": "string"
+            },
+            "regNo": {
+              "type": "string"
+            },
+            "cloneOf": {
+              "$ref": "#/$defs/ref"
+            },
+            "propMethod": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "type",
+            "code"
+          ]
+        },
+        {
+          "properties": {
+            "type": {
+              "const": "project"
+            },
+            "name": {
+              "type": "string",
+              "minLength": 1
+            },
+            "code": {
+              "type": "string"
+            },
+            "kind": {
+              "$ref": "#/$defs/kind"
+            },
+            "species": {
+              "type": "string"
+            },
+            "parentId": {
+              "$ref": "#/$defs/ref"
+            },
+            "goal": {
+              "type": "string"
+            },
+            "strainIds": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "traits": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "required": [
+                  "name",
+                  "tier"
+                ],
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "tier": {
+                    "enum": [
+                      1,
+                      2,
+                      3,
+                      4
+                    ]
+                  },
+                  "must": {
+                    "type": "boolean"
+                  }
+                }
+              }
+            },
+            "recordTypes": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/recordType"
+              }
+            },
+            "goals": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "required": [
+                  "v",
+                  "statement"
+                ],
+                "properties": {
+                  "v": {
+                    "type": "string",
+                    "pattern": "^\\d+\\.\\d+$"
+                  },
+                  "date": {
+                    "$ref": "#/$defs/date"
+                  },
+                  "statement": {
+                    "type": "string"
+                  },
+                  "inScope": {
+                    "type": "string"
+                  },
+                  "outScope": {
+                    "type": "string"
+                  },
+                  "success": {
+                    "type": "string"
+                  },
+                  "timeframe": {
+                    "type": "string"
+                  },
+                  "reason": {
+                    "type": "string"
+                  },
+                  "traits": {
+                    "type": "array"
+                  }
+                }
+              }
+            },
+            "goalReviewMonths": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "goalReviewedAt": {
+              "$ref": "#/$defs/date"
+            },
+            "siteId": {
+              "$ref": "#/$defs/ref"
+            },
+            "mainPhotoId": {
+              "type": "string"
+            },
+            "frame": {
+              "$ref": "#/$defs/frame"
+            }
+          },
+          "required": [
+            "type",
+            "name"
+          ]
+        },
+        {
+          "properties": {
+            "type": {
+              "const": "cross"
+            },
+            "date": {
+              "$ref": "#/$defs/date"
+            },
+            "motherId": {
+              "$ref": "#/$defs/ref"
+            },
+            "fatherId": {
+              "$ref": "#/$defs/ref"
+            },
+            "method": {
+              "enum": [
+                "",
+                "Hand-pollinated",
+                "Self-pollinated",
+                "Open-pollinated",
+                "Natural mating",
+                "Artificial insemination",
+                "Other"
+              ]
+            },
+            "status": {
+              "enum": [
+                "Planned",
+                "Done",
+                "Successful",
+                "Failed"
+              ]
+            },
+            "projectId": {
+              "$ref": "#/$defs/ref"
+            },
+            "outcome": {
+              "type": "string"
+            },
+            "notes": {
+              "type": "string"
+            },
+            "goalV": {
+              "type": "string"
+            },
+            "attempts": {
+              "type": [
+                "integer",
+                "string"
+              ]
+            },
+            "fruitSet": {
+              "type": [
+                "integer",
+                "string"
+              ]
+            },
+            "seedsSaved": {
+              "type": [
+                "integer",
+                "string"
+              ]
+            },
+            "eggsSet": {
+              "$ref": "#/$defs/date"
+            },
+            "dueDate": {
+              "$ref": "#/$defs/date"
+            }
+          },
+          "required": [
+            "type"
+          ]
+        },
+        {
+          "properties": {
+            "type": {
+              "const": "note"
+            },
+            "refId": {
+              "$ref": "#/$defs/ref"
+            },
+            "date": {
+              "$ref": "#/$defs/date"
+            },
+            "text": {
+              "type": "string"
+            },
+            "photoIds": {
+              "$ref": "#/$defs/photoIds"
+            }
+          },
+          "required": [
+            "type"
+          ]
+        },
+        {
+          "properties": {
+            "type": {
+              "const": "entry"
+            },
+            "rtId": {
+              "type": "string"
+            },
+            "indId": {
+              "type": "string"
+            },
+            "parentEntryId": {
+              "$ref": "#/$defs/ref"
+            },
+            "seq": {
+              "type": "integer"
+            },
+            "date": {
+              "$ref": "#/$defs/date"
+            },
+            "values": {
+              "type": "object"
+            },
+            "notes": {
+              "type": "string"
+            },
+            "photoIds": {
+              "$ref": "#/$defs/photoIds"
+            }
+          },
+          "required": [
+            "type",
+            "rtId",
+            "indId"
+          ]
+        },
+        {
+          "properties": {
+            "type": {
+              "const": "place"
+            },
+            "name": {
+              "type": "string",
+              "minLength": 1
+            },
+            "kind": {
+              "$ref": "#/$defs/kind"
+            },
+            "method": {
+              "type": "string"
+            },
+            "details": {
+              "type": "string"
+            },
+            "photoIds": {
+              "$ref": "#/$defs/photoIds"
+            },
+            "mainPhotoId": {
+              "type": "string"
+            },
+            "frame": {
+              "$ref": "#/$defs/frame"
+            }
+          },
+          "required": [
+            "type",
+            "name"
+          ]
+        },
+        {
+          "properties": {
+            "type": {
+              "const": "germ"
+            },
+            "lotId": {
+              "type": "string"
+            },
+            "date": {
+              "$ref": "#/$defs/date"
+            },
+            "method": {
+              "enum": [
+                "Paper towel",
+                "Seed tray",
+                "Soil",
+                "Other"
+              ]
+            },
+            "sown": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "counts": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "required": [
+                  "day",
+                  "n"
+                ],
+                "properties": {
+                  "day": {
+                    "type": "integer",
+                    "minimum": 0
+                  },
+                  "n": {
+                    "type": "integer",
+                    "minimum": 0
+                  }
+                }
+              }
+            },
+            "done": {
+              "type": "boolean"
+            },
+            "notes": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "type",
+            "lotId",
+            "sown"
+          ]
+        },
+        {
+          "properties": {
+            "type": {
+              "const": "site"
+            },
+            "name": {
+              "type": "string",
+              "minLength": 1
+            },
+            "lat": {
+              "type": [
+                "number",
+                "string"
+              ]
+            },
+            "lon": {
+              "type": [
+                "number",
+                "string"
+              ]
+            },
+            "locLabel": {
+              "type": "string"
+            },
+            "seasonStart": {
+              "type": [
+                "integer",
+                "string"
+              ]
+            },
+            "heat": {
+              "type": "number"
+            },
+            "frost": {
+              "type": "number"
+            },
+            "gddBase": {
+              "type": "number"
+            },
+            "manual": {
+              "type": "boolean"
+            },
+            "manualMode": {
+              "enum": [
+                "mixed",
+                "regional"
+              ]
+            }
+          },
+          "required": [
+            "type",
+            "name"
+          ]
+        },
+        {
+          "properties": {
+            "type": {
+              "const": "reading"
+            },
+            "siteId": {
+              "type": "string"
+            },
+            "date": {
+              "$ref": "#/$defs/date"
+            },
+            "rain": {
+              "type": [
+                "number",
+                "string"
+              ]
+            },
+            "tmax": {
+              "type": [
+                "number",
+                "string"
+              ]
+            },
+            "tmin": {
+              "type": [
+                "number",
+                "string"
+              ]
+            },
+            "notes": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "type",
+            "siteId",
+            "date"
+          ]
+        },
+        {
+          "properties": {
+            "type": {
+              "const": "reminder"
+            },
+            "date": {
+              "$ref": "#/$defs/date"
+            },
+            "text": {
+              "type": "string"
+            },
+            "refId": {
+              "$ref": "#/$defs/ref"
+            },
+            "done": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "type",
+            "date",
+            "text"
+          ]
+        },
+        {
+          "properties": {
+            "type": {
+              "const": "plan"
+            },
+            "season": {
+              "type": "string"
+            },
+            "items": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "strainId": {
+                    "type": "string"
+                  },
+                  "plants": {
+                    "type": [
+                      "string",
+                      "number"
+                    ]
+                  },
+                  "sowBy": {
+                    "$ref": "#/$defs/date"
+                  },
+                  "placeId": {
+                    "type": "string"
+                  },
+                  "saveSeed": {
+                    "type": "boolean"
+                  },
+                  "sown": {
+                    "$ref": "#/$defs/date"
+                  }
+                }
+              }
+            }
+          },
+          "required": [
+            "type",
+            "season"
+          ]
+        },
+        {
+          "properties": {
+            "type": {
+              "const": "offer"
+            },
+            "itemId": {
+              "type": "string"
+            },
+            "packSize": {
+              "type": "string"
+            },
+            "price": {
+              "type": "object",
+              "properties": {
+                "mode": {
+                  "enum": [
+                    "price",
+                    "free",
+                    "swap"
+                  ]
+                },
+                "amount": {
+                  "type": [
+                    "number",
+                    "string"
+                  ]
+                }
+              }
+            },
+            "postage": {
+              "type": "object",
+              "properties": {
+                "mode": {
+                  "enum": [
+                    "per",
+                    "free",
+                    "pickup"
+                  ]
+                },
+                "amount": {
+                  "type": [
+                    "number",
+                    "string"
+                  ]
+                },
+                "extra": {
+                  "type": [
+                    "number",
+                    "string"
+                  ]
+                }
+              }
+            },
+            "available": {
+              "type": [
+                "number",
+                "string"
+              ]
+            },
+            "sent": {
+              "type": "number"
+            },
+            "postsTo": {
+              "enum": [
+                "all",
+                "notWaTas",
+                "local",
+                "none"
+              ]
+            },
+            "area": {
+              "type": "string"
+            },
+            "contact": {
+              "type": "string"
+            },
+            "notes": {
+              "type": "string"
+            },
+            "status": {
+              "enum": [
+                "open",
+                "soldout",
+                "closed"
+              ]
+            }
+          },
+          "required": [
+            "type",
+            "itemId"
+          ]
+        }
+      ]
+    }
+  }
+}
