@@ -1,5 +1,6 @@
 {
   "googleClientId": "PASTE-YOUR-CLIENT-ID.apps.googleusercontent.com",
-  "siteUrl": "https://lxcom83.github.io/Lineage/",
-  "donateUrl": ""
+  "siteUrl": "https://app.lineagetracker.org/",
+  "donateUrl": "",
+  "website": "https://lineagetracker.org"
 }

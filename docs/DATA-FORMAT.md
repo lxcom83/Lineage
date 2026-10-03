@@ -1,6 +1,6 @@
 # Lineage Tracker data format
 
-**Format version 9** (Lineage Tracker 0.9). This document describes how Lineage Tracker stores
+**Format version 12** (Lineage Tracker 0.12). This document describes how Lineage Tracker stores
 records, so that people and AI tools can convert existing breeding records
 into a file Lineage Tracker can import.
 
@@ -33,7 +33,7 @@ newer `updatedAt`. **Undo last restore** reverses an import.
 ```json
 {
   "app": "lineage",
-  "version": 9,
+  "version": 12,
   "exportedAt": "2026-10-02T09:00:00.000Z",
   "records": [ ... ],
   "photos": [ ... ]
@@ -151,6 +151,7 @@ converts it.
 | `goalV` | string | Goal version it was selected under (set when its status becomes Selected or Kept for breeding). |
 | `ringId`, `microchip`, `regNo` | string | Optional animal identification. |
 | `cloneOf`, `propMethod` | id, string | A clone: genetically the same as the plant it was taken from. Its family line, founder percentages and inbreeding come from that plant. |
+| `trayId`, `trayCell` | id, string | The seed tray and cell (such as A1) it was potted up from. |
 | `mainPhotoId`, `frame` | | See 4.12. |
 
 ### `project`: breeding program or line
@@ -181,6 +182,7 @@ converts it.
 | `projectId` | id | |
 | `outcome`, `notes` | string | |
 | `goalV` | string | Goal version the cross was made under. |
+| `code` | string | The cross code, such as `26C-1`. |
 | `attempts`, `fruitSet`, `seedsSaved` | number | Flowers pollinated or matings tried, how many took, and seeds saved or young born. Used for success rates in the cross planner. |
 | `eggsSet`, `dueDate` | date | For animals: when eggs went into the incubator or under a hen, and an optional manual due date. Without one, the due date is worked out from the species' gestation or incubation time. |
 
@@ -239,6 +241,24 @@ holds monthly weather summaries for each site.
 (highest and lowest since the thermometer was last reset), `notes`. Each
 reading covers the days after the previous reading up to its own date.
 
+### Workspaces, units and encryption
+
+Each workspace (your records, an example, a shared library, a split-off list) is a separate set of records on the device; a backup contains the workspace that was open when it was made. Units are a display setting: all measurements are stored metric. Gauge readings imported from a weather station carry `source: "station"`. When sync is protected with a passphrase, the Drive copy is `{ "format": "sync-encrypted", "salt", "data" }` (AES-GCM, key derived from the passphrase); backups made on the device are not encrypted.
+
+### `input`: something given to plants or animals
+
+`name`, `brand`, `category` (`fert`, `soil`, `pest`, `disease`, `weed`, `med`, `vaccine`, `wormer`, `feed`, `other`), `active` (active ingredient), `unit`, `rate` (as printed on the label), `whp` (withholding periods in days: `{ "harvest", "eggs", "milk", "meat" }`), `organic`, `qty` (amount on hand), `opened`, `expiry`, `notes`, `photoIds`.
+
+### `apply`: one use of an input
+
+`date`, `inputId`, `amount`, `unit`, `method`, `reason`, `targets` (ids of the plants, animals, places, trays or projects it covered), `scope` (`{ "type": "single" | "pick" | "place" | "project" | "tray", "id" }`), `repeatDays`, `notes`. Withholding dates are worked out from the input's `whp` and the date.
+
+Projects can also carry `noInputs: true`, meaning members are grown without inputs.
+
+### `tray`: a seed tray
+
+`code` (such as `T01`), `date` (sown), `lotId`, `strainId`, `projectId`, `placeId`, `rows`, `cols`, `seedsPerCell`, `notes`, `closed`, and `cells`: an object keyed by cell name (`A1`, `A2`, `B1`...), each `{ "s": "sown" | "up" | "failed" | "potted" | "culled", "up": date, "indId": id }`. Cells not listed are still waiting.
+
 ### `offer`: something listed for sale or swap (only when selling is turned on)
 
 `itemId` (a lot or a plant or animal), `packSize`, `price` (`{ "mode": "price" | "free" | "swap", "amount" }`), `postage` (`{ "mode": "per" | "free" | "pickup", "amount", "extra" }`, extra being per additional pack), `available`, `sent`, `postsTo` (`all`, `notWaTas`, `local`, `none`), `area`, `contact`, `notes`, `status` (`open`, `soldout`, `closed`). Offers hold only what the person types: never payment details, addresses or phone numbers unless they write them in.
@@ -294,7 +314,7 @@ When sync is on, each person's Drive holds a folder named **Lineage Tracker sync
 
 | File | Contents |
 |---|---|
-| `lineage-records.json` | `{ "app": "lineage", "version": 9, "format": "sync", "updatedAt", "by", "records": [...] }`, every record including deletion markers. |
+| `lineage-records.json` | `{ "app": "lineage", "version": 12, "format": "sync", "updatedAt", "by", "records": [...] }`, every record including deletion markers. |
 | `photos/<photoId>.jpg`, `photos/<photoId>-thumb.jpg` | Photos, identified by the `photoId` app property. |
 | `weekly snapshots/lineage-records-YYYY-MM-DD.json` | The last eight weekly copies, in the records-only backup format. Any of them can be restored from Settings. |
 
@@ -435,7 +455,7 @@ Lineage Tracker itself keeps everything on your device.
 
 ```
 Convert my breeding records into Lineage Tracker's friendly import format, described
-in section 6 of the Lineage Tracker data format document (format version 9).
+in section 6 of the Lineage Tracker data format document (format version 12).
 
 Rules:
 - Output one JSON object with "app": "lineage" and "format": "friendly".

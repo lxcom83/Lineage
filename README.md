@@ -109,6 +109,32 @@ both) and how you'll use it.
 Change mode any time in Settings, or switch single features on or off. Nothing
 is deleted when you switch.
 
+## Help, feedback and testing
+
+Settings, Help and feedback opens the feedback form on lineagetracker.org with
+the app's version and device filled in. Links of the form
+`https://app.lineagetracker.org/#/try/plants` (or `/animals`) open an example
+straight away, which is handy for testers.
+
+## Workspaces, pedigrees and more
+
+- **Workspaces:** examples, libraries other breeders share with you, and your own
+  split-off lists each live in their own workspace, so nothing mixes with your
+  records. Only "My records" syncs.
+- **Pedigree certificates and provenance sheets** print from any plant, animal
+  or seed lot.
+- **Cross codes** like 26C-1, **imperial units**, **weather-station import**
+  and optional **passphrase protection** for synced data.
+
+## Inputs and history
+
+- **Inputs:** set up the fertilisers, sprays, medicines and feeds you use once,
+  then log them against plants, animals, beds, pens, trays or projects with
+  amounts. Withholding periods and repeat reminders show in the due list, and
+  each plant or animal shows its season totals.
+- **Share a history:** a printable report, short summary or spreadsheet of one
+  plant's or animal's records, for a vet, adviser or friend.
+
 ## Sharing, swapping and selling
 
 - **Share with a friend** from any variety, packet or plant: an image and a
@@ -167,9 +193,9 @@ address, not from a file.
 
 ## Smart features (optional, off by default)
 
-Settings has two ways to have Claude read packets and labels or answer questions
+Settings has three ways to have Claude read packets and labels or answer questions
 about your records: copy and paste with your existing Claude or ChatGPT app
-(free), or a Claude API key (automatic, billed per use by Anthropic).
+(free), a Google Gemini API key (automatic, with a free tier; Google may use free-tier content to improve its products), or a Claude API key (automatic, billed per use by Anthropic).
 
 ## Files
 
@@ -177,7 +203,7 @@ about your records: copy and paste with your existing Claude or ChatGPT app
 - `sw.js`, `manifest.webmanifest`, `icon-*.png`: let it install and work offline
 - `examples/`: plant and chicken example data
 - `docs/`: data format, schema, changelog and sync setup guide
-- `brand/`: the logo as vector files (full logo, icon, app icon on light and dark)
+- `brand/`: the logo (`lineage-tracker-logo.png`, transparent background) and the versions built into the app
 - `config.example.json`: copy to `config.json` and fill in your Google client
   ID (for sync), your site address (used in share links) and an optional
   donation link

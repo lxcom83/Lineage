@@ -1,5 +1,39 @@
 # Changelog
 
+## 0.13
+- Help and feedback in Settings: send feedback through the website's form (the app fills in its version, device and mode for you to see and change), how-to guides, how your data is handled, and a link to support the project.
+- What's new: a short summary after each update.
+- If something goes wrong, a bar appears with details to copy and a pre-filled report.
+- "Try an example" links (app address followed by #/try/plants or #/try/animals) open an example straight away, separate from your records.
+- First open now explains that records stay on the device and nothing is shared unless you choose.
+
+## 0.12 (format version 12)
+- Workspaces: keep separate sets of records on one device. Examples now open in their own workspace, so they never mix with your records and can be reset any time. Open a library another breeder shares with you (read-only unless you allow editing), split your own records into lists such as "Chickens" or "Seed bank", and copy or move a project, variety or plant between them with its family line, notes and photos. Only "My records" syncs.
+- Share a workspace as a library file for other breeders to open.
+- Printable pedigree certificates for animals and plants (three generations, with registration, ring and microchip numbers, inbreeding figure and a QR code), and provenance sheets for seed and other stock, with parents, cross, germination tests and hand-pollination noted.
+- Automatic cross codes such as 26C-1, with your own pattern, shown on crosses and offered for older crosses.
+- Units: show and enter weather and new record types in °F, inches and pounds. Records are still stored in metric, so switching back and forth loses nothing.
+- Breeder or garden name for pedigrees and provenance sheets.
+- Import a home weather station's CSV export as daily gauge readings, with automatic column and unit detection.
+- Optional passphrase protection for sync: records and photos are encrypted on the device before they reach Google Drive. Other devices ask for the passphrase once.
+
+## 0.11 (format version 11)
+- Inputs: fertilisers, composts, sprays, medicines, vaccines, wormers and feeds set up once in the Library, with the label rate, withholding periods, organic status, stock on hand, use-by date and a label photo. With smart features on, the label can be read from a photo.
+- Log an input against one plant or animal, a hand-picked group, everything in a place, a whole project or a seed tray, with the amount, method and reason. Stock comes off automatically.
+- Withholding periods (before harvest, eggs, milk or meat) show on each plant or animal and in the due list. Repeating inputs, like a fortnightly feed or worming every three months, come back as due reminders.
+- Season totals per plant, animal, place and project, plus an "Inputs this season" column in the comparison table.
+- Projects can be set to "no inputs"; logging an input against a member warns you.
+- Share one plant's or animal's history: a printable report (save as PDF for a vet or adviser), a short text summary, or a spreadsheet of its records, choosing the date range and what's included.
+- Egg log record type for layers, per hen or per pen.
+- Tag codes for plants and animals without a project code now use the variety's initials (Ronde de Nice gives RDN-P01) instead of TAG.
+
+## 0.10.3
+- The official logo: the leafy tree with a woven double-helix trunk, used for the app, icons and share cards.
+
+## 0.10 (format version 10)
+- Seed trays: each tray gets an ID (T01, T02...) and its cells a position (A1, A2, B1...). Tap cells as they come up, see the germination rate and first day up, then pot up the survivors as plants labelled by variety name, project tag or tray and cell. Trays can be saved as a germination test for their packet, printed as QR labels, and show in the due list for checking and potting up. The season plan's Sown button can start a tray.
+- Google Gemini as an option for reading packet photos and answering questions, alongside Claude. Google offers a free tier with an AI Studio key; on that tier Google may use what's sent to improve its products.
+
 ## 0.9 (format version 9)
 - More than seeds: the library holds cuttings, seedlings and young plants, tubers and bulbs, divisions, scions, tissue culture, hatching eggs, and young or adult animals (`form`).
 - Cuttings and clones: a Propagate action records cuttings, divisions, runners, grafts or tissue culture, as one batch or individually, linked to the source plant (`cloneOf`, `propMethod`). Clones share their source's family line, founder percentages and inbreeding figure, and appear in the bloodline chart joined by a "clone" line.
