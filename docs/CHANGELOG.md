@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.15
+- Partner versions: clubs, seed libraries, societies and businesses can offer their own version with their name, logo, colours, welcome message, variety list and a chosen set of features, using the "Make it yours" page on lineagetracker.org. Partner versions always show "Powered by Lineage Tracker", keep Lineage Tracker's support links, and keep records on each person's device. Anyone can switch back to plain Lineage Tracker in Settings.
+- Licence: all rights reserved, with the code published for transparency, plus free relabelling terms and a trademark notice (LICENSE.md, RELABELLING.md, TRADEMARKS.md).
+- Fixes: a stray line of text at the bottom of the screen, and "1 varieties".
+
+## 0.14 (format version 14)
+- My garden (or My farm, if you keep animals): a new button in the top bar opens one page with everything you set up: beds and pens, weather, inputs, harvests and products, varieties and packets, season plan, seed trays, labels, reminders, projects, offers, workspaces and backups. Each tile shows a count and has a quick add button.
+- Harvests and products: set up what you produce once (eggs, milk, honey, tomatoes, pumpkins with count and weight), then record it against a plant, animal, bed, pen, tray or project. Season totals show on each, alongside inputs, and in the comparison table and history reports.
+- The + menu now holds only quick jobs: a note or photo, scanning a packet, adding a plant or animal, sowing a tray, logging an input, recording a harvest, and for animals a pairing and reminders. Setup items moved to My garden.
+- Weather moved from Settings to My garden. Places and weather are now available in every mode.
+
 ## 0.13
 - Help and feedback in Settings: send feedback through the website's form (the app fills in its version, device and mode for you to see and change), how-to guides, how your data is handled, and a link to support the project.
 - What's new: a short summary after each update.

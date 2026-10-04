@@ -1,6 +1,6 @@
 # Lineage Tracker data format
 
-**Format version 12** (Lineage Tracker 0.12). This document describes how Lineage Tracker stores
+**Format version 14** (Lineage Tracker 0.14). This document describes how Lineage Tracker stores
 records, so that people and AI tools can convert existing breeding records
 into a file Lineage Tracker can import.
 
@@ -33,7 +33,7 @@ newer `updatedAt`. **Undo last restore** reverses an import.
 ```json
 {
   "app": "lineage",
-  "version": 12,
+  "version": 14,
   "exportedAt": "2026-10-02T09:00:00.000Z",
   "records": [ ... ],
   "photos": [ ... ]
@@ -245,6 +245,12 @@ reading covers the days after the previous reading up to its own date.
 
 Each workspace (your records, an example, a shared library, a split-off list) is a separate set of records on the device; a backup contains the workspace that was open when it was made. Units are a display setting: all measurements are stored metric. Gauge readings imported from a weather station carry `source: "station"`. When sync is protected with a passphrase, the Drive copy is `{ "format": "sync-encrypted", "salt", "data" }` (AES-GCM, key derived from the passphrase); backups made on the device are not encrypted.
 
+### `product` and `yield`: what your garden or farm produces
+
+`product`: `name`, `kind` (`plant` or `animal`), `unit` (such as `kg`, `eggs`, `L`, `fruit`), `alsoWeight` (record a weight as well as a count), `weightUnit`, `notes`.
+
+`yield`: one harvest or collection: `date`, `productId`, `qty`, `weight`, `unit`, `quality`, `targets` and `scope` (the same as for inputs: the plants, animals, place, tray or project it came from), `notes`.
+
 ### `input`: something given to plants or animals
 
 `name`, `brand`, `category` (`fert`, `soil`, `pest`, `disease`, `weed`, `med`, `vaccine`, `wormer`, `feed`, `other`), `active` (active ingredient), `unit`, `rate` (as printed on the label), `whp` (withholding periods in days: `{ "harvest", "eggs", "milk", "meat" }`), `organic`, `qty` (amount on hand), `opened`, `expiry`, `notes`, `photoIds`.
@@ -314,7 +320,7 @@ When sync is on, each person's Drive holds a folder named **Lineage Tracker sync
 
 | File | Contents |
 |---|---|
-| `lineage-records.json` | `{ "app": "lineage", "version": 12, "format": "sync", "updatedAt", "by", "records": [...] }`, every record including deletion markers. |
+| `lineage-records.json` | `{ "app": "lineage", "version": 14, "format": "sync", "updatedAt", "by", "records": [...] }`, every record including deletion markers. |
 | `photos/<photoId>.jpg`, `photos/<photoId>-thumb.jpg` | Photos, identified by the `photoId` app property. |
 | `weekly snapshots/lineage-records-YYYY-MM-DD.json` | The last eight weekly copies, in the records-only backup format. Any of them can be restored from Settings. |
 
@@ -455,7 +461,7 @@ Lineage Tracker itself keeps everything on your device.
 
 ```
 Convert my breeding records into Lineage Tracker's friendly import format, described
-in section 6 of the Lineage Tracker data format document (format version 12).
+in section 6 of the Lineage Tracker data format document (format version 14).
 
 Rules:
 - Output one JSON object with "app": "lineage" and "format": "friendly".
